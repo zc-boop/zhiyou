@@ -1,10 +1,22 @@
 <template>
     <div class="footer">
         <ul>
-            <router-link to="/recommend" tag="li">推荐</router-link>
-            <router-link to="/customization" tag="li">定制</router-link>
-            <router-link to="/message" tag="li">消息</router-link>
-            <router-link to="/mine" tag="li">我的</router-link>
+            <router-link to="/recommend" tag="li">
+                <van-icon name="home-o" />
+                <p>推荐</p>
+            </router-link>
+            <router-link to="/customization" tag="li">
+                <van-icon name="vip-card-o" />
+                <p>定制</p>
+            </router-link>
+            <router-link to="/message" tag="li">
+                <van-icon name="comment-o" />
+                <p>消息</p>
+            </router-link>
+            <router-link to="/mine" tag="li">
+                <van-icon name="user-o" />
+                <p>我的</p>
+            </router-link>
         </ul>
     </div>
 </template>
@@ -25,6 +37,7 @@ export default {
         position: fixed;
         left: 0;
         bottom: 0;
+        padding: 10px 0;
     }
 
     .footer ul {

@@ -61,16 +61,13 @@
 </script>
 
 <style scoped>
-    *{
-        padding: 0px;
-        margin: 0px;
-    }
     .login{
         width: 100%;
         height: 100%;
     }
     #loginimages{
         position: relative;
+        display: block;
         top: 57.5px;
         left: 149.5px;
         right: 150px;
@@ -78,8 +75,6 @@
         height: 70px;
     }
     .loginform{
-
-
         margin-top: 120px;
         margin-left: 27.5px;
         height: 242px;

@@ -25,4 +25,8 @@ export default {
     ul,li{
         list-style: none;
     }
+    .space {
+        width: 100%;
+        height: 35px;
+    }
 </style>
