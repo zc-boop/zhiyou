@@ -21,11 +21,11 @@
                 </div>
                 <div class="lineCenter"></div>
                 <ul class="bottom">
-                    <li>
+                    <router-link to="/afans/fans" tag="li">
                         <p>10</p>
                         <p>粉丝</p>
-                    </li>
-                    <router-link to="/attention" tag="li">
+                    </router-link>
+                    <router-link to="/afans/attention" tag="li">
                         <p>0</p>
                         <p>关注</p>
                     </router-link>

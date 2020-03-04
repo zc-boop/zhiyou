@@ -7,6 +7,9 @@ import 'vant/lib/index.css';
 
 Vue.config.productionTip = false;
 Vue.use(Vant);
+Vue.prototype.goTo = function (path) {
+    this.$router.replace(path)
+}
 
 new Vue({
   router,

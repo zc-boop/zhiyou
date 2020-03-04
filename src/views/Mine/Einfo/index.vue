@@ -9,11 +9,11 @@
                     <span class="gender">♀</span>
                 </p>
                 <ul class="menu">
-                    <router-link to="" tag="li">
+                    <router-link to="/afans/fans" tag="li">
                         <span>粉丝</span>
                         <span>5696</span>
                     </router-link>
-                    <router-link to="/attention" tag="li">
+                    <router-link to="/afans/attention" tag="li">
                         <span>关注</span>
                         <span>2534</span>
                     </router-link>
@@ -82,20 +82,19 @@ export default {
         return {
             fileList: [],
             headerImg: "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1898582417,1582081952&fm=26&gp=0.jpg  ",
-            base64:""
+            base64: ""
         }
     },
     components: {
         Header
     },
-    methods:{
-
-    }
+    methods: {}
 }
 </script>
 
 <style>
     @import "../../../components/tool.css";
+
     .editInformation {
         width: 100%;
         height: 100%;
@@ -139,13 +138,15 @@ export default {
         align-items: center;
         justify-content: space-between;
     }
-    .headPortraitInputDiv  .mask {
+
+    .headPortraitInputDiv .mask {
         width: 45px;
         height: 45px;
         display: block;
         border-radius: 50%;
     }
-    .otherModify>li{
+
+    .otherModify > li {
         height: 46px;
         display: flex;
         justify-content: space-between;
@@ -155,19 +156,23 @@ export default {
         margin: 2px 0;
         font-size: 15px;
     }
-    .otherModify>li:nth-child(3){
+
+    .otherModify > li:nth-child(3) {
         margin-top: 20px;
     }
-    .otherModify>li:nth-child(5){
+
+    .otherModify > li:nth-child(5) {
         margin-bottom: 0;
         padding-top: 27px;
     }
-    .otherModify>li>div{
+
+    .otherModify > li > div {
         display: flex;
         align-items: center;
         color: #999;
     }
-    .confirmChanges{
+
+    .confirmChanges {
         display: block;
         width: 320px;
         height: 50px;

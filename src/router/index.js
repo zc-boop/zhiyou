@@ -10,9 +10,12 @@ import Cpassword from '../views/Mine/Cpassword'
 import oService from '../views/Mine/oService'
 import Feedback from '../views/Mine/Feedback'
 import Einfo from '../views/Mine/Einfo'
+import Afans from '../views/Mine/Afans'
+import Fans from '../views/Mine/Fans'
 //.........................................
 import Login from "../views/Login/index";
 import Register from "../views/Register/index";
+
 Vue.use(VueRouter);
 
 const routes = [
@@ -48,10 +51,7 @@ const routes = [
             showFooter: true
         }
     },
-    {
-        path: '/attention',
-        component: Attention
-    },
+
     {
         path: '/collect',
         component: Collect
@@ -72,6 +72,22 @@ const routes = [
         path: '/einfo',
         component: Einfo
     },
+    {
+        path: '/afans',
+        component: Afans,
+        children: [
+            {
+                path: "/afans/fans",
+                component: Fans
+            },
+            {
+                path: '/afans/attention',
+                component: Attention
+            }
+        ]
+
+    },
+
     //........................................
     {
         path: "/",
