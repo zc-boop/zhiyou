@@ -53,11 +53,11 @@ export default {
     }
 
     .footer ul li.active {
-        color: #f03d37;
+        color: #51ca89;
     }
 
     .footer ul li.router-link-active {
-        color: #f03d37;
+        color: #51ca89;
     }
 
     .footer ul i {

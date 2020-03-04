@@ -14,7 +14,9 @@
                         <router-link to="/login" tag="span">请登录...</router-link>
                     </div>
                     <div class="topRight">
-                        <button>编辑资料</button>
+                        <router-link to="/einfo" tag="button">
+                            编辑资料
+                        </router-link>
                     </div>
                 </div>
                 <div class="lineCenter"></div>
@@ -43,7 +45,9 @@
                 <van-cell class="choiceList" title="在线客服" icon="service-o" is-link/>
             </router-link>
             <van-cell class="choiceList" title="应用指南" icon="question-o" is-link/>
-            <van-cell class="choiceList" title="意见反馈" icon="chat-o" is-link/>
+            <router-link to="/feedback">
+                <van-cell class="choiceList" title="意见反馈" icon="chat-o" is-link/>
+            </router-link>
             <van-cell class="choiceList" title="切换账号" icon="friends-o" is-link/>
         </div>
         <button class="signOut">退出账号</button>

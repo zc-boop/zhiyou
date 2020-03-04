@@ -8,6 +8,8 @@ import Attention from '../views/Mine/Attention'
 import Collect from '../views/Mine/Collect'
 import Cpassword from '../views/Mine/Cpassword'
 import oService from '../views/Mine/oService'
+import Feedback from '../views/Mine/Feedback'
+import Einfo from '../views/Mine/Einfo'
 //.........................................
 import Login from "../views/Login/index";
 
@@ -16,7 +18,7 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: "/recommend",
-        name: Recommend,
+        name: "Recommend",
         component: Recommend,
         meta: {
             showFooter: true
@@ -24,7 +26,7 @@ const routes = [
     },
     {
         path: "/customization",
-        name: Customization,
+        name: "Customization",
         component: Customization,
         meta: {
             showFooter: true
@@ -32,7 +34,7 @@ const routes = [
     },
     {
         path: "/message",
-        name: Message,
+        name: "Message",
         component: Message,
         meta: {
             showFooter: true
@@ -40,7 +42,7 @@ const routes = [
     },
     {
         path: "/mine",
-        name: Mine,
+        name: "Mine",
         component: Mine,
         meta: {
             showFooter: true
@@ -62,7 +64,14 @@ const routes = [
         path: '/oservice',
         component: oService
     },
-
+    {
+        path: '/feedback',
+        component: Feedback
+    },
+    {
+        path: '/einfo',
+        component: Einfo
+    },
     //........................................
     {
         path: "/",
@@ -70,7 +79,7 @@ const routes = [
     },
     {
         path: '/login',
-        name: Login,
+        name: "Login",
         component: Login,
     },
 
