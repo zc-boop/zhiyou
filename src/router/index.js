@@ -12,7 +12,7 @@ import Feedback from '../views/Mine/Feedback'
 import Einfo from '../views/Mine/Einfo'
 //.........................................
 import Login from "../views/Login/index";
-
+import Register from "../views/Register/index";
 Vue.use(VueRouter);
 
 const routes = [
@@ -81,6 +81,11 @@ const routes = [
         path: '/login',
         name: "Login",
         component: Login,
+    },
+    {
+        path: '/register',
+        name: Register,
+        component: Register,
     },
 
 ];

@@ -1,7 +1,9 @@
 <template>
     <div class="login">
-        <img id="loginimages" src="../../assets/user@2x.png"/>
-        <div class="loginform">
+        <div class="head"></div>
+        <div class="loginImages">
+        <img src="../../assets/user@2x.png"/>
+        </div>
         <van-form @submit="onSubmit">
             <van-field
                     v-model="username"
@@ -28,18 +30,18 @@
                 </van-button>
             </div>
         </van-form>
-            <div class="register">
-                <p>没有账号？<a>立即注册</a></p>
-            </div>
+
+        <div class="register">
+            <p>没有账号？<a>立即注册</a></p>
         </div>
-        <div class="quicklogin">
+        <div class="quickLogin">
             <p>快捷登录</p>
             <img class="wechatIcon" src="../../assets/wechatIcon@2x.png"/>
             <img class="microblogIcon" src="../../assets/microblogIcon@2x.png"/>
             <img class="qqIico" src="../../assets/qqIicon@2x.png"/>
         </div>
-    </div>
 
+    </div>
 </template>
 
 <script>
@@ -61,24 +63,26 @@
 </script>
 
 <style scoped>
-    .login{
+    .head{
         width: 100%;
-        height: 100%;
+        height: 35px;
     }
-    #loginimages{
-        position: relative;
-        display: block;
-        top: 57.5px;
-        left: 149.5px;
-        right: 150px;
+    .loginImages{
+        width: 70px;
+        height: 70px;
+        margin: auto;
+        margin-top: 27px;
+    }
+    .loginImages img{
         width: 70px;
         height: 70px;
     }
-    .loginform{
-        margin-top: 120px;
-        margin-left: 27.5px;
+    .van-form{
+        margin:auto;
+        margin-top: 73px;
+        width: 80%;
         height: 242px;
-        width: 320px;
+
     }
     .forget{
         width: 68px;
@@ -94,29 +98,29 @@
     .register p{
         width: 118px;
         height: 13px;
-        margin-left: 100px;
+        margin: 0 auto;
         font-family: "SourceHanSansCN-Regular";
         font-size: 13px;
         line-height: 19px;
         color: #999999;
     }
-    .quicklogin{
+    .quickLogin{
         width: 239px;
         height: 159px;
-        margin-left: 71px;
+        margin: 0 auto;
         margin-top: -20px;
     }
-    .quicklogin p{
+    .quickLogin p{
         width: 52px;
         height: 13px;
         font-family: SourceHanSansCN-Regular;
         font-size: 13px;
         line-height: 19px;
         color: #999999;
-        padding-left: 90px;
+        margin: 0 auto;
         padding-top: 54px;
     }
-    .quicklogin img{
+    .quickLogin img{
         width: 50px;
         height: 50px;
         margin-top: 41px;
