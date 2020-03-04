@@ -15,6 +15,7 @@ import Fans from '../views/Mine/Fans'
 //.........................................
 import Login from "../views/Login/index";
 import Register from "../views/Register/index";
+import RegisterSuccee from "../views/Register/RegisterSuccee/index"
 
 Vue.use(VueRouter);
 
@@ -103,6 +104,11 @@ const routes = [
         name: Register,
         component: Register,
     },
+    {
+        path: '/registersuccee',
+        name: RegisterSuccee,
+        component: RegisterSuccee,
+    }
 
 ];
 

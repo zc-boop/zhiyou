@@ -24,7 +24,7 @@
             <div class="Splitter"></div>
             <div style="margin: 16px;" class="registerButton">
                 <van-button round block type="info" native-type="submit">
-                    注册
+                   注册
                 </van-button>
             </div>
             <van-field name="radio">
@@ -38,6 +38,7 @@
                     </van-radio-group>
                 </template>
             </van-field>
+            <center><router-link to="/registersuccee">注册成功页面</router-link></center>
         </form>
     </div>
 </template>
