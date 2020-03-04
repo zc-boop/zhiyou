@@ -2,43 +2,35 @@
     <div class="login">
         <div class="head"></div>
         <div class="loginImages">
-        <img src="../../assets/user@2x.png"/>
+        <img src="../../assets/Login/user@2x.png"/>
         </div>
-        <van-form @submit="onSubmit">
-            <van-field
-                    v-model="username"
-                    name="用户名"
-                    left-icon="phone-o"
-                    right-icon="close"
-                    placeholder="请输入手机号/邮箱"
-                    :rules="[{ required: true, message: '请输入手机号/邮箱' }]"
-            />
-            <van-field
-                    v-model="password"
-                    type="password"
-                    name="密码"
-                    left-icon="music-o"
-                    placeholder="请输入密码"
-                    :rules="[{ required: true, message: '请填写密码' }]"
-            />
-            <div class="forget">
-                <p><a>忘记密码？</a></p>
+
+        <form class="loginFrom">
+            <div class="userText">
+            <img src="../../assets/Login/mobileIcon@2x.png"></img>
+            <input class="phoneInput" name="username" placeholder="请输入手机号/邮箱"/>
             </div>
+            <div class="Splitter"></div>
+            <div class="passwordText">
+                <img src="../../assets/Login/passwordIcon@2x.png"></img>
+                <input class="passwordInput" name="password" placeholder="请输入密码"/>
+            </div>
+            <div class="Splitter"></div>
+            <p>忘记密码?</p>
             <div style="margin: 16px;">
                 <van-button round block type="info" native-type="submit">
                     立即登录
                 </van-button>
             </div>
-        </van-form>
+            <div class="registerUrl">没有账号<router-link to="/register">立即注册</router-link></div>
+        </form>
 
-        <div class="register">
-            <p>没有账号？<a>立即注册</a></p>
-        </div>
+
         <div class="quickLogin">
             <p>快捷登录</p>
-            <img class="wechatIcon" src="../../assets/wechatIcon@2x.png"/>
-            <img class="microblogIcon" src="../../assets/microblogIcon@2x.png"/>
-            <img class="qqIico" src="../../assets/qqIicon@2x.png"/>
+            <img class="wechatIcon" src="../../assets/Login/wechatIcon@2x.png"/>
+            <img class="microblogIcon" src="../../assets/Login/microblogIcon@2x.png"/>
+            <img class="qqIico" src="../../assets/Login/qqIicon@2x.png"/>
         </div>
 
     </div>
@@ -51,6 +43,7 @@
             return {
                 username: '',
                 password: '',
+                text:''
 
             };
         },
@@ -76,33 +69,80 @@
     .loginImages img{
         width: 70px;
         height: 70px;
-    }
-    .van-form{
-        margin:auto;
-        margin-top: 73px;
-        width: 80%;
-        height: 242px;
 
     }
-    .forget{
-        width: 68px;
-        height: 13px;
-        margin-left: 15px;
-        margin-top: 11px;
-        margin-bottom: 13px;
-        color: #999999;
-        font-family: SourceHanSansCN-Regular;
-        font-size: 13px;
-        line-height: 19px;
+    .loginFrom{
+        width: 85%;
+        height: 242px;
+        margin:0 auto;
+        margin-top: 74px;
+        display: flex;
+        flex-direction:column;
+
     }
-    .register p{
-        width: 118px;
-        height: 13px;
+    .userText{
+        width: 90%;
+        margin-left: 24px;
+
+      }
+    .loginFrom img{
+        width: 18px;
+        height: 25px;
+    }
+    .phoneInput{
+        border: none;
+        position: relative;
+        left:10px;
+        bottom: 6px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 15px;
+        line-height: 19px;
+        color: #999999;
+    }
+    .passwordText{
+        width: 90%;
+        margin-left: 24px;
+        margin-top: 28px;
+    }
+    .passwordInput{
+        border: none;
+        position: relative;
+        left:10px;
+        bottom: 6px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 15px;
+        line-height: 19px;
+        color: #999999;
+    }
+    .Splitter{
+        width: 91%;
+        height: 1px;
         margin: 0 auto;
+        background-color: #dcdcdc;
+    }
+    .loginFrom > p{
         font-family: "SourceHanSansCN-Regular";
         font-size: 13px;
         line-height: 19px;
         color: #999999;
+        margin-top: 22px;
+        margin-left: 13px;
+    }
+    .register p{
+        width: 118px;
+        height: 13px;
+        margin: auto;
+        font-family: "SourceHanSansCN-Regular";
+        font-size: 13px;
+        line-height: 19px;
+        color: #999999;
+    }
+    .registerUrl{
+        font-family: SourceHanSansCN-Regular;
+        font-size: 13px;
+        line-height: 19px;
+        color: #999999;
+        text-align: center;
     }
     .quickLogin{
         width: 239px;
