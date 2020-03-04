@@ -10,7 +10,7 @@ import Cpassword from '../views/Mine/Cpassword'
 import oService from '../views/Mine/oService'
 //.........................................
 import Login from "../views/Login/index";
-
+import Register from "../views/Register/index";
 Vue.use(VueRouter);
 
 const routes = [
