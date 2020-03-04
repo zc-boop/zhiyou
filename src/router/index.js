@@ -94,7 +94,7 @@ const routes = [
         redirect: "/recommend"
     },
     {
-        path: '/login',
+        path: '/Login',
         name: "Login",
         component: Login,
     },
