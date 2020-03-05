@@ -22,7 +22,7 @@
 <style scoped>
     .head{
         width: 100%;
-        height: 35px;
+        height: 70px;
     }
     .van-nav-bar
     {
@@ -35,30 +35,33 @@
     .van-nav-bar__title{
         color: white;
         font-family: SourceHanSansCN-Regular;
-        font-size: 18px;
+        font-size: 36px;
     }
     .registerSuccee > img{
-        width: 72px;
-        height: 72px;
+        width: 144px;
+        height: 144px;
         display: block;
         margin: 0 auto;
-        margin-top: 98px;
+        margin-top: 196px;
     }
     .registerSucceeText{
-        margin-top: 21px;
+        margin-top: 42px;
         text-align: center;
-        font-size: 18px;
+        font-size: 36px;
         color: #333333;
     }
     .registerSucceeButton button{
         width: 85%;
-        height: 49px;
+        height: 100px;
         display: block;
         margin: 0 auto;
-        margin-top: 47px;
+        margin-top: 95px;
         border-radius:25px;
         color: white;
         background-color: #51ca89;
         border: none;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 36px;
+        line-height: 38px;
     }
 </style>

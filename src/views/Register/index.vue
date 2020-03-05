@@ -1,9 +1,6 @@
 <template>
     <div class="register">
-        <Header title="注册" style="background: #51ca89;color: white"/>
-        <!--<div class="head"></div>
-        <van-nav-bar title="注册" left-arrow @click-left="$router.back()">
-        </van-nav-bar>-->
+        <Header title="注册"/>
         <form class="registerForm">
             <div class="phoneText">
                 <img src="../../assets/Register/eamilIcon@2x.png">
@@ -71,45 +68,31 @@ export default {
 <style scoped>
     .head {
         width: 100%;
-        height: 35px;
+        height: 50px;
     }
-
-    .van-nav-bar {
-        background: #51ca89;
-    }
-
-    .van-icon-arrow-left::before {
-        color: white;
-    }
-
-    .van-nav-bar__text,
-    .van-nav-bar__title {
-        color: white;
-        font-family: SourceHanSansCN-Regular;
-        font-size: 18px;
-    }
-
     .registerForm {
         width: 85%;
-        height: 315px;
+        height: 630px;
         margin: 0 auto;
-        margin-top: 57px;
+        margin-top: 115px;
     }
 
     .registerForm > div {
         display: flex;
-        margin: 15px 10px;
+        margin: 30px 20px;
     }
 
     .registerForm img {
-        width: 19px;
-        height: 22px;
+        width: 32px;
+        height: 44px;
     }
 
     .Splitter {
         width: 91%;
         height: 1px;
-        margin: 0 auto;
+        position: relative;
+        top: 1px;
+        margin: auto;
         background-color: #dcdcdc;
     }
 
@@ -117,10 +100,10 @@ export default {
         width: 80%;
         border: none;
         position: relative;
-        left: 10px;
+        left: 21px;
         font-family: SourceHanSansCN-Regular;
-        font-size: 15px;
-        line-height: 19px;
+        font-size: 30px;
+        line-height: 38px;
         color: #999999;
     }
 
@@ -128,10 +111,10 @@ export default {
         width: 80%;
         border: none;
         position: relative;
-        left: 10px;
+        left: 21px;
         font-family: SourceHanSansCN-Regular;
-        font-size: 15px;
-        line-height: 19px;
+        font-size: 30px;
+        line-height: 38px;
         color: #999999;
     }
 
@@ -140,25 +123,31 @@ export default {
         border: 1px #51ca89 solid;
         border-radius: 11px;
         color: #51ca89;
-        width: 108px;
-        height: 30px;
+        width: 143px;
+        height: 42px;
         font-family: SourceHanSansCN-Regular;
-        font-size: 12px;
-        line-height: 14px;
+        font-size: 20px;
+        line-height: 28px;
     }
 
     .registerButton {
-        margin-top: 50px !important;
+        margin-top: 100px !important;
     }
 
     .registerButton button {
         background-color: #51ca89 !important;
+        height: 99px !important;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 36px;
+        line-height: 38px;
+        color: #ffffff;
+        background-color: #52eba9;
     }
 
     .van-radio__icon .van-icon {
         color: #51ca89;
-        width: 14px !important;
-        height: 14px !important;
+        width: 28px !important;
+        height: 28px !important;
     }
 
     van-icon van-icon-success {
@@ -172,7 +161,7 @@ export default {
 
     .van-radio__label p {
         font-family: SourceHanSansCN-Regular !important;
-        font-size: 12px !important;
-        line-height: 14px !important;
+        font-size: 24px !important;
+        line-height: 28px !important;
     }
 </style>

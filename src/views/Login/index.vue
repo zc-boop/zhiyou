@@ -15,9 +15,9 @@
                 <img src="../../assets/Login/passwordIcon@2x.png"></img>
                 <input class="passwordInput" name="password" placeholder="请输入密码"/>
             </div>
-            <div class="Splitter"></div>
+            <div class="Splitter2"></div>
             <p>忘记密码?</p>
-            <div style="margin: 16px;">
+            <div style="margin: 16px;" class="loginButton">
                 <van-button round block type="info" native-type="submit">
                     立即登录
                 </van-button>
@@ -58,60 +58,60 @@
 <style scoped>
     .head{
         width: 100%;
-        height: 35px;
+        height: 70px;
     }
     .loginImages{
-        width: 70px;
-        height: 70px;
+        width: 140px;
+        height: 140px;
         margin: auto;
-        margin-top: 27px;
+        margin-top: 45px;
     }
     .loginImages img{
-        width: 70px;
-        height: 70px;
+        width: 140px;
+        height: 140px;
 
     }
     .loginFrom{
         width: 85%;
-        height: 242px;
+        height: 484px;
         margin:0 auto;
-        margin-top: 74px;
+        margin-top: 147px;
         display: flex;
         flex-direction:column;
 
     }
     .userText{
         width: 90%;
-        margin-left: 24px;
+        margin-left: 48px;
 
       }
     .loginFrom img{
-        width: 18px;
-        height: 25px;
+        width: 36px;
+        height: 50px;
     }
     .phoneInput{
         border: none;
         position: relative;
-        left:10px;
-        bottom: 6px;
+        left:21px;
+        bottom: 10px;
         font-family: SourceHanSansCN-Regular;
-        font-size: 15px;
-        line-height: 19px;
+        font-size: 30px;
+        line-height: 38px;
         color: #999999;
     }
     .passwordText{
         width: 90%;
-        margin-left: 24px;
-        margin-top: 28px;
+        margin-left: 48px;
+        margin-top: 56px;
     }
     .passwordInput{
         border: none;
         position: relative;
-        left:10px;
-        bottom: 6px;
+        left:21px;
+        bottom: 10px;
         font-family: SourceHanSansCN-Regular;
-        font-size: 15px;
-        line-height: 19px;
+        font-size: 30px;
+        line-height: 38px;
         color: #999999;
     }
     .Splitter{
@@ -120,55 +120,65 @@
         margin: 0 auto;
         background-color: #dcdcdc;
     }
+    .Splitter2{
+        width: 91%;
+        height: 1px;
+        margin: 1px auto;
+        background-color: #dcdcdc;
+    }
     .loginFrom > p{
         font-family: "SourceHanSansCN-Regular";
-        font-size: 13px;
-        line-height: 19px;
+        font-size: 26px;
+        line-height: 38px;
         color: #999999;
-        margin-top: 22px;
-        margin-left: 13px;
+        margin-top: 46px;
+        margin-left: 27px;
     }
-    .register p{
-        width: 118px;
-        height: 13px;
-        margin: auto;
-        font-family: "SourceHanSansCN-Regular";
-        font-size: 13px;
-        line-height: 19px;
-        color: #999999;
+    .loginButton{
+
+    }
+    .van-button::before{
+        width: 85% !important;
+        height: 99px !important;
+    }
+    .loginButton button{
+        height: 99px !important;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 36px;
+        line-height: 38px;
+        color: #ffffff;
+        background-color: #52eba9;
     }
     .registerUrl{
         font-family: SourceHanSansCN-Regular;
-        font-size: 13px;
-        line-height: 19px;
+        font-size: 26px;
+        line-height: 38px;
         color: #999999;
         text-align: center;
     }
     .quickLogin{
-        width: 239px;
-        height: 159px;
+        width: 64%;
+        height: 24%;
         margin: 0 auto;
-        margin-top: -20px;
+        margin-top: 16px;
     }
     .quickLogin p{
-        width: 52px;
-        height: 13px;
         font-family: SourceHanSansCN-Regular;
-        font-size: 13px;
-        line-height: 19px;
+        font-size: 26px;
+        line-height: 38px;
         color: #999999;
-        margin: 0 auto;
-        padding-top: 54px;
+        text-align: center;
+        padding-top: 108px;
     }
     .quickLogin img{
-        width: 50px;
-        height: 50px;
-        margin-top: 41px;
+        width: 13%;
+        height: 7%;
+        margin-top: 75px;
     }
     .qqIico{
-        margin-left: 44px;
+        margin-left: 30%;
     }
     .microblogIcon{
-        margin-left: 45px;
+        margin-left: 30%;
     }
 </style>
