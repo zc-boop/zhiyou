@@ -25,20 +25,21 @@ export default {
         width: 80%;
         display: block;
         margin: 0 auto;
-        margin-top: 165px;
+        margin-top: 265px;
     }
 
     .onlineServiceText {
         text-align: center;
-        margin-top: 12px;
+        margin-top: 24px;
     }
 
     .onlineServiceText > p:first-child {
-        font-size: 18px;
+        font-size: 36px;
         color: #51ca89;
     }
     .onlineServiceText > p:last-child {
-        font-size: 15px;
+        font-size: 30px;
+        margin-top: 30px;
         color: #999;
     }
 </style>

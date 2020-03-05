@@ -31,24 +31,27 @@ export default {
 <style>
     .Afans > ul {
         width: 100%;
-        height: 65px;
+        height: 88px;
         display: flex;
         justify-content: space-around;
     }
 
     .Afans > ul > li {
         width: 50%;
-        height: 65px;
-        font-size: 16px;
+        height: 88px;
+        font-size: 32px;
         position: relative;
+        color: #a4e0be;
     }
-    .Afans > ul > li>span{
+
+    .Afans > ul > li > span {
         position: absolute;
         top: 50%;
         left: 50%;
-        transform: translate(-50%,-50%);
+        transform: translate(-50%, -50%);
     }
-    .Afans>ul>li.router-link-active {
+
+    .Afans > ul > li.router-link-active {
         color: #51ca89;
         box-sizing: border-box;
         border-bottom: 3px solid #52eba9;

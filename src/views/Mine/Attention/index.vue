@@ -19,26 +19,26 @@ export default {
         width: 80%;
         display: block;
         margin: 0 auto;
-        margin-top: 92px;
+        margin-top: 138px;
     }
 
     .attention > p {
-        font-size: 13px;
+        font-size: 26px;
         color: #999;
         text-align: center;
-        margin-top: 25px;
+        margin-top: 35px;
     }
 
     .attention > button {
-        width: 131px;
-        height: 40px;
+        width: 261px;
+        height: 80px;
         display: block;
         margin: 0 auto;
-        margin-top: 68px;
-        font-size: 14px;
+        margin-top: 136px;
+        font-size: 28px;
         color: white;
         border: none;
         background: #51ca89;
-        border-radius: 50px;
+        border-radius: 40px;
     }
 </style>

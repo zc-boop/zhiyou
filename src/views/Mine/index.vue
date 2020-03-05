@@ -1,57 +1,62 @@
 <template>
     <div class="mine">
-        <div class="mineTop">
-            <div class="space"></div>
-            <header>
-                <span class="leftIcon"></span>
-                <span>个人中心</span>
-                <van-icon name="setting-o" class="rightIcon"/>
-            </header>
+        <div class="headerAlls">
+            <div class="mineHeader">
+                <div class="space"></div>
+                <div class="personalCenter">
+                    <div class="pageHeader">个人中心</div>
+                    <van-icon name="setting-o" class="mineIcon"/>
+                </div>
+            </div>
             <div class="userCard">
-                <div class="top">
-                    <div class="topLeft">
+                <div class="cardTop">
+                    <div class="left">
                         <img src="../../../public/user6@2x.png" alt="">
-                        <router-link to="/login" tag="span">请登录...</router-link>
-                    </div>
-                    <div class="topRight">
-                        <router-link to="/einfo" tag="button">
-                            编辑资料
+                        <router-link to="/login" tag="span">
+                            请登录...
                         </router-link>
                     </div>
+                    <router-link to="/einfo" tag="button">
+                        编辑资料
+                    </router-link>
                 </div>
-                <div class="lineCenter"></div>
-                <ul class="bottom">
+                <div class="cardLine"></div>
+                <ul class="cardBottom">
                     <router-link to="/afans/fans" tag="li">
                         <p>10</p>
                         <p>粉丝</p>
                     </router-link>
                     <router-link to="/afans/attention" tag="li">
-                        <p>0</p>
+                        <p>12</p>
                         <p>关注</p>
                     </router-link>
                     <router-link to="/collect" tag="li">
-                        <p>0</p>
+                        <p>2</p>
                         <p>收藏</p>
                     </router-link>
                 </ul>
             </div>
         </div>
-        <div class="userModifyList">
-            <!--            Cpassword-->
-            <router-link to="/cpassword">
-                <van-cell class="choiceList" title="修改密码" icon="edit" is-link/>
-            </router-link>
-            <router-link to="/oservice">
-                <van-cell class="choiceList" title="在线客服" icon="service-o" is-link/>
-            </router-link>
-            <van-cell class="choiceList" title="应用指南" icon="question-o" is-link/>
-            <router-link to="/feedback">
-                <van-cell class="choiceList" title="意见反馈" icon="chat-o" is-link/>
-            </router-link>
-            <van-cell class="choiceList" title="切换账号" icon="friends-o" is-link/>
+        <div class="mineBody">
+            <ul class="OperatingList">
+                <router-link to="/cpassword" tag="li">
+                    <van-cell class="choiceList" title="修改密码" icon="edit" is-link/>
+                </router-link>
+                <router-link to="/oservice" tag="li">
+                    <van-cell class="choiceList" title="在线客服" icon="service-o" is-link/>
+                </router-link>
+                <router-link to="" tag="li">
+                    <van-cell class="choiceList" title="应用指南" icon="question-o" is-link/>
+                </router-link>
+                <router-link to="/feedback" tag="li">
+                    <van-cell class="choiceList" title="意见反馈" icon="chat-o" is-link/>
+                </router-link>
+                <router-link to="" tag="li">
+                    <van-cell class="choiceList" title="切换账号" icon="friends-o" is-link/>
+                </router-link>
+            </ul>
+            <button class="signOut">退出账号</button>
         </div>
-        <button class="signOut">退出账号</button>
-
     </div>
 </template>
 
@@ -62,113 +67,145 @@ export default {
 </script>
 
 <style>
-    .mineTop {
+    .headerAlls {
         width: 100%;
-        height: 238px;
-        background: #51ca89;
+        height: 476px;
+        background-color: #51ca89;
+        position: relative;
     }
 
-    .mine {
+    .mineHeader {
         width: 100%;
-        height: 100vh;
-        background: #f2f2f2;
+        height: 170px;
+        background-color: #51ca89;
     }
 
-    .mine header {
-        width: 100%;
-        height: 43px;
-        display: flex;
-        justify-content: space-between;
+    .personalCenter {
+        height: 100px;
+        position: relative;
+        font-size: 36px;
+        text-align: center;
+        line-height: 100px;
         color: white;
-        align-items: center;
-        font-size: 18px;
     }
 
-    .mine header > .leftIcon {
-        margin-left: 20px;
+    .pageHeader {
+        width: 100%;
+        height: 100%;
+        position: absolute;
     }
 
-    .mine header > .rightIcon {
-        margin-right: 20px;
+    .mineIcon {
+        width: 20%;
+        height: 100%;
+        position: absolute !important;
+        right: 0;
+        line-height: 100px !important;
     }
 
     .userCard {
-        width: 80%;
-        height: 135px;
+        width: 90%;
+        height: 350px;
         background: white;
+        border-radius: 15px;
+        box-sizing: border-box;
+        border: 1px solid white;
         position: absolute;
-        top: 89px;
         left: 50%;
-        transform: translate(-50%);
-        border-radius: 10px;
-        padding: 20px 25px;
+        transform: translateX(-50%);
+        z-index: 100;
     }
 
-    .userCard > .top {
+    .cardTop {
+        height: 119px;
+        margin-top: 42px;
         display: flex;
+        align-items: center;
+        padding-left: 51px;
+        padding-right: 47px;
         justify-content: space-between;
-        align-items: center;
     }
 
-    .userCard .topLeft {
+    .cardTop > .left {
         display: flex;
         align-items: center;
     }
 
-    .userCard .topLeft > img {
-        width: 61px;
-        height: 61px;
-        margin-right: 10px;
+    .cardTop > .left > img {
+        width: 119px;
+        height: 119px;
+        border-radius: 50%;
     }
 
-    .userCard .topLeft > span {
-        font-size: 17px;
+    .cardTop > .left > span {
+        font-size: 34px;
+        margin-left: 19px;
     }
 
-    .userCard .topRight > button {
-        width: 74px;
-        height: 28px;
-        background: #51ca89;
+    .cardTop > button {
+        width: 148px;
+        height: 56px;
         border: none;
-        font-size: 11px;
-        border-radius: 10px;
+        border-radius: 18px;
+        background-color: #51ca89;
         color: white;
+        font-size: 22px;
     }
 
-    .userCard > .lineCenter {
-        width: 80%;
-        height: 1px;
-        background: #dcdcdc;
-        margin: 16px auto;
+    .cardLine {
+        width: 70%;
+        height: 2px;
+        background-color: #dcdcdc;
+        margin: 0 auto;
+        margin-top: 32px;
+        margin-bottom: 29px;
     }
 
-    .userCard > .bottom {
+    .cardBottom {
         display: flex;
         justify-content: space-around;
         text-align: center;
     }
 
-    .userCard > .bottom > li > p:first-child {
-        font-size: 18px;
+    .cardBottom > li > p:first-child {
+        font-size: 36px;
     }
 
-    .userCard > .bottom > li > p:last-child {
-        font-size: 13px;
+    .cardBottom > li > p:last-child {
+        font-size: 26px;
         color: #808080;
     }
 
-    /*。。。。。。。。。。。。。。。。。。。。。。。。。。。*/
-    .userModifyList {
-        margin-top: 45px;
+    .mineBody {
+        height: 100%;
+        background: #f2f2f2;
+        box-sizing: border-box;
+        border: 1px solid #f2f2f2;
     }
 
-    .choiceList {
-        height: 60px;
-        font-size: 15px !important;
+    .OperatingList {
+        width: 90%;
+        margin: 0 auto;
+        margin-top: 50px;
     }
 
-    .van-cell__left-icon, .van-cell__right-icon {
-        font-size: 18px !important;
+    .OperatingList > li {
+        height: 118px;
+        box-sizing: border-box;
+        border-bottom: 1px solid #dcdcdc;
+        position: relative;
+    }
+
+    .OperatingList > li > .choiceList {
+        font-size: 30px;
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        background: none;
+    }
+
+    .OperatingList > li > .choiceList > i {
+        font-size: 30px !important;
     }
 
     .signOut {
@@ -177,7 +214,8 @@ export default {
         height: 30px;
         background: none;
         border: none;
-        margin: 20px auto;
+        margin: 41px auto;
         color: #ff0000;
+        font-size: 30px;
     }
 </style>

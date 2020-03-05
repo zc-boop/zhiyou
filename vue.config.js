@@ -3,12 +3,15 @@ module.exports = {
     devServer: {
         open: true
     },
-    /* devServer:{
-         proxy:{
-             '/api': {
-                 target: 'http://39.97.33.178', //对应自己的接口
-                 changeOrigin: true
-             }
-         }
-     }*/
+    css: {
+        loaderOptions: {
+            postcss: {
+                plugins: [
+                    require('postcss-px2rem')({
+                        remUnit: 75
+                    })
+                ]
+            }
+        }
+    },
 };

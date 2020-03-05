@@ -33,7 +33,7 @@ export default {
 
 <style>
     .headerAll {
-        height: 15px;
+        height: 70px;
         display: flex;
         align-items: center;
         border-bottom: 1px solid #dcdcdc;
@@ -42,12 +42,13 @@ export default {
     .backTopPrevious{
         width: 7%;
         display: block;
-        font-size: 18px !important;
+        font-size: 36px !important;
     }
     .headerAll > h1{
         width: 93%;
-        font-size: 18px;
+        font-size: 36px;
         align-items: center;
         text-align: center;
+        font-weight: normal;
     }
 </style>

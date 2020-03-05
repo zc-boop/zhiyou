@@ -93,8 +93,6 @@ export default {
 </script>
 
 <style>
-    @import "../../../components/tool.css";
-
     .editInformation {
         width: 100%;
         height: 100%;
@@ -103,19 +101,21 @@ export default {
 
     .editInformation > .header {
         width: 100%;
-        height: 193px;
+        height: 385px;
         background: white;
         margin-bottom: 22px;
-        padding: 30px 0;
         text-align: center;
+        padding-top: 30px;
     }
-
+    .editInformation > .header>p{
+        font-size: 34px;
+    }
     .editInformation > .header > img {
-        width: 75px;
-        height: 75px;
+        width: 150px;
+        height: 150px;
         display: block;
         margin: 0 auto;
-        margin-bottom: 13px;
+        margin-bottom: 25px;
     }
 
     .editInformation > .header .gender {
@@ -126,35 +126,40 @@ export default {
     .editInformation > .header > .menu {
         display: flex;
         justify-content: space-around;
-        margin: 20px 0;
+        margin: 42px 0;
+        font-size: 26px;
     }
-
+    .menu>li>span:last-child{
+        margin: 0 10px;
+        color: #333;
+    }
     .headPortrait {
-        height: 70px;
+        height: 140px;
         margin: 20px 0;
         background: white;
-        padding: 0 15px;
+        padding: 0 28px;
         display: flex;
         align-items: center;
         justify-content: space-between;
+        font-size: 30px;
     }
 
     .headPortraitInputDiv .mask {
-        width: 45px;
-        height: 45px;
+        width: 90px;
+        height: 90px;
         display: block;
         border-radius: 50%;
     }
 
     .otherModify > li {
-        height: 46px;
+        height: 91px;
         display: flex;
         justify-content: space-between;
         align-items: center;
-        padding: 0 15px;
+        padding: 0 28px;
         background: white;
         margin: 2px 0;
-        font-size: 15px;
+        font-size: 30px;
     }
 
     .otherModify > li:nth-child(3) {
@@ -174,13 +179,14 @@ export default {
 
     .confirmChanges {
         display: block;
-        width: 320px;
-        height: 50px;
+        width: 85%;
+        height: 100px;
         margin: 0 auto;
         border: none;
         background: #51ca89;
         color: white;
         border-radius: 50px;
         box-shadow: 0px 5px 10px rgba(81, 202, 137, 0.5);
+        font-size: 36px;
     }
 </style>

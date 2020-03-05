@@ -73,21 +73,23 @@ export default {
 
     .feedbackHeader {
         width: 100%;
-        height: 68px;
+        height: 136px;
         background: white;
-        margin: 12px 0;
+        margin: 11px 0;
         display: flex;
-        justify-content: space-around;
         align-items: center;
+        padding-left: 26px;
     }
 
     .feedbackHeader > img {
-        width: 26px;
-        height: 26px;
+        width: 52px;
+        height: 52px;
     }
 
     .feedbackHeader > p {
-        font-size: 15px;
+        width: 66%;
+        font-size: 30px;
+        margin-left: 13px;
     }
 
     .feedbackHeader > p > span {
@@ -95,18 +97,19 @@ export default {
     }
 
     .ProblemDescription {
-        padding: 14px;
+        padding: 27px 28px;
         background: white;
         margin-bottom: 12px;
     }
 
     .ProblemDescription > p {
-        margin-bottom: 16px;
+        font-size: 30px;
+        margin-bottom: 32px;
     }
 
     .feedbackText {
-        width: 99%;
-        height: 130px;
+        width: 692px;
+        height: 260px;
         border: 1px solid #d2d2d2;
         position: relative;
         border-radius: 10px;
@@ -120,35 +123,40 @@ export default {
 
     .contactDetails {
         background: white;
-        padding: 14px;
+        padding: 22px 28px;
     }
 
     .contactDetails > p:first-child {
-        margin-bottom: 16px;
+        margin-bottom: 32px;
+        font-size: 30px;
     }
 
     .feedbackInput {
-        width: 99%;
+        width: 692px;
+        height: 100px;
         border: 1px solid #d2d2d2;
-        margin: 10px 0;
+        margin: 20px 0;
         border-radius: 10px;
+        font-size: 30px !important;
+        display: flex;
+        align-items: center;
     }
 
     .contactDetails > .contactExplanation{
-        margin: 22px 0;
+        margin: 34px 0;
+        font-size: 32px;
         color: #d5d5d5;
     }
     .contactDetails>button{
-        width: 320px;
-        height: 49px;
+        width: 640px;
+        height: 98px;
         background: #51ca89;
         color: white;
         border: none;
         display: block;
         margin: 0 auto;
-        font-size: 18px;
-        border-radius: 50px;
-        box-shadow: 0px 5px 10px rgba(81, 202, 137, 0.5);
+        font-size: 36px;
+        border-radius: 44px;
 
     }
 </style>

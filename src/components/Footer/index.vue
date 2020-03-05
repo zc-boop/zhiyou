@@ -31,7 +31,7 @@ export default {
     /*@import "../tool.css";*/
     .footer {
         width: 100%;
-        height: 50px;
+        height: 94px;
         background: white;
         border-top: 2px #ebe8e3 solid;
         position: fixed;
@@ -61,11 +61,11 @@ export default {
     }
 
     .footer ul i {
-        font-size: 20px;
+        font-size: 40px;
     }
 
     .footer ul p {
-        font-size: 12px;
-        line-height: 18px;
+        font-size: 22px;
+        line-height: 22px;
     }
 </style>

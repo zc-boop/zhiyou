@@ -7,6 +7,9 @@
             <input type="text" placeholder="搜索用户名">
         </div>
         <div>
+            <div class="fansTitle">
+                粉丝6
+            </div>
             <ul class="fansList">
                 <li>
                     <div class="left">
@@ -80,19 +83,20 @@ export default {
 
     .searchUser {
         width: 90%;
-        height: 30px;
+        height: 24px;
         background: #f5f5f5;
-        margin: 18px auto;
+        margin: 20px auto;
         display: flex;
         justify-content: space-between;
-        padding: 14px;
-        border-radius: 25px;
+        padding: 28px 25px;
+        border-radius: 30px;
+        color: #bdbebe;
     }
 
     .searchUser > div {
         width: 10%;
         text-align: center;
-        font-size: 18px;
+        font-size: 30px;
         line-height: 30px;
     }
 
@@ -101,10 +105,27 @@ export default {
         height: 30px;
         background: none;
         border: none;
+        font-size: 26px;
+    }
+
+    .fansTitle {
+        padding-left: 19px;
+        font-size: 28px;
+        color: #555;
+        margin-top: 29px;
+        margin-bottom: 33px;
+    }
+
+    .fansList {
+        width: 95%;
+        height: auto;
+        box-shadow: 0px -6px 8px #eee;
+        margin: 0 auto;
+        border-radius: 10px;
     }
 
     .fansList > li {
-        height: 70px;
+        height: 120px;
         display: flex;
         justify-content: space-between;
         padding: 0 20px;
@@ -112,13 +133,14 @@ export default {
     }
 
     .fansList > li img {
-        width: 40px;
-        height: 40px;
+        width: 80px;
+        height: 80px;
     }
 
     .fansList > li span {
-        margin: 0 20px;
+        margin: 0 40px;
         color: #555555;
+        font-size: 30px;
     }
 
     .fansList > li > .left {
@@ -127,17 +149,16 @@ export default {
     }
 
     .fansList > li > button {
-        width: 75px;
-        height: 30px;
+        width: 150px;
+        height: 60px;
         background: #51ca89;
         border: none;
         color: white;
-        border-radius: 20px;
-        font-size: 12px;
+        border-radius: 30px;
+        font-size: 26px;
         position: absolute;
         right: 20px;
         top: 50%;
         transform: translateY(-50%);
     }
-
 </style>

@@ -42,29 +42,31 @@ export default {
 
 <style>
     .change-password > p {
-        width: 80%;
-        margin: 50px auto;
-        font-size: 16px;
+        width: 83%;
+        margin: 100px auto;
+        font-size: 32px;
         color: #404b69;
     }
 
     .cPasswordInput {
-        width: 80% !important;
-        height: 54px;
+        width: 87% !important;
+        height: 108px;
         border: 2px solid #f0f0f0;
-        margin: 16px auto;
+        margin: 32px auto;
         border-radius: 5px;
+        font-size: 30px !important;
+        padding: 32px 40px !important;
     }
 
     .confirmModify {
-        width: 80%;
-        height: 50px;
+        width: 85%;
+        height: 100px;
         display: block;
         border: none;
-        margin: 31px auto;
+        margin: 62px auto;
         background: #51ca89;
         color: white;
-        border-radius: 50px;
-        box-shadow: 0px 5px 10px rgba(81, 202, 137, 0.5);
+        border-radius: 44px;
+        box-shadow: 1px 2px 13px rgba(81, 202, 137, 0.5);
     }
 </style>
