@@ -2,25 +2,30 @@
     <div class="register">
         <Header title="注册"/>
         <div class="registerForm">
+            <div class="usernameText">
+                <img src="../../assets/Register/eamilIcon@2x.png">
+                <input class="usernameInput" name="username" placeholder="请输入用户名" v-model="userInfo.username">
+            </div>
+            <div class="Splitter"></div>
             <div class="phoneText">
                 <img src="../../assets/Register/eamilIcon@2x.png">
-                <input class="phoneInput" name="username" placeholder="请输入手机号/邮箱" v-model="username">
+                <input class="phoneInput" name="email" placeholder="请输入手机号/邮箱" v-model="userInfo.email">
             </div>
             <div class="Splitter"></div>
             <div class="codeText">
                 <img src="../../assets/Register/verifyIcon@2x.png">
-                <input class="codeInput" name="code" placeholder="验证码">
+                <input class="codeInput" name="code" placeholder="验证码" v-model="userInfo.captcha">
                 <van-button plain type="default" @click="isEmail()">获取验证码</van-button>
             </div>
             <div class="Splitter"></div>
             <div class="passwordText">
                 <img src="../../assets/Register/passwordIcon1@2x.png">
-                <input class="passwordInput" name="password" placeholder="请输入密码(6-20位数字字母组合)">
+                <input class="passwordInput" name="password" placeholder="请输入密码(6-20位数字字母组合)" v-model="userInfo.password">
 
             </div>
             <div class="Splitter1"></div>
             <div style="margin: 16px;" class="registerButton">
-                <van-button round block type="info" native-type="submit">
+                <van-button round block type="info" @click="register()">
                    注册
                 </van-button>
             </div>
@@ -35,7 +40,7 @@
                     </van-radio-group>
                 </template>
             </van-field>
-            <center><router-link to="/registersuccee">注册成功页面{{email}}</router-link></center>
+            <center><router-link to="/registersuccee">注册成功页面</router-link></center>
 
         </div>
     </div>
@@ -43,23 +48,28 @@
 
 <script>
 import Header from "../../components/Header"
-import {mapState,mapMutations} from 'vuex'
+// import {mapState,mapMutations} from 'vuex'
 
 export default {
     name: "index",
     data() {
         return {
-            username: '',
-            sms: '',
+            userInfo:{
+                username:'',
+                email: '',
+                password:'',
+                captcha:'',
+            },
+            isEmailUse:false,
+            isCaptcha:'',
             radio: '0',
-            isEmailUse:false
         };
     },
     components: {
         Header,
     },
     computed:{
-        ...mapState(['email','password','verificationCode'])
+        // ...mapState(['email','password','verificationCode'])
     },
     methods: {
         onSubmit(values) {
@@ -67,32 +77,76 @@ export default {
         },
         isEmail(){
             var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
-            console.log(this.username)
-            console.log(this.$store.state.email)
-            this.changeEmail(this.username)
-            if(this.username == ''){
+            console.log(this.userInfo.email)
+            if(this.email == ''){
                 alert("请输入邮箱地址！")
-            }else if(!regEmail.test(this.username)){
+            }else if(!regEmail.test(this.userInfo.email)){
                 alert("请输入正确的邮箱地址！")
             }else{
-                // axios({
-                //     method:"get",
-                //     url:"http://120.79.222.144/zhiyou/v1/users/email",
-                //     data: {
-                //         email: this.username
-                //     }
-                // })
-                // .then(res =>{
-                //     this.isEmailUse = res
-                //     console.log(res)
-                // })
-                // .catch(err => {
-                //     alert("不可用！")
-                // })
+                this.isEmailUse=false
+                this.$api.get('/zhiyou/v1/users/email/'+this.userInfo.email,null, res => {
+                    if (res.status >= 200 && res.status < 300) {
+                        // this.isEmailUse = res
+                        this.isEmailUse=res.data
+                        console.log(res)
+                        console.log(this.isEmailUse)
+                        if(this.isEmailUse === true) {
+                            this.$api.get('/zhiyou/v1/users/captcha/', this.userInfo.email, res => {
+                                if (res.status >= 200 && res.status < 300) {
+                                    // this.isEmailUse = res
+                                    console.log(res)
+                                    if(res.data.success === true){
+                                        alert(res.data.msg)
+                                    }else {
+                                        alert(res.data.msg)
+                                    }
+
+                                }else{
+                                    alert("邮箱不可用!")
+                                }
+                            });
+                        }
+                    } else {
+                        alert("服务器错误,请稍后重试!")//请求失败，response为失败信息
+                    }
+                });
+
             }
 
         },
-        ...mapMutations(['changeEmail']),
+        register(){
+            var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+            if(this.userInfo.email == ''){
+                alert("请输入邮箱地址！")
+            }else if(!regEmail.test(this.userInfo.email)) {
+                alert("请输入正确的邮箱地址！")
+            }else if(this.userInfo.captcha == ''){
+                alert("请输入验证码！")
+            }else if(this.userInfo.password == ''){
+                alert("请输入密码！")
+            }else if(this.userInfo.username == ''){
+                alert("请输入用户名！")
+            }else{
+                this.$api.get('/zhiyou/v1/users/username/'+this.userInfo.username,null,res =>{
+                    if(res.status >= 200 && res.status < 300){
+                        if(res.data.success === true) {
+                            this.$api.post('/zhiyou/v1/users/signup', this.userInfo, res => {
+                                if (res.status >= 200 && res.status < 300 && res.data.success === true) {
+                                    alert(res.data.msg)
+                                } else {
+                                    alert(res.data.msg)
+                                }
+                            })
+                        }else{
+                            alert(res.data.msg)
+                        }
+                    }else{
+                        alert("登录失败！")
+                    }
+                })
+            }
+        }
+        // ...mapMutations(['changeEmail']),
     },
 
 
@@ -147,7 +201,16 @@ export default {
         line-height: 38px;
         color: #999999;
     }
-
+    .usernameInput{
+        width: 80%;
+        border: none;
+        position: relative;
+        left: 21px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 30px;
+        line-height: 38px;
+        color: #999999;
+    }
     .phoneInput, .passwordInput {
         width: 80%;
         border: none;
