@@ -34,6 +34,13 @@ import Header from "../../../components/Header"
 
 export default {
     name: "index",
+    data(){
+        return{
+            username:"",
+            password:"",
+            password2:""
+        }
+    },
     components: {
         Header
     }
@@ -68,5 +75,6 @@ export default {
         color: white;
         border-radius: 44px;
         box-shadow: 1px 2px 13px rgba(81, 202, 137, 0.5);
+        font-size: 36px;
     }
 </style>

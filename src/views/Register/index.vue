@@ -1,6 +1,6 @@
 <template>
     <div class="register">
-        <Header title="注册"/>
+        <Header title="注册" style="background: #51ca89;color: white"/>
         <form class="registerForm">
             <div class="phoneText">
                 <img src="../../assets/Register/eamilIcon@2x.png">
@@ -10,7 +10,7 @@
             <div class="codeText">
                 <img src="../../assets/Register/verifyIcon@2x.png">
                 <input class="codeInput" name="code" placeholder="验证码">
-                <van-button plain type="primary">获取验证码</van-button>
+                <van-button plain type="primary" style="width: 143px;height: 42px;">获取验证码</van-button>
             </div>
             <div class="Splitter"></div>
             <div class="passwordText">
@@ -56,9 +56,7 @@ export default {
         Header
     },
     methods: {
-        onSubmit(values) {
-            console.log('submit', values);
-        },
+
     },
 
 
@@ -112,7 +110,6 @@ export default {
         border: none;
         position: relative;
         left: 21px;
-        font-family: SourceHanSansCN-Regular;
         font-size: 30px;
         line-height: 38px;
         color: #999999;

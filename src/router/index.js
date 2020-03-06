@@ -101,12 +101,12 @@ const routes = [
     },
     {
         path: '/register',
-        name: Register,
+        name: "Register",
         component: Register,
     },
     {
         path: '/registersuccee',
-        name: RegisterSuccee,
+        name: "RegisterSuccee",
         component: RegisterSuccee,
     }
 

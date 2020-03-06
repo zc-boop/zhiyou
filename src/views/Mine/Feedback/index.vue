@@ -72,7 +72,6 @@ export default {
     }
 
     .feedbackHeader {
-        width: 100%;
         height: 136px;
         background: white;
         margin: 11px 0;
@@ -148,7 +147,7 @@ export default {
         color: #d5d5d5;
     }
     .contactDetails>button{
-        width: 640px;
+        width: 85%;
         height: 98px;
         background: #51ca89;
         color: white;
