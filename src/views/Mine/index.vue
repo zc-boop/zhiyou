@@ -13,7 +13,7 @@
                     <div class="left">
                         <img src="../../../public/user6@2x.png" alt="">
                         <router-link to="/login" tag="span">
-                            {{username}}
+                            {{username || "请登录..."}}
                         </router-link>
                     </div>
                     <router-link to="/einfo" tag="button">
@@ -65,16 +65,16 @@ import jwtDecode from 'jwt-decode'
 
 export default {
     name: "mine",
-    data(){
-        return{
-            username:""
+    data() {
+        return {
+            username: ""
         }
     },
     created() {
-        const userToken = this.$store.state.userToken
+        const userToken = this.$store.state.userToken;
         const user = jwtDecode(userToken);
-         this.username = user.username;
-
+        this.username = user.username;
+        console.log(user);
     }
 }
 </script>
