@@ -1,16 +1,16 @@
 <template>
     <div class="register">
         <Header title="注册"/>
-        <form class="registerForm">
+        <div class="registerForm">
             <div class="phoneText">
                 <img src="../../assets/Register/eamilIcon@2x.png">
-                <input class="phoneInput" name="username" placeholder="请输入手机号/邮箱">
+                <input class="phoneInput" name="username" placeholder="请输入手机号/邮箱" v-model="username">
             </div>
             <div class="Splitter"></div>
             <div class="codeText">
                 <img src="../../assets/Register/verifyIcon@2x.png">
                 <input class="codeInput" name="code" placeholder="验证码">
-                <van-button plain type="primary">获取验证码</van-button>
+                <van-button plain type="default" @click="isEmail()">获取验证码</van-button>
             </div>
             <div class="Splitter"></div>
             <div class="passwordText">
@@ -35,30 +35,64 @@
                     </van-radio-group>
                 </template>
             </van-field>
-            <center><router-link to="/registersuccee">注册成功页面</router-link></center>
-        </form>
+            <center><router-link to="/registersuccee">注册成功页面{{email}}</router-link></center>
+
+        </div>
     </div>
 </template>
 
 <script>
 import Header from "../../components/Header"
+import {mapState,mapMutations} from 'vuex'
+
 export default {
     name: "index",
     data() {
         return {
             username: '',
-            password: '',
             sms: '',
             radio: '0',
+            isEmailUse:false
         };
     },
     components: {
-        Header
+        Header,
+    },
+    computed:{
+        ...mapState(['email','password','verificationCode'])
     },
     methods: {
         onSubmit(values) {
             console.log('submit', values);
         },
+        isEmail(){
+            var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+            console.log(this.username)
+            console.log(this.$store.state.email)
+            this.changeEmail(this.username)
+            if(this.username == ''){
+                alert("请输入邮箱地址！")
+            }else if(!regEmail.test(this.username)){
+                alert("请输入正确的邮箱地址！")
+            }else{
+                // axios({
+                //     method:"get",
+                //     url:"http://120.79.222.144/zhiyou/v1/users/email",
+                //     data: {
+                //         email: this.username
+                //     }
+                // })
+                // .then(res =>{
+                //     this.isEmailUse = res
+                //     console.log(res)
+                // })
+                // .catch(err => {
+                //     alert("不可用！")
+                // })
+            }
+
+        },
+        ...mapMutations(['changeEmail']),
     },
 
 

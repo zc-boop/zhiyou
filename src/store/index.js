@@ -5,8 +5,14 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
+    email:'sdsadasd',
+    password:'',
+    verificationCode:'',
   },
   mutations: {
+    changeEmail(state,username){
+      state.email = username
+    }
   },
   actions: {
   },
