@@ -4,16 +4,18 @@ import Vuex from 'vuex'
 Vue.use(Vuex)
 
 export default new Vuex.Store({
-    state: {
-        userToken: ""
-    },
-    mutations: {
-        addUser(state, userToken) {
-            state.userToken = userToken;
-        }
-    },
-    actions: {},
-    modules: {},
-    getters: {}
+  state: {
+    email:'sdsadasd',
+    password:'',
+    verificationCode:'',
+  },
+  mutations: {
+    changeEmail(state,username){
+      state.email = username
+    }
+  },
+  actions: {
+  },
+  modules: {
+  }
 })
-
