@@ -18,7 +18,7 @@
                 <input class="passwordInput" name="password" placeholder="请输入密码(6-20位数字字母组合)">
 
             </div>
-            <div class="Splitter"></div>
+            <div class="Splitter1"></div>
             <div style="margin: 16px;" class="registerButton">
                 <van-button round block type="info" native-type="submit">
                    注册
@@ -92,10 +92,17 @@ export default {
         height: 1px;
         position: relative;
         top: 1px;
-        margin: auto;
+        margin: 0 auto;
         background-color: #dcdcdc;
     }
-
+    .Splitter1 {
+        width: 91%;
+        height: 2px;
+        position: relative;
+        top: 2px;
+        margin: 0 auto;
+        background-color: #dcdcdc;
+    }
     .codeInput {
         width: 80%;
         border: none;
@@ -124,7 +131,7 @@ export default {
         border-radius: 11px;
         color: #51ca89;
         width: 143px;
-        height: 42px;
+        height: 40px;
         font-family: SourceHanSansCN-Regular;
         font-size: 20px;
         line-height: 28px;

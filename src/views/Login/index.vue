@@ -8,12 +8,12 @@
         <form class="loginFrom">
             <div class="userText">
             <img src="../../assets/Login/mobileIcon@2x.png"></img>
-            <input class="phoneInput" name="username" placeholder="请输入手机号/邮箱"/>
+            <input type="text" v-model="username" class="phoneInput" name="username" placeholder="请输入手机号/邮箱"/>
             </div>
             <div class="Splitter"></div>
             <div class="passwordText">
                 <img src="../../assets/Login/passwordIcon@2x.png"></img>
-                <input class="passwordInput" name="password" placeholder="请输入密码"/>
+                <input type="password" v-model="password" class="passwordInput" name="password" placeholder="请输入密码"/>
             </div>
             <div class="Splitter2"></div>
             <p>忘记密码?</p>
@@ -49,7 +49,7 @@
         },
         methods: {
             onSubmit(values) {
-                console.log('submit', values);
+                console.log(this.username, this.password);
             },
         },
     }
@@ -102,7 +102,7 @@
     .passwordText{
         width: 90%;
         margin-left: 48px;
-        margin-top: 56px;
+        margin-top: 55px;
     }
     .passwordInput{
         border: none;
@@ -118,12 +118,14 @@
         width: 91%;
         height: 1px;
         margin: 0 auto;
+        margin-top: 1px;
         background-color: #dcdcdc;
     }
     .Splitter2{
         width: 91%;
         height: 1px;
         margin: 1px auto;
+        margin-top: 1px;
         background-color: #dcdcdc;
     }
     .loginFrom > p{
@@ -142,6 +144,7 @@
         height: 99px !important;
     }
     .loginButton button{
+        width: 100% !important;
         height: 99px !important;
         font-family: SourceHanSansCN-Regular;
         font-size: 36px;
