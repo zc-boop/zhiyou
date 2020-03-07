@@ -15,7 +15,8 @@
             <div class="codeText">
                 <img src="../../assets/Register/verifyIcon@2x.png">
                 <input class="codeInput" name="code" placeholder="验证码" v-model="userInfo.captcha">
-                <van-button plain type="default" @click="isEmail()">获取验证码</van-button>
+                <van-button plain type="default" @click="isEmail()" :disabled="attcode">{{code_ts}}</van-button>
+<!--                v-if="showbtn"-->
             </div>
             <div class="Splitter"></div>
             <div class="passwordText">
@@ -25,21 +26,19 @@
             </div>
             <div class="Splitter1"></div>
             <div style="margin: 16px;" class="registerButton">
-                <van-button round block type="info" @click="register()">
+                <van-button round block type="info" @click="register()" v-bind:disabled="!this.checked">
                    注册
                 </van-button>
             </div>
-            <van-field name="radio">
-                <template #input>
-                    <van-radio-group v-model="radio">
-                        <van-radio name="1">
-                            <p>我已阅读并同意
-                                <router-link to="login">《用户协议》</router-link>
-                            </p>
-                        </van-radio>
-                    </van-radio-group>
-                </template>
-            </van-field>
+            <div class="userAgreement">
+                <van-checkbox v-model="checked" checked-color="#07c160">
+                    <p>我已阅读并同意
+                    <router-link to="login">《用户协议》</router-link>
+                    </p>
+                </van-checkbox>
+
+            </div>
+
             <center><router-link to="/registersuccee">注册成功页面</router-link></center>
 
         </div>
@@ -61,8 +60,14 @@ export default {
                 captcha:'',
             },
             isEmailUse:false,
-            isCaptcha:'',
-            radio: '0',
+            checked: false,
+            confirm: true,  //提交验证按钮判断
+            attcode: false,  //点击获取验证码按钮判断
+            // showbtn: true, // 展示获取验证码或倒计时按钮判断
+            yzcode: '',
+            code_ts: '获取验证码', //倒计时提示文字
+            sec: 60, // 倒计时秒数
+
         };
     },
     components: {
@@ -75,6 +80,21 @@ export default {
         onSubmit(values) {
             console.log('submit', values);
         },
+        getyzcode () {
+            var timer = setInterval(() => {
+                this.attcode=true
+                this.sec = this.sec - 1
+                this.code_ts = this.sec + 'S后重试'
+                // this.showbtn = false
+                if (this.sec === 0) {
+                    clearInterval(timer)
+                    this.sec = 60
+                    this.code_ts = '获取验证码'
+                    this.attcode=false
+                    // this.showbtn = true
+                }
+            }, 1000)
+        },
         isEmail(){
             var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
             console.log(this.userInfo.email)
@@ -86,25 +106,25 @@ export default {
                 this.isEmailUse=false
                 this.$api.get('/zhiyou/v1/users/email/'+this.userInfo.email,null, res => {
                     if (res.status >= 200 && res.status < 300) {
-                        // this.isEmailUse = res
-                        this.isEmailUse=res.data
                         console.log(res)
-                        console.log(this.isEmailUse)
-                        if(this.isEmailUse === true) {
-                            this.$api.get('/zhiyou/v1/users/captcha/', this.userInfo.email, res => {
+                        if(res.data === true) {
+                            this.getyzcode()
+                            this.$api.get('/zhiyou/v1/users/captcha?email='+this.userInfo.email, null, res => {
                                 if (res.status >= 200 && res.status < 300) {
                                     // this.isEmailUse = res
                                     console.log(res)
-                                    if(res.data.success === true){
+                                    if(res.data.code == 200){
                                         alert(res.data.msg)
                                     }else {
                                         alert(res.data.msg)
                                     }
 
                                 }else{
-                                    alert("邮箱不可用!")
+                                    alert(res.message)
                                 }
                             });
+                        }else{
+                            alert("邮箱不可用！")
                         }
                     } else {
                         alert("服务器错误,请稍后重试!")//请求失败，response为失败信息
@@ -129,19 +149,29 @@ export default {
             }else{
                 this.$api.get('/zhiyou/v1/users/username/'+this.userInfo.username,null,res =>{
                     if(res.status >= 200 && res.status < 300){
-                        if(res.data.success === true) {
-                            this.$api.post('/zhiyou/v1/users/signup', this.userInfo, res => {
-                                if (res.status >= 200 && res.status < 300 && res.data.success === true) {
-                                    alert(res.data.msg)
+                        console.log(res)
+                        if(res.data === true) {
+                            this.$api.post('/zhiyou/v1/users/signup?captcha='+this.userInfo.captcha+'&username='+this.userInfo.username+'&password='+this.userInfo.password+'&email='+this.userInfo.email, null, res => {
+                                console.log(res)
+                                if (res.status >= 200 && res.status < 300) {
+                                    if(res.success === true && res.data.code ===200){
+                                        console.log("注册成功")
+                                        console.log(res.data)
+                                        this.goTo('/registersuccee');
+                                    }else {
+                                        console.log("验证码错误")
+                                        alert(res.data.msg)
+                                    }
+
                                 } else {
-                                    alert(res.data.msg)
+                                    alert(res.message)
                                 }
                             })
                         }else{
                             alert(res.data.msg)
                         }
                     }else{
-                        alert("登录失败！")
+                        alert(res.message)
                     }
                 })
             }
@@ -247,23 +277,11 @@ export default {
         color: #ffffff;
         background-color: #52eba9;
     }
-
-    .van-radio__icon .van-icon {
-        color: #51ca89;
-        width: 28px !important;
-        height: 28px !important;
+    .van-checkbox{
+        margin: 58px auto;
     }
 
-    van-icon van-icon-success {
-        background-color: #51ca89 !important;
-        border-color: #51ca89 !important;
-    }
-
-    .van-radio-group {
-        margin: 0 auto !important;
-    }
-
-    .van-radio__label p {
+    .userAgreement p{
         font-family: SourceHanSansCN-Regular !important;
         font-size: 24px !important;
         line-height: 28px !important;
