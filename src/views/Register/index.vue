@@ -2,40 +2,44 @@
     <div class="register">
         <Header title="注册"/>
         <div class="registerForm">
+            <div class="usernameText">
+                <img src="../../assets/Register/eamilIcon@2x.png">
+                <input class="usernameInput" name="username" placeholder="请输入用户名" v-model="userInfo.username">
+            </div>
+            <div class="Splitter"></div>
             <div class="phoneText">
                 <img src="../../assets/Register/eamilIcon@2x.png">
-                <input class="phoneInput" name="username" placeholder="请输入手机号/邮箱" v-model="username">
+                <input class="phoneInput" name="email" placeholder="请输入手机号/邮箱" v-model="userInfo.email">
             </div>
             <div class="Splitter"></div>
             <div class="codeText">
                 <img src="../../assets/Register/verifyIcon@2x.png">
-                <input class="codeInput" name="code" placeholder="验证码">
-                <van-button plain type="default" @click="isEmail()">获取验证码</van-button>
+                <input class="codeInput" name="code" placeholder="验证码" v-model="userInfo.captcha">
+                <van-button plain type="default" @click="isEmail()" :disabled="attcode">{{code_ts}}</van-button>
+<!--                v-if="showbtn"-->
             </div>
             <div class="Splitter"></div>
             <div class="passwordText">
                 <img src="../../assets/Register/passwordIcon1@2x.png">
-                <input class="passwordInput" name="password" placeholder="请输入密码(6-20位数字字母组合)">
+                <input class="passwordInput" name="password" placeholder="请输入密码(6-20位数字字母组合)" v-model="userInfo.password">
 
             </div>
             <div class="Splitter1"></div>
             <div style="margin: 16px;" class="registerButton">
-                <van-button round block type="info" native-type="submit">
+                <van-button round block type="info" @click="register()" v-bind:disabled="!this.checked">
                    注册
                 </van-button>
             </div>
-            <van-field name="radio">
-                <template #input>
-                    <van-radio-group v-model="radio">
-                        <van-radio name="1">
-                            <p>我已阅读并同意
-                                <router-link to="login">《用户协议》</router-link>
-                            </p>
-                        </van-radio>
-                    </van-radio-group>
-                </template>
-            </van-field>
-            <center><router-link to="/registersuccee">注册成功页面{{email}}</router-link></center>
+            <div class="userAgreement">
+                <van-checkbox v-model="checked" checked-color="#07c160">
+                    <p>我已阅读并同意
+                    <router-link to="login">《用户协议》</router-link>
+                    </p>
+                </van-checkbox>
+
+            </div>
+
+            <center><router-link to="/registersuccee">注册成功页面</router-link></center>
 
         </div>
     </div>
@@ -43,56 +47,136 @@
 
 <script>
 import Header from "../../components/Header"
-import {mapState,mapMutations} from 'vuex'
+// import {mapState,mapMutations} from 'vuex'
 
 export default {
     name: "index",
     data() {
         return {
-            username: '',
-            sms: '',
-            radio: '0',
-            isEmailUse:false
+            userInfo:{
+                username:'',
+                email: '',
+                password:'',
+                captcha:'',
+            },
+            isEmailUse:false,
+            checked: false,
+            confirm: true,  //提交验证按钮判断
+            attcode: false,  //点击获取验证码按钮判断
+            // showbtn: true, // 展示获取验证码或倒计时按钮判断
+            yzcode: '',
+            code_ts: '获取验证码', //倒计时提示文字
+            sec: 60, // 倒计时秒数
+
         };
     },
     components: {
         Header,
     },
     computed:{
-        ...mapState(['email','password','verificationCode'])
+        // ...mapState(['email','password','verificationCode'])
     },
     methods: {
         onSubmit(values) {
             console.log('submit', values);
         },
+        getyzcode () {
+            var timer = setInterval(() => {
+                this.attcode=true
+                this.sec = this.sec - 1
+                this.code_ts = this.sec + 'S后重试'
+                // this.showbtn = false
+                if (this.sec === 0) {
+                    clearInterval(timer)
+                    this.sec = 60
+                    this.code_ts = '获取验证码'
+                    this.attcode=false
+                    // this.showbtn = true
+                }
+            }, 1000)
+        },
         isEmail(){
             var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
-            console.log(this.username)
-            console.log(this.$store.state.email)
-            this.changeEmail(this.username)
-            if(this.username == ''){
+            console.log(this.userInfo.email)
+            if(this.email == ''){
                 alert("请输入邮箱地址！")
-            }else if(!regEmail.test(this.username)){
+            }else if(!regEmail.test(this.userInfo.email)){
                 alert("请输入正确的邮箱地址！")
             }else{
-                // axios({
-                //     method:"get",
-                //     url:"http://120.79.222.144/zhiyou/v1/users/email",
-                //     data: {
-                //         email: this.username
-                //     }
-                // })
-                // .then(res =>{
-                //     this.isEmailUse = res
-                //     console.log(res)
-                // })
-                // .catch(err => {
-                //     alert("不可用！")
-                // })
+                this.isEmailUse=false
+                this.$api.get('/zhiyou/v1/users/email/'+this.userInfo.email,null, res => {
+                    if (res.status >= 200 && res.status < 300) {
+                        console.log(res)
+                        if(res.data === true) {
+                            this.getyzcode()
+                            this.$api.get('/zhiyou/v1/users/captcha?email='+this.userInfo.email, null, res => {
+                                if (res.status >= 200 && res.status < 300) {
+                                    // this.isEmailUse = res
+                                    console.log(res)
+                                    if(res.data.code == 200){
+                                        alert(res.data.msg)
+                                    }else {
+                                        alert(res.data.msg)
+                                    }
+
+                                }else{
+                                    alert(res.message)
+                                }
+                            });
+                        }else{
+                            alert("邮箱不可用！")
+                        }
+                    } else {
+                        alert("服务器错误,请稍后重试!")//请求失败，response为失败信息
+                    }
+                });
+
             }
 
         },
-        ...mapMutations(['changeEmail']),
+        register(){
+            var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
+            if(this.userInfo.email == ''){
+                alert("请输入邮箱地址！")
+            }else if(!regEmail.test(this.userInfo.email)) {
+                alert("请输入正确的邮箱地址！")
+            }else if(this.userInfo.captcha == ''){
+                alert("请输入验证码！")
+            }else if(this.userInfo.password == ''){
+                alert("请输入密码！")
+            }else if(this.userInfo.username == ''){
+                alert("请输入用户名！")
+            }else{
+                this.$api.get('/zhiyou/v1/users/username/'+this.userInfo.username,null,res =>{
+                    if(res.status >= 200 && res.status < 300){
+                        console.log(res)
+                        if(res.data === true) {
+                            this.$api.post('/zhiyou/v1/users/signup?captcha='+this.userInfo.captcha+'&username='+this.userInfo.username+'&password='+this.userInfo.password+'&email='+this.userInfo.email, null, res => {
+                                console.log(res)
+                                if (res.status >= 200 && res.status < 300) {
+                                    if(res.success === true && res.data.code ===200){
+                                        console.log("注册成功")
+                                        console.log(res.data)
+                                        this.goTo('/registersuccee');
+                                    }else {
+                                        console.log("验证码错误")
+                                        alert(res.data.msg)
+                                    }
+
+                                } else {
+                                    alert(res.message)
+                                }
+                            })
+                        }else{
+                            alert(res.data.msg)
+                        }
+                    }else{
+                        alert(res.message)
+                    }
+                })
+            }
+        }
+        // ...mapMutations(['changeEmail']),
     },
 
 
@@ -147,7 +231,16 @@ export default {
         line-height: 38px;
         color: #999999;
     }
-
+    .usernameInput{
+        width: 80%;
+        border: none;
+        position: relative;
+        left: 21px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 30px;
+        line-height: 38px;
+        color: #999999;
+    }
     .phoneInput, .passwordInput {
         width: 80%;
         border: none;
@@ -184,23 +277,11 @@ export default {
         color: #ffffff;
         background-color: #52eba9;
     }
-
-    .van-radio__icon .van-icon {
-        color: #51ca89;
-        width: 28px !important;
-        height: 28px !important;
+    .van-checkbox{
+        margin: 58px auto;
     }
 
-    van-icon van-icon-success {
-        background-color: #51ca89 !important;
-        border-color: #51ca89 !important;
-    }
-
-    .van-radio-group {
-        margin: 0 auto !important;
-    }
-
-    .van-radio__label p {
+    .userAgreement p{
         font-family: SourceHanSansCN-Regular !important;
         font-size: 24px !important;
         line-height: 28px !important;
