@@ -7,7 +7,7 @@
             <div>
                 <van-icon name="search"/>
             </div>
-            <input type="text" placeholder="搜索用户名">
+            <input type="text" placeholder="搜索用户名" v-model="searchFriend" @change="getFriendList">
         </div>
         <div class="weChatFriends">
             <div class="left">
@@ -77,7 +77,36 @@
 
 export default {
     name: "index",
+    data(){
+        return{
+            searchFriend:""
+        }
+    },
+//
+    created() {
+        // this.getFriendList()
+    },
+    methods: {
+        getFriendList() {
+            const eleToken = localStorage.getItem('eleToken');
+            console.log(eleToken);
+            if (eleToken) {
+                this.$api.get('/zhiyou/v1/users/friend/users/'+this.searchFriend, {token:eleToken}, res  => {
+                    console.log(res.data.code);
+                    if (res.data.code === 200) {
+                        //token
+                        var friendList = res.data;
+                        console.log(friendList);
+                    } else {
+                        console.log(res.data.msg);
+                    }
+                });
+            } else {
+                console.log("请先登录。。");
+            }
 
+        }
+    }
 }
 </script>
 
@@ -145,7 +174,8 @@ export default {
         transform: translateY(-50%);
         font-size: 30px !important;
     }
-    .alreadyTitle{
+
+    .alreadyTitle {
         margin: 30px 0;
         margin-left: 20px;
         font-size: 28px;

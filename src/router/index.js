@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+//.........................................
 import Recommend from '../views/Recommend'
 import Customization from '../views/Customization'
 import Message from '../views/Message'
@@ -83,7 +84,10 @@ const routes = [
             },
             {
                 path: '/afans/attention',
-                component: Attention
+                component: Attention,
+                meta: {
+                    requireAuth: true, // 添加该字段，表示进入这个路由是需要登录的
+                },
             }
         ]
 

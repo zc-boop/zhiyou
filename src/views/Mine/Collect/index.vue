@@ -28,7 +28,7 @@ export default {
     .collect > p {
         margin-top: 35px;
         text-align: center;
-        font-size: 15px;
+        font-size: 30px;
         color: #888888;
     }
 </style>

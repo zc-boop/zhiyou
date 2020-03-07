@@ -6,7 +6,7 @@ Vue.use(Vuex)
 export default new Vuex.Store({
     state: {
         userToken: "",
-        email: 'sdsadasd',
+        email: '',
         password: '',
         verificationCode: '',
     },
@@ -15,7 +15,7 @@ export default new Vuex.Store({
             state.userToken = userToken;
         },
         changeEmail(state, username) {
-            state.email = username
+            state.email = username;
         }
     },
     actions: {},

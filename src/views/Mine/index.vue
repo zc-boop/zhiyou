@@ -12,7 +12,7 @@
                 <div class="cardTop">
                     <div class="left">
                         <img src="../../../public/user6@2x.png" alt="">
-                        <router-link to="/login" tag="span">
+                        <router-link :to="username ? '/mine': '/login'" tag="span">
                             {{username || "请登录..."}}
                         </router-link>
                     </div>
@@ -55,7 +55,7 @@
                     <van-cell class="choiceList" title="切换账号" icon="friends-o" is-link/>
                 </router-link>
             </ul>
-            <button class="signOut">退出账号</button>
+            <button class="signOut" v-if="isShow" @click="logout">退出账号</button>
         </div>
     </div>
 </template>
@@ -67,14 +67,31 @@ export default {
     name: "mine",
     data() {
         return {
-            username: ""
+            username: "",
+            isShow:false,
         }
     },
     created() {
-        const userToken = this.$store.state.userToken;
-        const user = jwtDecode(userToken);
-        this.username = user.username;
-        console.log(user);
+        this.setUserInfo();
+    },
+    methods:{
+        setUserInfo(){
+            if (localStorage.getItem('eleToken')) {
+                const token = localStorage.getItem('eleToken');
+                // console.log(token);
+                const user = jwtDecode(token);
+                this.username = user.username;
+                // console.log(user);
+                this.isShow = true
+            } else {
+                console.log("还未登陆");
+            }
+        },
+        logout(){
+            localStorage.removeItem('eleToken');
+            this.isShow = false;
+            this.goTo('/login')
+        }
     }
 }
 </script>

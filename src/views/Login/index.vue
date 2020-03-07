@@ -32,8 +32,6 @@
                 <router-link to="/register">立即注册</router-link>
             </div>
         </div>
-
-
         <div class="quickLogin">
             <p>快捷登录</p>
             <img class="wechatIcon" src="../../assets/Login/wechatIcon@2x.png"/>
@@ -77,7 +75,7 @@ export default {
                     console.log(res.message);//请求失败，response为失败信息
                 }
             });
-        }
+        },
     },
 }
 </script>

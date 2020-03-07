@@ -55,6 +55,5 @@ export default {
         color: #51ca89;
         box-sizing: border-box;
         border-bottom: 3px solid #52eba9;
-        box-shadow: 1px 1px 10px #eee;
     }
 </style>
