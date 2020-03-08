@@ -44,10 +44,11 @@ export function fetchPost(url, params) {
             })
     })
 }
+
 ////返回一个Promise(发送get请求)
 export function fetchGet(url, param) {
     return new Promise((resolve, reject) => {
-        axios.get(url, { params: param })
+        axios.get(url, {params: param})
             .then(response => {
                 resolve(response)
             }, err => {
@@ -58,6 +59,7 @@ export function fetchGet(url, param) {
             })
     })
 }
+
 export default {
     fetchPost,
     fetchGet,
