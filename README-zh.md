@@ -72,10 +72,10 @@ XXXXXXX
 
 - 解决方案：
 
-  -  首先建立一个src/util/index.js 
+  -  首先建立一个src/util/api.js 
 
     ```javascript
-    //  src>util>index.js
+    //  src>util>api.js
     export default {
         fun1: function () {
             alert("1");

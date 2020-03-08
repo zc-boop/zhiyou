@@ -3,7 +3,7 @@
         <Header title="编辑资料"/>
         <div class="editInformation">
             <div class="header">
-                <img src="../../../../public/user6@2x.png" alt="">
+                <img :src="headerImg" alt="">
                 <p>
                     静静吖
                     <span class="gender">♀</span>
@@ -23,52 +23,56 @@
                     </router-link>
                 </ul>
             </div>
-            <div class="headPortrait">
-                <span>头像</span>
-                <div class="headPortraitInputDiv">
-                    <label for="inputFile">
-                        <img src="../../../../public/user6@2x.png" class="mask" style="">
-                    </label>
-                    <input type="file" id="inputFile"
-                           style="display: none"
-                           multiple
-                           accept="image/jpg,image/jpeg,image/png"
-                    >
+            <form ref="form" enctype="multipart/form-data">
+                <div class="headPortrait">
+                    <span>头像</span>
+                    <div class="headPortraitInputDiv">
+                        <label for="inputFile">
+                            <img :src="headerImg" class="mask" style="">
+                        </label>
+                        <input type="file"
+                               id="inputFile"
+                               name="avatar"
+                               style="display: none"
+                               multiple
+                               accept="image/jpg,image/jpeg,image/png"
+                        >
+                    </div>
                 </div>
-            </div>
-            <ul class="otherModify">
-                <li>
-                    <span>用户名</span>
-                    <div>
-                        <span>静静吖</span>
-                        <van-icon name="arrow" class="rightIcon"/>
-                    </div>
-                </li>
-                <li>
-                    <span>性别</span>
-                    <div>
-                        <span>女</span>
-                        <van-icon name="arrow" class="rightIcon"/>
-                    </div>
-                </li>
-                <li>
-                    <span>邮箱</span>
-                    <div>
-                        <span>XXXXXX@163.com</span>
-                        <van-icon name="arrow" class="rightIcon"/>
-                    </div>
-                </li>
-                <li>
-                    <span>手机号码</span>
-                    <div>
-                        <span>150670XXXXX</span>
-                        <van-icon name="arrow" class="rightIcon"/>
-                    </div>
-                </li>
-                <li>
-                    <button class="confirmChanges">确认修改</button>
-                </li>
-            </ul>
+                <ul class="otherModify">
+                    <li>
+                        <span>用户名</span>
+                        <div>
+                            <span>静静吖</span>
+                            <van-icon name="arrow" class="rightIcon"/>
+                        </div>
+                    </li>
+                    <li>
+                        <span>性别</span>
+                        <div>
+                            <span>女</span>
+                            <van-icon name="arrow" class="rightIcon"/>
+                        </div>
+                    </li>
+                    <li>
+                        <span>邮箱</span>
+                        <div>
+                            <span>XXXXXX@163.com</span>
+                            <van-icon name="arrow" class="rightIcon"/>
+                        </div>
+                    </li>
+                    <li>
+                        <span>手机号码</span>
+                        <div>
+                            <span>150670XXXXX</span>
+                            <van-icon name="arrow" class="rightIcon"/>
+                        </div>
+                    </li>
+                    <li>
+                        <button class="confirmChanges" @click.prevent.stop="changeInfo">确认修改</button>
+                    </li>
+                </ul>
+            </form>
         </div>
     </div>
 </template>
@@ -82,13 +86,28 @@ export default {
         return {
             fileList: [],
             headerImg: "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1898582417,1582081952&fm=26&gp=0.jpg  ",
-            base64: ""
         }
     },
     components: {
         Header
     },
-    methods: {}
+    methods: {
+        changeInfo() {
+            var formData = new FormData(this.$refs.form);
+            const eleToken = localStorage.getItem('eleToken');
+            if(eleToken){
+                this.$api.post('/zhiyou/v1/users/upload/head', { eleToken,formData}, res => {
+                    if (res.status >= 200 && res.status < 300) {
+                        console.log(res.data.msg);
+                    } else {
+                        console.log("请求失败");//请求失败，response为失败信息
+                    }
+                });
+            }else {
+                console.log("无Token");
+            }
+        }
+    }
 }
 </script>
 
@@ -107,9 +126,11 @@ export default {
         text-align: center;
         padding-top: 30px;
     }
-    .editInformation > .header>p{
+
+    .editInformation > .header > p {
         font-size: 34px;
     }
+
     .editInformation > .header > img {
         width: 150px;
         height: 150px;
@@ -129,10 +150,12 @@ export default {
         margin: 42px 0;
         font-size: 26px;
     }
-    .menu>li>span:last-child{
+
+    .menu > li > span:last-child {
         margin: 0 10px;
         color: #333;
     }
+
     .headPortrait {
         height: 140px;
         margin: 20px 0;

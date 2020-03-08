@@ -7,7 +7,7 @@
             <div>
                 <van-icon name="search"/>
             </div>
-            <input type="text" placeholder="搜索用户名" v-model="searchFriend" @change="getFriendList">
+            <input type="text" placeholder="搜索用户名" v-model="searchFriend" @change="searchFriendFun">
         </div>
         <div class="weChatFriends">
             <div class="left">
@@ -77,22 +77,40 @@
 
 export default {
     name: "index",
-    data(){
-        return{
-            searchFriend:""
+    data() {
+        return {
+            searchFriend: "",
+            iConcerned: "010"
         }
     },
 //
     created() {
-        // this.getFriendList()
+        this.getFriendList()
     },
     methods: {
+        searchFriendFun() {
+            const eleToken = localStorage.getItem('eleToken');
+            console.log(eleToken);
+            if (eleToken) {
+                this.$api.get('/zhiyou/v1/users/friend/users/' + this.searchFriend, {token: eleToken}, res => {
+                    if (res.data.code === 200) {
+                        //token
+                        var friendInfo = res.data;
+                        console.log(friendInfo);
+                    } else {
+                        console.log(res.data.msg);
+                    }
+                });
+            } else {
+                console.log("请先登录。。");
+            }
+
+        },
         getFriendList() {
             const eleToken = localStorage.getItem('eleToken');
             console.log(eleToken);
             if (eleToken) {
-                this.$api.get('/zhiyou/v1/users/friend/users/'+this.searchFriend, {token:eleToken}, res  => {
-                    console.log(res.data.code);
+                this.$api.get('/zhiyou/v1/users/friend/list/' + this.iConcerned, {token: eleToken}, res => {
                     if (res.data.code === 200) {
                         //token
                         var friendList = res.data;
@@ -104,7 +122,6 @@ export default {
             } else {
                 console.log("请先登录。。");
             }
-
         }
     }
 }

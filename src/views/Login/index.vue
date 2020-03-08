@@ -44,7 +44,6 @@
 <script>
 import Header from "../../components/Header"
 import {mapMutations} from "vuex"
-
 export default {
     name: "Login",
     data() {
