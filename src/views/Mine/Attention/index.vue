@@ -1,69 +1,51 @@
 <template>
     <div class="attention">
         <!--<img src="../../../assets/Mine/attention.png" alt="">
-        <p>这个家伙很懒什么也没留下</p>
+            <p>这个家伙很懒什么也没留下</p>
         <button>立即关注</button>-->
         <div class="searchUser">
             <div>
                 <van-icon name="search"/>
             </div>
-            <input type="text" placeholder="搜索用户名" v-model="searchFriend" @change="searchFriendFun">
+            <input type="text" placeholder="搜索用户名" v-model="searchFriend" @change="searchFriendFun"/>
         </div>
+        <ul class="fansList" v-for="item in searchUserList" :key="item.user.username">
+            <li>
+                <div class="left">
+                    <img src="../../../../public/user6@2x.png" alt/>
+                    <span>{{item.user.username}}</span>
+                </div>
+                <button>添加为好友</button>
+            </li>
+        </ul>
         <div class="weChatFriends">
             <div class="left">
-                <img src="../../../assets/Mine/wechatImg.png" alt="">
+                <img src="../../../assets/Mine/wechatImg.png" alt/>
                 <span>微信朋友</span>
             </div>
             <van-icon name="arrow" class="weChatIcon"/>
         </div>
+
         <div class="alreadyAtt">
             <p class="alreadyTitle">已关注6人</p>
             <ul class="fansList">
                 <li>
                     <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt="">
+                        <img src="../../../../public/user6@2x.png" alt/>
                         <span>李灰灰</span>
                     </div>
                     <button style="opacity: 0.3;">已关注</button>
                 </li>
                 <li>
                     <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt="">
+                        <img src="../../../../public/user6@2x.png" alt/>
                         <span>李灰灰</span>
                     </div>
                     <button style="opacity: 0.3;">已关注</button>
                 </li>
                 <li>
                     <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt="">
-                        <span>李灰灰</span>
-                    </div>
-                    <button style="opacity: 0.3;">已关注</button>
-                </li>
-                <li>
-                    <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt="">
-                        <span>李灰灰</span>
-                    </div>
-                    <button style="opacity: 0.3;">已关注</button>
-                </li>
-                <li>
-                    <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt="">
-                        <span>李灰灰</span>
-                    </div>
-                    <button style="opacity: 0.3;">已关注</button>
-                </li>
-                <li>
-                    <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt="">
-                        <span>李灰灰</span>
-                    </div>
-                    <button style="opacity: 0.3;">已关注</button>
-                </li>
-                <li>
-                    <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt="">
+                        <img src="../../../../public/user6@2x.png" alt/>
                         <span>李灰灰</span>
                     </div>
                     <button style="opacity: 0.3;">已关注</button>
@@ -74,57 +56,62 @@
 </template>
 
 <script>
+import https, {fetchGet} from "../../../https";
 
 export default {
     name: "index",
     data() {
         return {
             searchFriend: "",
-            iConcerned: "010"
-        }
+            iConcerned: "010",
+            searchUserList: []
+        };
     },
-//
+    //
     created() {
-        this.getFriendList()
+        this.getFriendList();
     },
     methods: {
         searchFriendFun() {
-            const eleToken = localStorage.getItem('eleToken');
-            console.log(eleToken);
-            if (eleToken) {
-                this.$api.get('/zhiyou/v1/users/friend/users/' + this.searchFriend, {token: eleToken}, res => {
-                    if (res.data.code === 200) {
-                        //token
-                        var friendInfo = res.data;
-                        console.log(friendInfo);
-                    } else {
-                        console.log(res.data.msg);
-                    }
-                });
+            const token = sessionStorage.getItem("token");
+            console.log(token);
+            if (token) {
+                https
+                    .fetchGet("/zhiyou/v1/users/friend/users/" + this.searchFriend, {token: token})
+                    .then(res => {
+                        if (res.data.code === 200) {
+                            this.searchUserList = res.data.queryResult.list
+                            console.log(res.data.queryResult.list);
+                        } else {
+                            console.log(res.data.msg);
+                        }
+                    })
             } else {
                 console.log("请先登录。。");
             }
-
         },
         getFriendList() {
-            const eleToken = localStorage.getItem('eleToken');
-            console.log(eleToken);
-            if (eleToken) {
-                this.$api.get('/zhiyou/v1/users/friend/list/' + this.iConcerned, {token: eleToken}, res => {
-                    if (res.data.code === 200) {
-                        //token
-                        var friendList = res.data;
-                        console.log(friendList);
-                    } else {
-                        console.log(res.data.msg);
-                    }
-                });
+            const token = sessionStorage.getItem("token");
+            console.log(token);
+            if (token) {
+                https
+                    .fetchGet("/zhiyou/v1/users/friend/list/" + this.iConcerned,
+                        {token: token},)
+                    .then(res => {
+                        if (res.data.code === 200) {
+                            //token
+                            var friendList = res.data;
+                            console.log(friendList);
+                        } else {
+                            console.log(res.data.msg);
+                        }
+                    });
             } else {
                 console.log("请先登录。。");
             }
         }
     }
-}
+};
 </script>
 
 <style>

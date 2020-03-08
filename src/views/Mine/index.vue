@@ -11,14 +11,11 @@
             <div class="userCard">
                 <div class="cardTop">
                     <div class="left">
-                        <img src="../../../public/user6@2x.png" alt="">
-                        <router-link :to="username ? '/mine': '/login'" tag="span">
-                            {{username || "请登录..."}}
+                        <img src="../../../public/user6@2x.png" alt/>
+                        <router-link :to="username ? '/mine': '/login'" tag="span">{{username || "请登录..."}}
                         </router-link>
                     </div>
-                    <router-link to="/einfo" tag="button">
-                        编辑资料
-                    </router-link>
+                    <router-link to="/einfo" tag="button">编辑资料</router-link>
                 </div>
                 <div class="cardLine"></div>
                 <ul class="cardBottom">
@@ -45,13 +42,13 @@
                 <router-link to="/oservice" tag="li">
                     <van-cell class="choiceList" title="在线客服" icon="service-o" is-link/>
                 </router-link>
-                <router-link to="" tag="li">
+                <router-link to tag="li">
                     <van-cell class="choiceList" title="应用指南" icon="question-o" is-link/>
                 </router-link>
                 <router-link to="/feedback" tag="li">
                     <van-cell class="choiceList" title="意见反馈" icon="chat-o" is-link/>
                 </router-link>
-                <router-link to="" tag="li">
+                <router-link to tag="li">
                     <van-cell class="choiceList" title="切换账号" icon="friends-o" is-link/>
                 </router-link>
             </ul>
@@ -61,39 +58,43 @@
 </template>
 
 <script>
-import jwtDecode from 'jwt-decode'
+import jwtDecode from "jwt-decode";
 
 export default {
     name: "mine",
     data() {
         return {
             username: "",
-            isShow:false,
-        }
+            isShow: false
+        };
     },
     created() {
         this.setUserInfo();
     },
-    methods:{
-        setUserInfo(){
-            if (localStorage.getItem('eleToken')) {
-                const token = localStorage.getItem('eleToken');
-                // console.log(token);
+    methods: {
+        setUserInfo() {
+            if (sessionStorage.getItem("token")) {
+                const token = sessionStorage.getItem("token");
                 const user = jwtDecode(token);
-                this.username = user.username;
-                // console.log(user);
-                this.isShow = true
+                const userName = user.username;
+                this.$store.commit('addUsername',userName);
+                this.username = userName;
+                this.isShow = true;
             } else {
-                console.log("还未登陆");
+                swal({
+                    title: "至游提示",
+                    text: "请先登录哟！！"
+                });
+                this.$router.replace('/login')
             }
         },
-        logout(){
-            localStorage.removeItem('eleToken');
+        logout() {
+            sessionStorage.removeItem("token");
             this.isShow = false;
-            this.goTo('/login')
+            this.goTo("/login");
         }
     }
-}
+};
 </script>
 
 <style>

@@ -1,34 +1,44 @@
 <template>
     <div class="login">
-        <div class="mineHeader">
-            <div class="space"></div>
-            <div class="personalCenter" style="position: relative">
-                <van-icon name="arrow-left" class="registerBack" @click="goTo('/mine')"/>
-                <div class="pageHeader">登录</div>
-            </div>
-        </div>
+        <div class="space"></div>
+        <!--  <div class="mineHeader">
+              <div class="space"></div>
+              <div class="personalCenter" style="position: relative">
+                  <van-icon name="arrow-left" class="registerBack" @click="goTo('/mine')"/>
+                  <div class="pageHeader">登录</div>
+              </div>
+          </div>-->
         <div class="loginImages">
             <img src="../../assets/Login/user@2x.png"/>
         </div>
 
         <div class="loginFrom">
             <div class="userText">
-                <img src="../../assets/Login/mobileIcon@2x.png"></img>
-                <input class="phoneInput" name="username" placeholder="请输入手机号/邮箱" v-model="userInfo.username"/>
+                <img src="../../assets/Login/mobileIcon@2x.png"/>
+                <input
+                        class="phoneInput"
+                        name="username"
+                        placeholder="请输入手机号/邮箱"
+                        v-model="userInfo.username"
+                />
             </div>
             <div class="Splitter"></div>
             <div class="passwordText">
-                <img src="../../assets/Login/passwordIcon@2x.png"></img>
-                <input class="passwordInput" name="password" placeholder="请输入密码" v-model="userInfo.password"/>
+                <img src="../../assets/Login/passwordIcon@2x.png"/>
+                <input
+                        class="passwordInput"
+                        name="password"
+                        placeholder="请输入密码"
+                        v-model="userInfo.password"
+                />
             </div>
             <div class="Splitter2"></div>
             <p>忘记密码?</p>
             <div style="margin: 16px;" class="loginButton">
-                <van-button round block type="info" native-type="submit" @click="login">
-                    立即登录
-                </van-button>
+                <van-button round block type="info" native-type="submit" @click="login">立即登录</van-button>
             </div>
-            <div class="registerUrl">没有账号
+            <div class="registerUrl">
+                没有账号
                 <router-link to="/register">立即注册</router-link>
             </div>
         </div>
@@ -42,15 +52,16 @@
 </template>
 
 <script>
-import Header from "../../components/Header"
-import {mapMutations} from "vuex"
+import Header from "../../components/Header";
+import https from "../../https.js";
+
 export default {
     name: "Login",
     data() {
         return {
             userInfo: {
-                username: '',
-                password: '',
+                username: "calmlyx",
+                password: "123456"
             }
         };
     },
@@ -58,25 +69,22 @@ export default {
         Header
     },
     methods: {
-        ...mapMutations(['addUser']),
         login() {
-            this.$api.post('/zhiyou/v1/users/signin', this.userInfo, res => {
-                if (res.status >= 200 && res.status < 300) {
-                    //token
-                    var userToken = res.data.token;
-                    //储存到localStore中
-                    localStorage.setItem("eleToken", userToken);
-                    // 解析token
-                    this.addUser(userToken);
-                    console.log(userToken);
-                    this.goTo('/mine');
-                } else {
-                    console.log(res.message);//请求失败，response为失败信息
-                }
-            });
-        },
-    },
-}
+            https
+                .fetchPost("/zhiyou/v1/users/signin", this.userInfo)
+                .then(res => {
+                    if (res.data.code === 200) {
+                        window.sessionStorage.setItem("token", res.data.token);
+                        this.goTo("/mine");
+                    }
+                    8989;
+                })
+                .catch(err => {
+                    console.log(err);
+                });
+        }
+    }
+};
 </script>
 
 <style scoped>
@@ -105,7 +113,6 @@ export default {
     .loginImages img {
         width: 140px;
         height: 140px;
-
     }
 
     .loginFrom {
@@ -115,13 +122,11 @@ export default {
         margin-top: 147px;
         display: flex;
         flex-direction: column;
-
     }
 
     .userText {
         width: 90%;
         margin-left: 48px;
-
     }
 
     .loginFrom img {
@@ -181,7 +186,6 @@ export default {
     }
 
     .loginButton {
-
     }
 
     .van-button::before {

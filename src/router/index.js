@@ -119,5 +119,23 @@ const routes = [
 const router = new VueRouter({
     routes
 });
-
+router.beforeEach((to, from, next) => {
+    if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
+        if (sessionStorage.getItem("token")) { // 通过vuex state获取当前的token是否存在
+            next();
+        } else {
+            swal("请先登陆！！",{
+                title:"至游提示",
+                confirmButtonText:"是的，我要删除！",
+                cancelButtonText:"让我再考虑一下…",
+            },function () {
+                next({
+                    path: '/login',
+                })
+            });
+        }
+    } else {
+        next();
+    }
+});
 export default router

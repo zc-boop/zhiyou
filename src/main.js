@@ -1,36 +1,25 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from './router'
-import store from '../copy'
+import store from "./store"
 import Vant from 'vant';
 import 'vant/lib/index.css';
-import 'lib-flexible'
-import Api from './axios/api.js';
+import 'lib-flexible';
+import swal from 'sweetalert'
+import axios from 'axios';
+import https from "./https.js";
 
-Vue.prototype.$api = Api;
+Vue.prototype.$axios = axios;
+import QS from 'qs'
+
+Vue.prototype.qs = QS;
+
+Vue.use(Vant, axios, swal, https);
 Vue.config.productionTip = false;
-Vue.use(Vant);
 Vue.prototype.goTo = function (path) {
     this.$router.replace(path)
 };
-router.beforeEach((to, from, next) => {
-    if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
-        console.log("登录权限");
-        if (localStorage.getItem("eleToken")) { // 通过vuex state获取当前的token是否存在
-            console.log("存在 token");
-            next();
-        } else {
-            console.log("token不存在，需要登录权限");
-            next({
-                path: '/login',
-                // query: {redirect: to.fullPath} // 将跳转的路由path作为参数，登录成功后跳转到该路由
-            })
-        }
-    } else {
-        console.log("不需要登录权限");
-        next();
-    }
-});
+
 new Vue({
     router,
     store,
