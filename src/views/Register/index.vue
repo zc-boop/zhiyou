@@ -106,9 +106,15 @@
                 var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
                 console.log(this.userInfo.email)
                 if (this.email === '') {
-                    alert("请输入邮箱地址！")
+                    Dialog.alert({
+                        title: '提示',
+                        message: "请输入邮箱地址！"
+                    })
                 } else if (!regEmail.test(this.userInfo.email)) {
-                    alert("请输入正确的邮箱地址！")
+                    Dialog.alert({
+                        title: '提示',
+                        message: "请输入正确的邮箱地址！"
+                    })
                 } else {
                     https.fetchGet('/zhiyou/v1/users/email/' + this.userInfo.email, null)
                         .then(res => {
@@ -120,24 +126,36 @@
                                         // this.isEmailUse = res
                                         console.log(res)
                                         if (res.data.code == 200) {
-                                            alert(res.data.msg)
+                                            Dialog.alert({
+                                                title: '提示',
+                                                message: res.data.msg
+                                            })
                                         } else {
-                                            alert(res.data.msg)
+                                            Dialog.alert({
+                                                title: '提示',
+                                                message: res.data.msg
+                                            })
                                         }
                                     })
                                     .catch(err => {
-                                        alert(res.message)
+                                        Dialog.alert({
+                                            title: '提示',
+                                            message: res.message
+                                        })
                                     })
 
                             } else {
                               Dialog.alert({
                                 title: '提示',
                                 message: '邮箱已被使用！'
-                              }).then()
+                              })
                             }
                         })
                         .catch(err => {
-                            alert("服务器错误,请稍后重试!")//请求失败，response为失败信息
+                            Dialog.alert({
+                                title: '提示',
+                                message: '服务器错误，请稍后重试！'
+                            })//请求失败，response为失败信息
                         })
                 }
 
@@ -145,39 +163,68 @@
             register() {
                 var regEmail = /^[A-Za-z0-9\u4e00-\u9fa5]+@[a-zA-Z0-9_-]+(\.[a-zA-Z0-9_-]+)+$/
                 if (this.userInfo.username == '') {
-                    alert("请输入用户名！")
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请输入用户名！'
+                    })
                 } else if (this.userInfo.email == '') {
-                    alert("请输入邮箱地址！")
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请输入邮箱地址！'
+                    })
                 } else if (!regEmail.test(this.userInfo.email)) {
-                    alert("请输入正确的邮箱地址！")
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请输入正确的邮箱地址！'
+                    })
                 } else if (this.userInfo.captcha == '') {
-                    alert("请输入验证码！")
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请输入验证码！'
+                    })
                 } else if (this.userInfo.password == '') {
-                    alert("请输入密码！")
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请输入密码！'
+                    })
                 } else {
-                    https.fetchGet('\'/zhiyou/v1/users/username/\' + this.userInfo.username', null)
+                    https.fetchGet('/zhiyou/v1/users/username/' + this.userInfo.username, null)
                         .then(res => {
                             console.log(res)
                             if (res.data === true) {
-                                https.fetchGet('/zhiyou/v1/users/captcha?email=' + this.userInfo.email, null)
+                                https.fetchPost('/zhiyou/v1/users/signup', this.userInfo)
                                     .then(res => {
-                                        if (res.success === true && res.data.code === 200) {
+                                        if (res.data.success === true) {
                                             console.log("注册成功")
                                             console.log(res.data)
                                             this.goTo('/registersuccee');
                                         } else {
                                             console.log("验证码错误")
-                                            alert(res.data.msg)
+                                            Dialog.alert({
+                                                title: '提示',
+                                                message: res.data.msg
+                                            })
                                         }
                                     })
                                     .catch(err => {
-                                        alert(err.message)
+                                        Dialog.alert({
+                                            title: '提示',
+                                            message: '服务器错误，请稍后重试！2'
+                                        })
                                     })
+                            }else{
+                                Dialog.alert({
+                                    title: '提示',
+                                    message: '用户名不可用！'
+                                })
                             }
 
                         })
                         .catch(err => {
-                            alert(err.message)
+                            Dialog.alert({
+                                title: '提示',
+                                message: '服务器错误，请稍后重试！1'
+                            })
                         })
                 }
             }
@@ -217,8 +264,17 @@
         background-color: #dcdcdc;
         z-index:5;
     }
+
+    .Splitter1 {
+        width: 91%;
+        height: 3px;
+        position: relative;
+        top: 2px;
+        margin: 0 auto;
+        background-color: #dcdcdc;
+    }
     .codeInput {
-        width: 60%;
+        width: 70%;
         border: none;
         position: relative;
         left: 21px;
@@ -257,7 +313,7 @@
         border: 1px #51ca89 solid;
         border-radius: 11px;
         color: #51ca89;
-        width: 143px;
+        width: 19%;
         height: 42px;
         font-family: SourceHanSansCN-Regular;
         font-size: 12px;
