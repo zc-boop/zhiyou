@@ -81,11 +81,10 @@ export default {
                 this.username = userName;
                 this.isShow = true;
             } else {
-                swal({
-                    title: "至游提示",
-                    text: "请先登录哟！！"
+                this.$dialog.alert({
+                    message: '请先登录！！'
                 });
-                this.$router.replace('/login')
+                this.goTo('/login')
             }
         },
         logout() {

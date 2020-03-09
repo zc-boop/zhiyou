@@ -1,7 +1,7 @@
 module.exports = {
     publicPath: '', /*相对于 HTML 页面（目录相同）*/
     devServer: {
-        open: true,
+      /*  open: true,
         proxy: {
             '/api': { // 匹配所有以 '/axios' 开头的请求路径
                 target: 'http://120.79.222.144', // 代理目标的基础路径
@@ -11,7 +11,7 @@ module.exports = {
                     '^/api': ''
                 }
             }
-        },
+        },*/
     },
     css: {
         loaderOptions: {

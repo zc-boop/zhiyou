@@ -56,7 +56,7 @@
 </template>
 
 <script>
-import https, {fetchGet} from "../../../https";
+import https from "../../../https";
 
 export default {
     name: "index",
