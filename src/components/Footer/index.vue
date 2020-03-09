@@ -10,7 +10,7 @@
                 <p>定制</p>
             </router-link>
             <router-link to="/message" tag="li">
-                <van-icon name="comment-o" />
+                <van-icon name="comment-o" info="5"/>
                 <p>消息</p>
             </router-link>
             <router-link to="/mine" tag="li">

@@ -27,6 +27,10 @@
                         <p>12</p>
                         <p>关注</p>
                     </router-link>
+                    <router-link to="/myfriend" tag="li">
+                        <p>0</p>
+                        <p>好友</p>
+                    </router-link>
                     <router-link to="/collect" tag="li">
                         <p>2</p>
                         <p>收藏</p>
@@ -77,7 +81,7 @@ export default {
                 const token = sessionStorage.getItem("token");
                 const user = jwtDecode(token);
                 const userName = user.username;
-                this.$store.commit('addUsername',userName);
+                this.$store.commit('addUsername', userName);
                 this.username = userName;
                 this.isShow = true;
             } else {

@@ -4,6 +4,7 @@ import VueRouter from 'vue-router'
 import Recommend from '../views/Recommend'
 import Customization from '../views/Customization'
 import Message from '../views/Message'
+//.........................................
 import Mine from '../views/Mine'
 import Attention from '../views/Mine/Attention'
 import Collect from '../views/Mine/Collect'
@@ -13,6 +14,7 @@ import Feedback from '../views/Mine/Feedback'
 import Einfo from '../views/Mine/Einfo'
 import Afans from '../views/Mine/Afans'
 import Fans from '../views/Mine/Fans'
+import MyFriend from '../views/Mine/MyFriend'
 //.........................................
 import Login from "../views/Login/index";
 import Register from "../views/Register/index";
@@ -92,7 +94,10 @@ const routes = [
         ]
 
     },
-
+    {
+      path:"/myfriend",
+      component:MyFriend
+    },
     //........................................
     {
         path: "/",

@@ -1,6 +1,10 @@
 <template>
     <div class="recommend">
-        recommend
+        <h2>用户推荐</h2>
+        <hr>
+        <ul class="li">
+
+        </ul>
     </div>
 </template>
 

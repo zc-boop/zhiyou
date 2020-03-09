@@ -18,6 +18,7 @@
                 <button>添加为好友</button>
             </li>
         </ul>
+
         <div class="weChatFriends">
             <div class="left">
                 <img src="../../../assets/Mine/wechatImg.png" alt/>
