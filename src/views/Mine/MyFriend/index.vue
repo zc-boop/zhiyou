@@ -17,14 +17,24 @@
             </li>
         </ul>
         <hr>
+        <ul class="friendList" >
+            <li>
+                <div class="fridenLeft">
+                    <img src="../../../../public/user6@2x.png" alt="">
+                    <span>username</span>
+                    <button class="deleteFriendButton" >删除好友</button>
+                    <button class="isisAttentionFriendButton">{{isAttentionFriend}}</button>
+                </div>
+            </li>
+        </ul>
         <ul class="friendList">
             <li>
-                <img src="../../../../public/user6@2x.png" alt="">
-                <span>Username</span>
-            </li>
-            <li>
-                <img src="../../../../public/user6@2x.png" alt="">
-                <span>Username</span>
+                <div class="fridenLeft"v-for="item in friendList" :key="item.user.username">
+                    <img src="../../../../public/user6@2x.png" alt="">
+                    <span>{{item.user.username}}</span>
+                    <button class="deleteFriendButton" @click="deleteFriend(item.user.username)">删除好友</button>
+                    <button class="isisAttentionFriendButton" @click="isAttentionFriend=='关注好友'?attentionFriend(item.user.username):deleteattentionFriend(item.user.username)">{{isAttentionFriend}}</button>
+                </div>
             </li>
         </ul>
     </div>
@@ -40,7 +50,10 @@ export default {
         return {
             searchFriend: "",
             iConcerned: "100",
-            searchUserList: []
+            searchUserList: [],
+            friendList:[],
+            isAttentionFriend:"关注好友",
+            username:""
         };
     },
     components: {
@@ -78,8 +91,8 @@ export default {
                     .then(res => {
                         if (res.data.code === 200) {
                             //token
-                            var friendList = res.data;
-                            console.log(friendList);
+                            this.friendList = res.data;
+                            console.log(this.friendList);
                         } else {
                             console.log(res.data.msg);
                         }
@@ -105,6 +118,64 @@ export default {
             } else {
                 console.log("请先登录。。");
             }
+        },
+        deleteFriend(username){
+            const token = sessionStorage.getItem("token");
+            console.log(token);
+            if (token){
+                https.fetchDelete('/zhiyou/v1/users/friend/delete/'+ username,null)
+                    .then(res =>{
+                        if (res.data.code===200){
+                            console.log(res.data.msg)
+                        }else {
+                            consle.log(res.data.msg)
+                        }
+                    })
+                    .catch(err =>{
+                        console.log()
+                    })
+            }else{
+                console.log("请先登录。。");
+            }
+
+        },
+        attentionFriend(username){
+            const token = sessionStorage.getItem("token");
+            console.log(token);
+            if (token){
+                https.fetchPost('/zhiyou/v1/users/friend/pursue/'+ username,null)
+                    .then(res =>{
+                        if (res.data.code===200){
+                            console.log(res.data.msg)
+                        }else {
+                            consle.log(res.data.msg)
+                        }
+                    })
+                    .catch(err =>{
+                        console.log(err.message)
+                    })
+            }else{
+                console.log("请先登录。。");
+            }
+        },
+        deleteattentionFriend(username){
+            const token = sessionStorage.getItem("token");
+            console.log(token);
+            if (token){
+                https.fetchDelete('/zhiyou/v1/users/friend/pursue/'+ username,null)
+                    .then(res =>{
+                        if (res.data.code===200){
+                            console.log(res.data.msg)
+                        }else {
+                            consle.log(res.data.msg)
+                        }
+                    })
+                    .catch(err =>{
+                        console.log()
+                    })
+            }else{
+                console.log("请先登录。。");
+            }
         }
     }
 }
@@ -115,16 +186,44 @@ export default {
         height: 98px;
         padding: 10px 20px;
         margin: 10px 0;
+        position: relative;
         border-bottom: 1px solid #eee;
     }
-    .friendList > li > img {
+    .friendList > li > div > img {
         width: 98px;
         height: 98px;
         vertical-align: middle;
     }
 
-    .friendList > li > span {
+    .friendList > li > div > span {
         font-size: 32px;
         margin-left: 20px;
+    }
+    .friendList > li > .fridenLeft {
+        display: flex;
+        align-items: center;
+    }
+    .deleteFriendButton{
+        width: 150px;
+        height: 60px;
+        background: #51ca89;
+        border: none;
+        color: white;
+        position: absolute;
+        right: 20px;
+        border-radius: 30px;
+        font-size: 26px;
+    }
+    .isisAttentionFriendButton{
+        width: 150px;
+        height: 60px;
+        background: #51ca89;
+        border: none;
+        color: white;
+        position: absolute;
+        right: 200px;
+        border-radius: 30px;
+        font-size: 26px;
+
     }
 </style>

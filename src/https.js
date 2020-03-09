@@ -60,7 +60,21 @@ export function fetchGet(url, param) {
     })
 }
 
+export function fetchDelete(url, param) {
+    return new Promise((resolve, reject) => {
+        axios.delete(url, {params: param})
+            .then(response => {
+                resolve(response)
+            }, err => {
+                reject(err)
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    })
+}
 export default {
     fetchPost,
     fetchGet,
+    fetchDelete,
 }
