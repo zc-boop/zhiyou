@@ -17,8 +17,9 @@ module.exports = {
         loaderOptions: {
             postcss: {
                 plugins: [
-                    require('postcss-px2rem')({
-                        remUnit: 75
+                    require('postcss-px2rem-exclude')({
+                        remUnit: 75,
+                        exclude: /node_modules|folder_name/i
                     })
                 ]
             }
