@@ -20,8 +20,8 @@
             <div class="codeText">
                 <img src="../../assets/Register/verifyIcon@2x.png"/>
                 <input class="codeInput" name="code" placeholder="验证码" v-model="userInfo.captcha"/>
-                <van-button plain type="default" @click="isEmail()" :disabled="attcode">{{code_ts}}</van-button>
-                <!--                v-if="showbtn"-->
+                <button  @click="isEmail()" :disabled="attcode">{{code_ts}}</button>
+<!--                <van-button plain type="default" @click="isEmail()" :disabled="attcode">{{code_ts}}</van-button>-->
             </div>
             <div class="Splitter"></div>
             <div class="passwordText">
@@ -33,7 +33,7 @@
                         v-model="userInfo.password"
                 />
             </div>
-            <div class="Splitter1"></div>
+            <div class="Splitter"></div>
             <div style="margin: 16px;" class="registerButton">
                 <van-button round block type="info" v-bind:disabled="!this.checked" @click="register()">注册</van-button>
             </div>
@@ -210,24 +210,15 @@
 
     .Splitter {
         width: 91%;
-        height: 1px;
+        height: 2px;
         position: relative;
         top: 1px;
         margin: 0 auto;
         background-color: #dcdcdc;
+        z-index:5;
     }
-
-    .Splitter1 {
-        width: 91%;
-        height: 2px;
-        position: relative;
-        top: 2px;
-        margin: 0 auto;
-        background-color: #dcdcdc;
-    }
-
     .codeInput {
-        width: 80%;
+        width: 60%;
         border: none;
         position: relative;
         left: 21px;
@@ -261,15 +252,17 @@
     }
 
     .codeText button {
+        margin-left: 30px;
         background-color: white;
         border: 1px #51ca89 solid;
         border-radius: 11px;
         color: #51ca89;
         width: 143px;
-        height: 40px;
+        height: 42px;
         font-family: SourceHanSansCN-Regular;
-        font-size: 20px;
-        line-height: 28px;
+        font-size: 12px;
+        line-height: 14px;
+        text-align: center;
     }
 
     .registerButton {
