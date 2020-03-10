@@ -59,6 +59,7 @@ export function fetchGet(url, param) {
             })
     })
 }
+
 ////返回一个Promise(发送Put请求)
 export function fetchPut(url, data) {
     return new Promise((resolve, reject) => {
@@ -73,6 +74,7 @@ export function fetchPut(url, data) {
             })
     })
 }
+
 ////返回一个Promise(发送delete请求)
 export function fetchDelete(url, param) {
     return new Promise((resolve, reject) => {
@@ -87,9 +89,25 @@ export function fetchDelete(url, param) {
             })
     })
 }
+
+/**
+ * 由于上面你设置json序列化、content-type ,
+ * 所以必须重新创建一个新的axios对象，
+ * 让浏览器自己设置content-type、并转化为二进制上传
+ * @param url
+ * @param formData
+ * @returns {Promise<unknown>}
+ */
+export function fetchUploadFile(url, formData) {
+   return new Promise((resolve, reject) => {
+       axios.create().post(url, formData).then(value => resolve(value)).catch(reason => reject(reason));
+   })
+
+}
 export default {
     fetchPost,
     fetchGet,
     fetchPut,
     fetchDelete,
+    fetchUploadFile
 }

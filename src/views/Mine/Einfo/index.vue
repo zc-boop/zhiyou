@@ -32,7 +32,7 @@
                         </label>
                         <input type="file"
                                id="inputFile"
-                               name="avatar"
+                               name="file"
                                style="display: none"
                                multiple
                                accept="image/jpg,image/jpeg,image/png"
@@ -78,67 +78,73 @@
 </template>
 
 <script>
-import Header from "../../../components/Header"
-import http from "../../../https"
+    import Header from "../../../components/Header"
+    import http from "../../../https"
 
-export default {
-    name: "index",
-    data() {
-        return {
-            fileList: [],
-            headerImg: "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1898582417,1582081952&fm=26&gp=0.jpg  ",
-            username: "",
-            email: ""
-        }
-    },
-    components: {
-        Header
-    },
-    created() {
-        this.obtainUserInfo();
-    },
-    methods: {
-        //上传头像
-        changeInfo() {
-            // /zhiyou/v1/users/upload/head
-            const token = sessionStorage.getItem("token");
-            const file = document.getElementById('inputFile').value;
-            console.log(file);
-            /* if (token) {
-                 http
-                     .fetchPost('/zhiyou/v1/users/upload/head', {file, token: token}).then(res => {
-                     if (res.data.code === 200) {
-                         console.log(res);
-                     }
-                 })
-             } else {
-                 this.$dialog.alert({
-                     message: '请先登录！！'
-                 });
-                 this.goTo('/login')
-             };*/
-            http
-                .fetchPost('/zhiyou/v1/users/upload/head', {file}).then(res => {
-                console.log(res);
-            })
+    export default {
+        name: "index",
+        data() {
+            return {
+                fileList: [],
+                headerImg: "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1898582417,1582081952&fm=26&gp=0.jpg  ",
+                username: "",
+                email: ""
+            }
         },
-        //获得用户信息
-        obtainUserInfo() {
-            if (sessionStorage.getItem("token")) {
-                const userInfo = sessionStorage.getItem('userInfo');
-                const userInfoObj = window.JSON.parse(userInfo);
-                console.log(userInfoObj);
-                this.username = userInfoObj.username;
-                this.email = userInfoObj.email;
-            } else {
-                this.$dialog.alert({
-                    message: '请先登录！！'
-                });
-                this.goTo('/login')
+        components: {
+            Header
+        },
+        created() {
+            this.obtainUserInfo();
+        },
+        methods: {
+            //上传头像
+            changeInfo() {
+                // // /zhiyou/v1/users/upload/head
+                const token = sessionStorage.getItem("token");
+                // const file = document.getElementById('inputFile').value;
+                // console.log(file);
+                // /* if (token) {
+                //      http
+                //          .fetchPost('/zhiyou/v1/users/upload/head', {file, token: token}).then(res => {
+                //          if (res.data.code === 200) {
+                //              console.log(res);
+                //          }
+                //      })
+                //  } else {
+                //      this.$dialog.alert({
+                //          message: '请先登录！！'
+                //      });
+                //      this.goTo('/login')
+                //  };*/
+                // http
+                //     .fetchPost('/zhiyou/v1/users/upload/head', {file}).then(res => {
+                //     console.log(res);
+                // })
+                let formData = new FormData(this.$refs.form);
+                http.fetchUploadFile('/zhiyou/v1/users/upload/head?token='+token,formData).then(value => {
+                    console.log(value);
+                }).catch(reason => {
+                    console.log(reason);
+                })
+            },
+            //获得用户信息
+            obtainUserInfo() {
+                if (sessionStorage.getItem("token")) {
+                    const userInfo = sessionStorage.getItem('userInfo');
+                    const userInfoObj = window.JSON.parse(userInfo);
+                    console.log(userInfoObj);
+                    this.username = userInfoObj.username;
+                    this.email = userInfoObj.email;
+                } else {
+                    this.$dialog.alert({
+                        message: '请先登录！！'
+                    });
+                    this.goTo('/login')
+                }
             }
         }
     }
-}
 </script>
 
 <style>
