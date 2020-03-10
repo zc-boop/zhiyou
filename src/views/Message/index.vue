@@ -66,7 +66,7 @@ export default {
             console.log(token);
             if (token) {
                 https
-                    .fetchPut("/zhiyou/v1/users/friend/apply/response/" + agree, {customer, define,level,producer,token: token})
+                    .fetchPut("/zhiyou/v1/users/friend/apply/response/" + agree+"?token="+token, {customer, define,level,producer})
                     .then(res => {
                         if (res.data.code === 200) {
                             console.log(res);
