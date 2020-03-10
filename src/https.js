@@ -100,7 +100,9 @@ export function fetchDelete(url, param) {
  */
 export function fetchUploadFile(url, formData) {
    return new Promise((resolve, reject) => {
-       axios.create().post(url, formData).then(value => resolve(value)).catch(reason => reject(reason));
+       axios.create({
+           timeout:50000
+       }).post(url, formData).then(value => resolve(value)).catch(reason => reject(reason));
    })
 
 }
