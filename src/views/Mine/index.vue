@@ -79,9 +79,18 @@ export default {
     },
     methods: {
         setUserInfo() {
-            const userInfo = sessionStorage.getItem('userInfo');
-            this.userInfo = window.JSON.parse(userInfo);
-            this.isShow = true;
+            if(sessionStorage.getItem('token')){
+                const userInfo = sessionStorage.getItem('userInfo');
+                this.userInfo = window.JSON.parse(userInfo);
+                this.isShow = true;
+            }else{
+                Dialog.alert({
+                    title:'提示',
+                    message:'请先登录'
+                })
+                this.goTo('/login')
+            }
+
         },
         logout() {
             sessionStorage.clear();

@@ -32,10 +32,10 @@
             <li>
                 <div class="fridenLeft"v-for="item in friendList" :key="item.username">
                     <img src="../../../../public/user6@2x.png" alt="">
-                    <span>{{item.username}}</span>
+                    <span>{{item.username}}{{item.level}}</span>
                     <button class="deleteFriendButton" @click="deleteFriend(item.username)">删除好友</button>
-                    <button v-show="(item.level==='101')" class="isisAttentionFriendButton" @click="attentionFriend(item.username)">关注好友</button>
-                    <button v-show="(item.level==='110')" class="isisAttentionFriendButton" @click="deleteAttentionFriend(item.username)">取消关注</button>
+                    <button v-show="(item.level==='101'||item.level==='100')" class="isisAttentionFriendButton" @click="attentionFriend(item.username)">关注好友</button>
+                    <button v-show="(item.level==='110'||item.level==='111')" class="isisAttentionFriendButton" @click="deleteAttentionFriend(item.username)">取消关注</button>
                 </div>
             </li>
         </ul>
@@ -125,10 +125,11 @@ export default {
             const token = sessionStorage.getItem("token");
             console.log(token);
             if (token){
-                https.fetchDelete('/zhiyou/v1/users/friend/delete/'+ username,null)
+                https.fetchDelete('/zhiyou/v1/users/friend/delete/'+ username,{token: token})
                     .then(res =>{
                         if (res.data.code===200){
                             console.log(res.data.msg)
+                            this.getFriendList()
                         }else {
                             consle.log(res.data.msg)
                         }
@@ -150,16 +151,17 @@ export default {
             const token = sessionStorage.getItem("token");
             console.log(token);
             if (token){
-                https.fetchPost('/zhiyou/v1/users/friend/pursue/'+ username,null)
+                https.fetchPost('/zhiyou/v1/users/friend/pursue/'+ username,{token: token})
                     .then(res =>{
                         if (res.data.code===200){
                             console.log(res.data.msg)
+                            this.getFriendList()
                         }else {
-                            consle.log(res.data.msg)
+                            console.log(res.data.msg)
                         }
                     })
                     .catch(err =>{
-                        console.log(err.message)
+                        console.log(err)
                     })
             }else{
                 console.log("请先登录。。");
@@ -169,10 +171,11 @@ export default {
             const token = sessionStorage.getItem("token");
             console.log(token);
             if (token){
-                https.fetchDelete('/zhiyou/v1/users/friend/pursue/'+ username,null)
+                https.fetchDelete('/zhiyou/v1/users/friend/pursue/'+ username,{token: token})
                     .then(res =>{
                         if (res.data.code===200){
                             console.log(res.data.msg)
+                            this.getFriendList()
                         }else {
                             consle.log(res.data.msg)
                         }
