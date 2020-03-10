@@ -71,7 +71,7 @@ export default {
                     .fetchGet("/zhiyou/v1/users/friend/users/" + this.searchFriend, {token: token})
                     .then(res => {
                         if (res.data.code === 200) {
-                            this.searchUserList = res.data.queryResult.list
+                            this.searchUserList = res.data.queryResult.list;
                             console.log(res.data.queryResult.list);
                         } else {
                             console.log(res.data.msg);

@@ -2,19 +2,19 @@
     <div class="footer">
         <ul>
             <router-link to="/recommend" tag="li">
-                <van-icon name="home-o" />
+                <van-icon name="home-o"/>
                 <p>推荐</p>
             </router-link>
             <router-link to="/customization" tag="li">
-                <van-icon name="vip-card-o" />
+                <van-icon name="vip-card-o"/>
                 <p>定制</p>
             </router-link>
             <router-link to="/message" tag="li">
-                <van-icon name="comment-o" info="5"/>
+                <van-icon name="comment-o" :info="messageCount"/>
                 <p>消息</p>
             </router-link>
             <router-link to="/mine" tag="li">
-                <van-icon name="user-o" />
+                <van-icon name="user-o"/>
                 <p>我的</p>
             </router-link>
         </ul>
@@ -22,8 +22,13 @@
 </template>
 
 <script>
+import {mapState} from "vuex"
+
 export default {
-    name: "Footer"
+    name: "Footer",
+    computed: {
+        ...mapState(['messageCount'])
+    }
 }
 </script>
 

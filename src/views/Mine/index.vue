@@ -63,6 +63,7 @@
 
 <script>
 import jwtDecode from "jwt-decode";
+import {mapMutations} from "vuex"
 
 export default {
     name: "mine",
@@ -76,12 +77,19 @@ export default {
         this.setUserInfo();
     },
     methods: {
+        ...mapMutations(['addUserId']),
         setUserInfo() {
             if (sessionStorage.getItem("token")) {
                 const token = sessionStorage.getItem("token");
+                // 解析token获取用户信息
                 const user = jwtDecode(token);
+                console.log(user.id);
                 const userName = user.username;
+                const userId = user.id;
+                //将登陆后的用户名储存到Vuex中
                 this.$store.commit('addUsername', userName);
+                //将登陆后的用户ID储存到Vuex中
+                this.addUserId(userId);
                 this.username = userName;
                 this.isShow = true;
             } else {

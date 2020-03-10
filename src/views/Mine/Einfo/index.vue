@@ -5,7 +5,7 @@
             <div class="header">
                 <img :src="headerImg" alt="">
                 <p>
-                    静静吖
+                    {{this.$store.state.userId}}
                     <span class="gender">♀</span>
                 </p>
                 <ul class="menu">
@@ -79,6 +79,7 @@
 
 <script>
 import Header from "../../../components/Header"
+import http from "../../../https"
 
 export default {
     name: "index",
@@ -91,21 +92,25 @@ export default {
     components: {
         Header
     },
+    created() {
+        this.obtainUserInfo();
+    },
     methods: {
         changeInfo() {
-            var formData = new FormData(this.$refs.form);
-            const eleToken = localStorage.getItem('eleToken');
-            if(eleToken){
-                this.$api.post('/zhiyou/v1/users/upload/head', { eleToken,formData}, res => {
-                    if (res.status >= 200 && res.status < 300) {
-                        console.log(res.data.msg);
-                    } else {
-                        console.log("请求失败");//请求失败，response为失败信息
-                    }
-                });
-            }else {
-                console.log("无Token");
+
+        },
+        //获得用户信息
+        obtainUserInfo() {
+            const token = sessionStorage.getItem('token');
+            let userId = this.$store.state.userId;
+            console.log(userId);
+            if (token) {
+                http
+                    .fetchGet('/zhiyou/v1/users/userinfo/' + userId, {token: token}).then(res => {
+                    console.log(res);
+                })
             }
+
         }
     }
 }
