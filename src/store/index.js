@@ -6,6 +6,7 @@ export default new Vuex.Store({
     state: {
         username: "",
         userId: "",
+        userInfo:[],
         messageCount: "",
         queryResultList: [],
         agree: {}
@@ -14,6 +15,10 @@ export default new Vuex.Store({
         //储存登录后用户的用户名
         addUsername(state, username) {
             state.username = username
+        },
+        //用户信息
+        addUserInfo(state,userInfo){
+            state.userInfo = userInfo
         },
         //储存登录后用户的id
         addUserId(state, userId) {
@@ -30,6 +35,8 @@ export default new Vuex.Store({
             state.agree = agree
         }
     },
-    actions: {},
+    actions: {
+
+    },
     modules: {}
 })

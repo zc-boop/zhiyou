@@ -54,6 +54,9 @@
 <script>
 import Header from "../../components/Header";
 import https from "../../https.js";
+import jwtDecode from "jwt-decode";
+import {mapMutations} from "vuex";
+import http from "../../https";
 
 export default {
     name: "Login",
@@ -61,48 +64,44 @@ export default {
         return {
             userInfo: {
                 username: "calmlyx",
-                password: "123456"
+                password: "123456",
             }
         };
     },
     components: {
         Header
     },
+    created() {
+    },
     methods: {
+        ...mapMutations(['addUserId']),
         login() {
             https
                 .fetchPost("/zhiyou/v1/users/signin", this.userInfo)
                 .then(res => {
                     if (res.data.code === 200) {
                         window.sessionStorage.setItem("token", res.data.token);
+                        //获取token进行解析
+                        const token = sessionStorage.getItem("token");
+                        // 解析token获取用户信息
+                        const user = jwtDecode(token);
+                        const toJson = window.JSON.stringify(user);
+                        sessionStorage.setItem('userInfo', toJson);
+                        console.log(toJson);
                         this.goTo("/mine");
+                    } else {
                     }
-                    8989;
                 })
                 .catch(err => {
                     console.log(err);
                 });
-        }
+        },
+
     }
 };
 </script>
 
 <style scoped>
-    .registerBack {
-        width: 20%;
-        height: 100%;
-        position: absolute !important;
-        left: 0;
-        line-height: 100px !important;
-        z-index: 100;
-    }
-
-    .pageHeader {
-        width: 100%;
-        position: absolute;
-        right: 0;
-    }
-
     .loginImages {
         width: 140px;
         height: 140px;

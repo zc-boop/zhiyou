@@ -91,8 +91,8 @@ export default {
                     .then(res => {
                         if (res.data.code === 200) {
                             //token
-                            this.friendList = res.data;
-                            console.log(this.friendList);
+                            this.friendList = res.data.queryResult.list;
+                            console.log(res.data.queryResult);
                         } else {
                             console.log(res.data.msg);
                         }

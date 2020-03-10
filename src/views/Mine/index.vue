@@ -12,7 +12,7 @@
                 <div class="cardTop">
                     <div class="left">
                         <img src="../../../public/user6@2x.png" alt/>
-                        <router-link :to="username ? '/mine': '/login'" tag="span">{{username || "请登录..."}}
+                        <router-link :to="username ? '/mine': '/login'" tag="span">{{userInfo.username || "请登录..."}}
                         </router-link>
                     </div>
                     <router-link to="/einfo" tag="button">编辑资料</router-link>
@@ -62,14 +62,15 @@
 </template>
 
 <script>
-import jwtDecode from "jwt-decode";
-import {mapMutations} from "vuex"
+/*import jwtDecode from "jwt-decode";
+import {mapMutations} from "vuex"*/
 
 export default {
     name: "mine",
     data() {
         return {
             username: "",
+            userInfo: [],
             isShow: false
         };
     },
@@ -77,30 +78,13 @@ export default {
         this.setUserInfo();
     },
     methods: {
-        ...mapMutations(['addUserId']),
         setUserInfo() {
-            if (sessionStorage.getItem("token")) {
-                const token = sessionStorage.getItem("token");
-                // 解析token获取用户信息
-                const user = jwtDecode(token);
-                console.log(user.id);
-                const userName = user.username;
-                const userId = user.id;
-                //将登陆后的用户名储存到Vuex中
-                this.$store.commit('addUsername', userName);
-                //将登陆后的用户ID储存到Vuex中
-                this.addUserId(userId);
-                this.username = userName;
-                this.isShow = true;
-            } else {
-                this.$dialog.alert({
-                    message: '请先登录！！'
-                });
-                this.goTo('/login')
-            }
+            const userInfo = sessionStorage.getItem('userInfo');
+            this.userInfo = window.JSON.parse(userInfo);
+            this.isShow = true;
         },
         logout() {
-            sessionStorage.removeItem("token");
+            sessionStorage.clear();
             this.isShow = false;
             this.goTo("/login");
         }

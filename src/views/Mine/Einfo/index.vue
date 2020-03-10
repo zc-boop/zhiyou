@@ -5,7 +5,7 @@
             <div class="header">
                 <img :src="headerImg" alt="">
                 <p>
-                    {{this.$store.state.userId}}
+                    {{username}}
                     <span class="gender">♀</span>
                 </p>
                 <ul class="menu">
@@ -43,7 +43,7 @@
                     <li>
                         <span>用户名</span>
                         <div>
-                            <span>静静吖</span>
+                            <span>{{username}}</span>
                             <van-icon name="arrow" class="rightIcon"/>
                         </div>
                     </li>
@@ -57,7 +57,7 @@
                     <li>
                         <span>邮箱</span>
                         <div>
-                            <span>XXXXXX@163.com</span>
+                            <span>{{email}}</span>
                             <van-icon name="arrow" class="rightIcon"/>
                         </div>
                     </li>
@@ -87,6 +87,8 @@ export default {
         return {
             fileList: [],
             headerImg: "https://dss1.bdstatic.com/70cFvXSh_Q1YnxGkpoWK1HF6hhy/it/u=1898582417,1582081952&fm=26&gp=0.jpg  ",
+            username: "",
+            email: ""
         }
     },
     components: {
@@ -96,21 +98,44 @@ export default {
         this.obtainUserInfo();
     },
     methods: {
+        //上传头像
         changeInfo() {
-
+            // /zhiyou/v1/users/upload/head
+            const token = sessionStorage.getItem("token");
+            const file = document.getElementById('inputFile').value;
+            console.log(file);
+            /* if (token) {
+                 http
+                     .fetchPost('/zhiyou/v1/users/upload/head', {file, token: token}).then(res => {
+                     if (res.data.code === 200) {
+                         console.log(res);
+                     }
+                 })
+             } else {
+                 this.$dialog.alert({
+                     message: '请先登录！！'
+                 });
+                 this.goTo('/login')
+             };*/
+            http
+                .fetchPost('/zhiyou/v1/users/upload/head', {file}).then(res => {
+                console.log(res);
+            })
         },
         //获得用户信息
         obtainUserInfo() {
-            const token = sessionStorage.getItem('token');
-            let userId = this.$store.state.userId;
-            console.log(userId);
-            if (token) {
-                http
-                    .fetchGet('/zhiyou/v1/users/userinfo/' + userId, {token: token}).then(res => {
-                    console.log(res);
-                })
+            if (sessionStorage.getItem("token")) {
+                const userInfo = sessionStorage.getItem('userInfo');
+                const userInfoObj = window.JSON.parse(userInfo);
+                console.log(userInfoObj);
+                this.username = userInfoObj.username;
+                this.email = userInfoObj.email;
+            } else {
+                this.$dialog.alert({
+                    message: '请先登录！！'
+                });
+                this.goTo('/login')
             }
-
         }
     }
 }
