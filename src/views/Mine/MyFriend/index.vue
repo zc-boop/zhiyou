@@ -22,18 +22,20 @@
                 <div class="fridenLeft">
                     <img src="../../../../public/user6@2x.png" alt="">
                     <span>username</span>
-                    <button class="deleteFriendButton" >删除好友</button>
-                    <button class="isisAttentionFriendButton">{{isAttentionFriend}}</button>
+                    <button class="deleteFriendButton">删除好友</button>
+                    <button class="isisAttentionFriendButton">关注好友</button>
+                    <button class="isisAttentionFriendButton">取消关注</button>
                 </div>
             </li>
         </ul>
         <ul class="friendList">
             <li>
-                <div class="fridenLeft"v-for="item in friendList" :key="item.user.username">
+                <div class="fridenLeft"v-for="item in friendList" :key="item.username">
                     <img src="../../../../public/user6@2x.png" alt="">
-                    <span>{{item.user.username}}</span>
-                    <button class="deleteFriendButton" @click="deleteFriend(item.user.username)">删除好友</button>
-                    <button class="isisAttentionFriendButton" @click="isAttentionFriend=='关注好友'?attentionFriend(item.user.username):deleteattentionFriend(item.user.username)">{{isAttentionFriend}}</button>
+                    <span>{{item.username}}</span>
+                    <button class="deleteFriendButton" @click="deleteFriend(item.username)">删除好友</button>
+                    <button v-show="(item.level==='101')" class="isisAttentionFriendButton" @click="attentionFriend(item.username)">关注好友</button>
+                    <button v-show="(item.level==='110')" class="isisAttentionFriendButton" @click="deleteAttentionFriend(item.username)">取消关注</button>
                 </div>
             </li>
         </ul>
@@ -52,8 +54,8 @@ export default {
             iConcerned: "100",
             searchUserList: [],
             friendList:[],
-            isAttentionFriend:"关注好友",
-            username:""
+            isAttentionFriend:"取消关注好友",
+            level:'',
         };
     },
     components: {
@@ -92,7 +94,7 @@ export default {
                         if (res.data.code === 200) {
                             //token
                             this.friendList = res.data.queryResult.list;
-                            console.log(res.data.queryResult);
+                            console.log(this.friendList);
                         } else {
                             console.log(res.data.msg);
                         }
@@ -139,6 +141,11 @@ export default {
             }
 
         },
+        changeAattention(level){
+            if (level==1){
+
+            }
+        },
         attentionFriend(username){
             const token = sessionStorage.getItem("token");
             console.log(token);
@@ -158,7 +165,7 @@ export default {
                 console.log("请先登录。。");
             }
         },
-        deleteattentionFriend(username){
+        deleteAttentionFriend(username){
             const token = sessionStorage.getItem("token");
             console.log(token);
             if (token){
@@ -206,7 +213,7 @@ export default {
     .deleteFriendButton{
         width: 150px;
         height: 60px;
-        background: #51ca89;
+        background: red;
         border: none;
         color: white;
         position: absolute;
