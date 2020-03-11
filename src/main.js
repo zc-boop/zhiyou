@@ -13,7 +13,6 @@ Vue.prototype.$axios = axios;
 import QS from 'qs'
 
 Vue.prototype.qs = QS;
-
 Vue.use(Vant, axios, swal, https);
 Vue.config.productionTip = false;
 Vue.prototype.goTo = function (path) {

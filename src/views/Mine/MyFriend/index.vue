@@ -7,6 +7,7 @@
             </div>
             <input type="text" placeholder="搜索用户名" v-model="searchFriend" @change="searchFriendFun"/>
         </div>
+        <!--搜索用户列表-->
         <ul class="fansList" v-for="item in searchUserList" :key="item.user.username">
             <li>
                 <div class="left">
@@ -17,25 +18,29 @@
             </li>
         </ul>
         <hr>
-        <ul class="friendList" >
-            <li>
-                <div class="fridenLeft">
-                    <img src="../../../../public/user6@2x.png" alt="">
-                    <span>username</span>
-                    <button class="deleteFriendButton">删除好友</button>
-                    <button class="isisAttentionFriendButton">关注好友</button>
-                    <button class="isisAttentionFriendButton">取消关注</button>
-                </div>
-            </li>
-        </ul>
+        <!-- <ul class="friendList" >
+             <li>
+                 <div class="fridenLeft">
+                     <img src="../../../../public/user6@2x.png" alt="">
+                     <span>username</span>
+                     <button class="deleteFriendButton">删除好友</button>
+                     <button class="isisAttentionFriendButton">关注好友</button>
+                     <button class="isisAttentionFriendButton">取消关注</button>
+                 </div>
+             </li>
+         </ul>-->
         <ul class="friendList">
             <li>
-                <div class="fridenLeft"v-for="item in friendList" :key="item.username">
+                <div class="fridenLeft" v-for="item in friendList" :key="item.username">
                     <img src="../../../../public/user6@2x.png" alt="">
                     <span>{{item.username}}{{item.level}}</span>
                     <button class="deleteFriendButton" @click="deleteFriend(item.username)">删除好友</button>
-                    <button v-show="(item.level==='101'||item.level==='100')" class="isisAttentionFriendButton" @click="attentionFriend(item.username)">关注好友</button>
-                    <button v-show="(item.level==='110'||item.level==='111')" class="isisAttentionFriendButton" @click="deleteAttentionFriend(item.username)">取消关注</button>
+                    <button v-show="(item.level==='101'||item.level==='100')" class="isisAttentionFriendButton"
+                            @click="attentionFriend(item.username)">关注好友
+                    </button>
+                    <button v-show="(item.level==='110'||item.level==='111')" class="isisAttentionFriendButton"
+                            @click="deleteAttentionFriend(item.username)">取消关注
+                    </button>
                 </div>
             </li>
         </ul>
@@ -53,16 +58,16 @@ export default {
             searchFriend: "",
             iConcerned: "100",
             searchUserList: [],
-            friendList:[],
-            isAttentionFriend:"取消关注好友",
-            level:'',
+            friendList: [],
+            isAttentionFriend: "取消关注好友",
+            level: '',
         };
     },
     components: {
         Header
     },
     created() {
-      this.getFriendList();
+        this.getFriendList();
     },
     methods: {
         searchFriendFun() {
@@ -103,7 +108,7 @@ export default {
                 console.log("请先登录。。");
             }
         },
-        addFriend(){
+        addFriend() {
             const token = sessionStorage.getItem("token");
             const addUsername = document.getElementById("addUsername").innerText;
             if (token) {
@@ -121,69 +126,69 @@ export default {
                 console.log("请先登录。。");
             }
         },
-        deleteFriend(username){
+        deleteFriend(username) {
             const token = sessionStorage.getItem("token");
             console.log(token);
-            if (token){
-                https.fetchDelete('/zhiyou/v1/users/friend/delete/'+ username,{token: token})
-                    .then(res =>{
-                        if (res.data.code===200){
+            if (token) {
+                https.fetchDelete('/zhiyou/v1/users/friend/delete/' + username, {token: token})
+                    .then(res => {
+                        if (res.data.code === 200) {
                             console.log(res.data.msg)
                             this.getFriendList()
-                        }else {
+                        } else {
                             consle.log(res.data.msg)
                         }
                     })
-                    .catch(err =>{
+                    .catch(err => {
                         console.log()
                     })
-            }else{
+            } else {
                 console.log("请先登录。。");
             }
 
         },
-        changeAattention(level){
-            if (level==1){
+        changeAattention(level) {
+            if (level == 1) {
 
             }
         },
-        attentionFriend(username){
+        attentionFriend(username) {
             const token = sessionStorage.getItem("token");
             console.log(token);
-            if (token){
-                https.fetchPost('/zhiyou/v1/users/friend/pursue/'+ username,{token: token})
-                    .then(res =>{
-                        if (res.data.code===200){
+            if (token) {
+                https.fetchPost('/zhiyou/v1/users/friend/pursue/' + username, {token: token})
+                    .then(res => {
+                        if (res.data.code === 200) {
                             console.log(res.data.msg)
                             this.getFriendList()
-                        }else {
+                        } else {
                             console.log(res.data.msg)
                         }
                     })
-                    .catch(err =>{
+                    .catch(err => {
                         console.log(err)
                     })
-            }else{
+            } else {
                 console.log("请先登录。。");
             }
         },
-        deleteAttentionFriend(username){
+        deleteAttentionFriend(username) {
             const token = sessionStorage.getItem("token");
             console.log(token);
-            if (token){
-                https.fetchDelete('/zhiyou/v1/users/friend/pursue/'+ username,{token: token})
-                    .then(res =>{
-                        if (res.data.code===200){
+            if (token) {
+                https.fetchDelete('/zhiyou/v1/users/friend/pursue/' + username, {token: token})
+                    .then(res => {
+                        if (res.data.code === 200) {
                             console.log(res.data.msg)
                             this.getFriendList()
-                        }else {
+                        } else {
                             consle.log(res.data.msg)
                         }
                     })
-                    .catch(err =>{
+                    .catch(err => {
                         console.log()
                     })
-            }else{
+            } else {
                 console.log("请先登录。。");
             }
         }
@@ -199,6 +204,7 @@ export default {
         position: relative;
         border-bottom: 1px solid #eee;
     }
+
     .friendList > li > div > img {
         width: 98px;
         height: 98px;
@@ -209,11 +215,13 @@ export default {
         font-size: 32px;
         margin-left: 20px;
     }
+
     .friendList > li > .fridenLeft {
         display: flex;
         align-items: center;
     }
-    .deleteFriendButton{
+
+    .deleteFriendButton {
         width: 150px;
         height: 60px;
         background: red;
@@ -224,7 +232,8 @@ export default {
         border-radius: 30px;
         font-size: 26px;
     }
-    .isisAttentionFriendButton{
+
+    .isisAttentionFriendButton {
         width: 150px;
         height: 60px;
         background: #51ca89;

@@ -9,7 +9,8 @@ export default new Vuex.Store({
         userInfo:[],
         messageCount: "",
         queryResultList: [],
-        agree: {}
+        agree: {},
+        noHeadPortrait:"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1093847288,3038136586&fm=26&gp=0.jpg",
     },
     mutations: {
         //储存登录后用户的用户名

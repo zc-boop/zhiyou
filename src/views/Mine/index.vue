@@ -11,7 +11,7 @@
             <div class="userCard">
                 <div class="cardTop">
                     <div class="left">
-                        <img src="../../../public/user6@2x.png" alt/>
+                        <img :src="userInfo.headPortrait || this.$store.state.noHeadPortrait" alt/>
                         <router-link :to="username ? '/mine': '/login'" tag="span">{{userInfo.username || "请登录..."}}
                         </router-link>
                     </div>
@@ -79,18 +79,11 @@ export default {
     },
     methods: {
         setUserInfo() {
-            if(sessionStorage.getItem('token')){
+            if (sessionStorage.getItem('token')) {
                 const userInfo = sessionStorage.getItem('userInfo');
                 this.userInfo = window.JSON.parse(userInfo);
                 this.isShow = true;
-            }else{
-                Dialog.alert({
-                    title:'提示',
-                    message:'请先登录'
-                })
-                this.goTo('/login')
             }
-
         },
         logout() {
             sessionStorage.clear();

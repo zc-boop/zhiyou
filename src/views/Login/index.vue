@@ -1,13 +1,12 @@
 <template>
     <div class="login">
-        <div class="space"></div>
-        <!--  <div class="mineHeader">
-              <div class="space"></div>
-              <div class="personalCenter" style="position: relative">
-                  <van-icon name="arrow-left" class="registerBack" @click="goTo('/mine')"/>
-                  <div class="pageHeader">登录</div>
-              </div>
-          </div>-->
+        <div class="mineHeader">
+            <div class="space"></div>
+            <div class="personalCenter" style="position: relative">
+                <van-icon name="arrow-left" class="registerBack" @click="goTo('/mine')"/>
+                <div class="pageHeader">登录</div>
+            </div>
+        </div>
         <div class="loginImages">
             <img src="../../assets/Login/user@2x.png"/>
         </div>
@@ -56,7 +55,6 @@ import Header from "../../components/Header";
 import https from "../../https.js";
 import jwtDecode from "jwt-decode";
 import {mapMutations} from "vuex";
-import http from "../../https";
 
 export default {
     name: "Login",
@@ -102,6 +100,21 @@ export default {
 </script>
 
 <style scoped>
+    .registerBack {
+        width: 20%;
+        height: 100%;
+        position: absolute !important;
+        left: 0;
+        line-height: 100px !important;
+        z-index: 100;
+    }
+
+    .pageHeader {
+        width: 100%;
+        position: absolute;
+        right: 0;
+    }
+
     .loginImages {
         width: 140px;
         height: 140px;
