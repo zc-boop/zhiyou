@@ -3,15 +3,15 @@
         <ul>
             <router-link to="/recommend" tag="li">
                 <van-icon name="home-o"/>
-                <p>推荐</p>
+                <p>行程</p>
             </router-link>
             <router-link to="/customization" tag="li">
                 <van-icon name="vip-card-o"/>
-                <p>定制</p>
+                <p>周边</p>
             </router-link>
             <router-link to="/message" tag="li">
                 <van-icon name="comment-o" :info="messageCount"/>
-                <p>消息</p>
+                <p>社区</p>
             </router-link>
             <router-link to="/mine" tag="li">
                 <van-icon name="user-o"/>
