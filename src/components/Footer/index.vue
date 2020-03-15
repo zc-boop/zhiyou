@@ -5,7 +5,7 @@
                 <van-icon name="home-o"/>
                 <p>行程</p>
             </router-link>
-            <router-link to="/customization" tag="li">
+            <router-link to="/periphery" tag="li">
                 <van-icon name="vip-card-o"/>
                 <p>周边</p>
             </router-link>

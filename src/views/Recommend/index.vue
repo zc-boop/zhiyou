@@ -54,11 +54,11 @@
                     <p>更多></p>
                 </div>
                 <ul class="routeLists">
-                   <li>
-                       <img src="../../assets/home/img4.png" alt="">
-                       <h3>成都三日游</h3>
-                       <p>宽窄巷子/锦里/大熊猫繁育研究基地</p>
-                   </li>
+                    <li>
+                        <img src="../../assets/home/img4.png" alt="">
+                        <h3>成都三日游</h3>
+                        <p>宽窄巷子/锦里/大熊猫繁育研究基地</p>
+                    </li>
                     <li>
                         <img src="../../assets/home/img5.png" alt="">
                         <h3>稻城亚丁七日游</h3>
@@ -106,6 +106,7 @@ export default {
 </script>
 
 <style>
+    /*banner*/
     .banner {
         width: 100%;
         height: 368px;
@@ -155,16 +156,18 @@ export default {
         margin-top: 21px;
     }
 
-    /*    bottomAll*/
-    .bottomAll{
+    /*    bottomAll  */
+    .bottomAll {
         width: 100%;
         margin-top: 90px;
     }
-    .popularDestination,.recommendedToYou{
+    /*热门景点*/
+    .popularDestination, .recommendedToYou {
         padding-left: 33px;
         padding-right: 49px;
     }
-    .listHeader{
+
+    .listHeader {
         height: 33px;
         border-left: 6px solid #51ca89;
         padding-left: 9px;
@@ -175,14 +178,17 @@ export default {
         justify-content: space-between;
         padding-right: 20px;
     }
-    .listHeader>p:last-of-type{
+
+    .listHeader > p:last-of-type {
         font-size: 24px;
         color: #333;
     }
-    .touristArea{
+
+    .touristArea {
         margin: 50px 0;
     }
-    .touristArea>button{
+
+    .touristArea > button {
         width: 120px;
         height: 70px;
         margin: 0 20px;
@@ -193,120 +199,147 @@ export default {
         box-shadow: 1px 1px 10px rgba(204, 204, 204, 0.1);
         color: #484848;
     }
-    .touristArea>button:hover{
+
+    .touristArea > button:hover {
         border: none;
         background: #51ca89;
         border-radius: 8px;
         box-shadow: 0px 5px 10px rgba(81, 202, 137, 0.3);
         color: white;
     }
-    .recommendedType{
+    /*为你推荐*/
+    .recommendedType {
         display: flex;
         justify-content: space-between;
         margin: 50px 0;
     }
-    .reTypeLeft{
+
+    .reTypeLeft {
         width: 310px;
         height: 362px;
         background: url("../../assets/home/img1.png");
         background-size: 100% 100%;
     }
-    .recommendedType .mask{
+
+    .recommendedType .mask {
         width: 100%;
         height: 100%;
         box-sizing: border-box;
         border: 1px solid rgba(255, 255, 255, 0.25);
         background: rgba(255, 255, 255, 0.25);
     }
-    .reTypeLeft .mask>p{
+
+    .reTypeLeft .mask > p {
         margin-left: 20px;
         margin-top: 20px;
         color: white;
     }
-    .recommendedType .mask>p:first-of-type{
+
+    .recommendedType .mask > p:first-of-type {
         font-size: 30px;
     }
-    .recommendedType .mask>p:last-of-type{
+
+    .recommendedType .mask > p:last-of-type {
         font-size: 18px;
     }
-    .reTypeRight>div{
+
+    .reTypeRight > div {
         width: 326px;
         height: 171px;
     }
-    .reTypeRight>div:first-of-type{
+
+    .reTypeRight > div:first-of-type {
         background: url("../../assets/home/img2.png");
         background-size: 100% 100%;
         margin-bottom: 20px;
     }
-    .reTypeRight>div:last-of-type{
+
+    .reTypeRight > div:last-of-type {
         background: url("../../assets/home/img3.png");
         background-size: 100% 100%;
     }
-    .reTypeRight p{
+
+    .reTypeRight p {
         color: white;
         margin-left: 20px;
     }
-    .reTypeRight p:first-of-type{
+
+    .reTypeRight p:first-of-type {
         margin-top: 20px;
     }
-    .reTypeRight p:last-of-type{
+
+    .reTypeRight p:last-of-type {
         margin-top: 11px;
     }
-    .popularRoutes{
+    /*热门路线*/
+    .popularRoutes {
         padding-left: 33px;
     }
-    .routeLists{
+
+    .routeLists {
         margin: 50px 0;
         display: flex;
         overflow: auto;
     }
-    .routeLists>li{
-        margin: 0 20px ;
+
+    .routeLists > li {
+        margin: 0 20px;
     }
-    .routeLists>li>img{
+
+    .routeLists > li > img {
         width: 367px;
         height: 226px;
     }
-    .routeLists>li>h3{
+
+    .routeLists > li > h3 {
         font-size: 30px;
         font-weight: normal;
         color: #333;
         margin: 20px 0;
     }
-    .routeLists>li>p{
+
+    .routeLists > li > p {
         font-size: 24px;
         color: #666;
     }
-    .featuredDestination{
+    /*精选目的地*/
+    .featuredDestination {
         padding-left: 33px;
     }
-    .featuredLists{
+
+    .featuredLists {
         display: flex;
         justify-content: space-between;
         margin: 42px 0;
         padding-right: 49px;
     }
-    .featuredLists>li{
+
+    .featuredLists > li {
         text-align: center;
     }
-    .featuredLists>li:nth-child(1){
+
+    .featuredLists > li:nth-child(1) {
         margin-left: 15px;
     }
-    .featuredLists>li:nth-child(2){
+
+    .featuredLists > li:nth-child(2) {
         margin: 0 20px;
     }
-    .featuredLists>li>img{
+
+    .featuredLists > li > img {
         width: 206px;
         height: 182px;
         margin-bottom: 20px;
     }
-    .featuredLists>li>h3{
-         font-size: 30px;
+
+    .featuredLists > li > h3 {
+        font-size: 30px;
         color: #333333;
         font-weight: normal;
         margin-bottom: 15px;
     }
-    .featuredLists>li>p{
+
+    .featuredLists > li > p {
         font-size: 24px;
         color: #666666;
     }
