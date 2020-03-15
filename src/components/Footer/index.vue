@@ -9,7 +9,7 @@
                 <van-icon name="vip-card-o"/>
                 <p>周边</p>
             </router-link>
-            <router-link to="/message" tag="li">
+            <router-link to="/community" tag="li">
                 <van-icon name="comment-o" :info="messageCount"/>
                 <p>社区</p>
             </router-link>

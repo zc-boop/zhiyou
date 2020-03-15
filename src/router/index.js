@@ -2,12 +2,12 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 //.........................................
-import Recommend from '../views/Recommend'
+import RecommendDynamic from '../views/RecommendDynamic'
 import Customization from '../views/Customization'
 import Message from '../views/Message'
 //.........................................
 import Mine from '../views/Mine'
-import Attention from '../views/Mine/Attention'
+import Attention from '../views/Mine/AttentionDynamic'
 import Collect from '../views/Mine/Collect'
 import Cpassword from '../views/Mine/Cpassword'
 import oService from '../views/Mine/oService'
@@ -27,8 +27,8 @@ Vue.use(VueRouter);
 const routes = [
     {
         path: "/recommend",
-        name: "Recommend",
-        component: Recommend,
+        name: "RecommendDynamic",
+        component: RecommendDynamic,
         meta: {
             showFooter: true
         }
@@ -159,6 +159,12 @@ import Recommend from '../views/Recommend'
 import Customization from '../views/Customization'
 import Message from '../views/Message'
 //.........................................
+import Community from '../views/Community'
+import AttentionDynamic from '../views/Community/AttentionDynamic'
+import Nearby from '../views/Community/Nearby'
+import RecommendDynamic from '../views/Community/RecommendDynamic'
+import DynamicComments from '../views/Community/DynamicComments'
+//.........................................
 import Mine from '../views/Mine'
 import Attention from '../views/Mine/Attention'
 import Collect from '../views/Mine/Collect'
@@ -205,6 +211,51 @@ const routes = [
             requireAuth:true
         }
     },
+    //........................................
+    {
+        path: "/community",
+        name: "Community",
+        component: Community,
+        meta: {
+            showFooter: true,
+            requireAuth:true
+        },
+        children:[
+            {
+                path: '/community/attentiondynamic',
+                component: AttentionDynamic,
+                meta: {
+                    showFooter: true,
+                    requireAuth:true
+                },
+            },
+            {
+                path: "/community",
+                redirect: "/community/attentiondynamic"
+            },
+            {
+                path: '/community/nearby',
+                component: Nearby,
+                meta: {
+                    showFooter: true,
+                    requireAuth:true
+                },
+            },
+            {
+                path: '/community/recommenddynamic',
+                component: RecommendDynamic,
+                meta: {
+                    showFooter: true,
+                    requireAuth:true
+                },
+            },
+        ]
+    },
+    {
+        path: '/dynamiccomments',
+        component: DynamicComments
+    },
+    //........................................
     {
         path: "/mine",
         name: "Mine",
