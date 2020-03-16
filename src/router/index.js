@@ -238,15 +238,24 @@ const router = new VueRouter({
 });
 router.beforeEach((to, from, next) => {
     if (to.meta.requireAuth) { // 判断该路由是否需要登录权限
+        document.body.scrollTop = 0        // chrome
+        document.documentElement.scrollTop = 0        // firefox
+        window.pageYOffset = 0        // safari
         next();
     } else {
         if (sessionStorage.getItem("token")) { // 通过vuex state获取当前的token是否存在
+            document.body.scrollTop = 0        // chrome
+            document.documentElement.scrollTop = 0        // firefox
+            window.pageYOffset = 0        // safari
             next();
         } else {
             Dialog.alert({
                 title: '提示',
                 message: '请先登录！！！'
             }).then(() => {
+                document.body.scrollTop = 0        // chrome
+                document.documentElement.scrollTop = 0        // firefox
+                window.pageYOffset = 0        // safari
                 next({
                     path: '/login',
                 })
