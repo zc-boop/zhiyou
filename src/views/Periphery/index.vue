@@ -3,7 +3,7 @@
         <div class="peripheryHeader">
             <div class="space"></div>
             <div class="headerSearch">
-                <van-icon name="arrow-left" class="l_back"/>
+                <van-icon name="arrow-left" class="l_back" @click="$router.back()"/>
                 <div class="searchBox">
                     <img src="../../assets/Community/sousuo.png" alt="">
                     <input type="text" placeholder="成都">

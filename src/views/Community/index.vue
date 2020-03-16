@@ -3,10 +3,10 @@
         <div class="mineHeader">
             <div class="space"></div>
             <div class="personalCenter" style="position: relative">
-                <van-icon name="arrow-left" class="registerBack" @click="goTo('/mine')"/>
+                <van-icon name="arrow-left" class="registerBack" @click="$router.back()"/>
                 <div class="searchBox">
                     <img src="../../assets/Community/sousuo.png">
-                    <input value="成都">
+                    <input type="text" placeholder="成都">
                 </div>
                 <div class="landmark">
                     <img src="../../assets/Community/dizhi.png">
@@ -68,8 +68,8 @@
         border: 0;
         color: #333333;
         position: relative;
-        left: 23px;
-        bottom: 20px;
+        left: 20px;
+        bottom: 22px;
     }
     .landmark {
         width: 15%;
