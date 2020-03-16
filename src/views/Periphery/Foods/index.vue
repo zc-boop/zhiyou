@@ -9,7 +9,7 @@
             <li>酒水</li>
         </ul>
         <ul class="foodList">
-            <li>
+            <router-link to="/fooddetails" tag="li">
                 <img src="../../../assets/Periphery/food1.png" alt="">
                 <div class="foodDetail">
                     <h3>招牌麻辣鱼</h3>
@@ -21,7 +21,7 @@
                         <button>立即购买</button>
                     </div>
                 </div>
-            </li>
+            </router-link>
             <li>
                 <img src="../../../assets/Periphery/food2.png" alt="">
                 <div class="foodDetail">
