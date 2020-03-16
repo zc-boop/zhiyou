@@ -3,7 +3,7 @@
         <div class="mineHeader">
             <div class="space"></div>
             <div class="personalCenter" style="position: relative">
-                <van-icon name="arrow-left" class="registerBack" @click="goTo('/mine')"/>
+                <van-icon name="arrow-left" class="registerBack" @click="$router.back()"/>
                 <div class="pageHeader">登录</div>
             </div>
         </div>

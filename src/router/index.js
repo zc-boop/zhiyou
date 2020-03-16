@@ -6,6 +6,7 @@ import Recommend from '../views/Recommend'
 import Periphery from '../views/Periphery'
 import Hotels from '../views/Periphery/Hotels'
 import Foods from '../views/Periphery/Foods'
+import HotelDetails from '../views/Periphery/HotelDetails'
 //.........................................
 import Message from '../views/Message'
 //.........................................
@@ -66,6 +67,11 @@ const routes = [
             }
         ]
     },
+    {
+        path: '/hoteldetails',
+        component: HotelDetails,
+    },
+    //........................................
     {
         path: "/message",
         name: "Message",
