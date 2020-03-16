@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 //.........................................
 import Recommend from '../views/Recommend'
 import ViewDetail from '../components/ViewDetail'
+import Route from '../components/Route'
 //.........................................
 import Periphery from '../views/Periphery'
 import Hotels from '../views/Periphery/Hotels'
@@ -49,6 +50,10 @@ const routes = [
         path: "/viewdetail",
         component: ViewDetail,
     },
+    {
+        path: "/route",
+        component: Route,
+    },
     //..........................................
     {
         path: "/periphery",
@@ -79,7 +84,8 @@ const routes = [
                     showFooter: true,
                     requireAuth: true
                 },
-            }
+            },
+
         ]
     },
     {

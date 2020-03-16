@@ -4,7 +4,7 @@
             <div class="headerImg" :style="{backgroundImage:'url('+background+')'}">
                 <div class="space"></div>
                 <div class="header">
-                    <van-icon name="arrow-left"/>
+                    <van-icon name="arrow-left" @click="goTo('/route')"/>
                     <div>
                         <img src="../../assets/Community/icon3.png" alt="">
                         <img src="../../assets/Community/icon1.png" alt="">

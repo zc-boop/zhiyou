@@ -5,8 +5,8 @@
                 至游，贴心为您定制出行计划，助你发现世界的美。
             </p>
             <div class="searchInput">
-                <input type="text" placeholder="不妨搜索城市、目的地或景点">
-                <img src="../../assets/home/sousuo.png" alt="">
+                <input type="text" placeholder="不妨搜索城市、目的地或景点" ref="searchInfo" :value="searchContent">
+                <img style="display: block" src="../../assets/home/sousuo.png" alt="" @click="searchInfo">
             </div>
         </div>
         <div class="bottomAll">
@@ -15,12 +15,10 @@
                     <p>热门景点</p>
                 </div>
                 <div class="touristArea">
-                    <router-link to="/viewdetail" tag="button">
-                        稻城亚丁
-                    </router-link>
-                    <button>青城山</button>
-                    <button>阆中古城</button>
-                    <button>乐山大佛</button>
+                    <router-link to="/route" tag="button">稻城亚丁</router-link>
+                    <router-link to="/route" tag="button">青城山</router-link>
+                    <router-link to="/route" tag="button">阆中古城</router-link>
+                    <router-link to="/route" tag="button">乐山大佛</router-link>
                 </div>
             </div>
             <div class="recommendedToYou">
@@ -28,55 +26,55 @@
                     <p>为你推荐</p>
                 </div>
                 <div class="recommendedType">
-                    <div class="reTypeLeft">
+                    <router-link to="/community/attentiondynamic" tag="div" class="reTypeLeft">
                         <div class="mask">
                             <p>旅游攻略</p>
                             <p>TRAVEL STRATEGY</p>
                         </div>
-                    </div>
+                    </router-link>
                     <div class="reTypeRight">
-                        <div class="up">
+                        <router-link to="/periphery/hotels" tag="div" class="up">
                             <div class="mask">
                                 <p>酒店住宿</p>
                                 <p>HOTEL ACCOMMODATION</p>
                             </div>
-                        </div>
-                        <div class="down">
+                        </router-link>
+                        <router-link to="/periphery/foods" tag="div" class="down">
                             <div class="mask">
                                 <p>地方美食</p>
                                 <p>LOCAL CUISINE</p>
                             </div>
-                        </div>
+                        </router-link>
                     </div>
                 </div>
             </div>
             <div class="popularRoutes">
                 <div class="listHeader">
                     <p>热门路线</p>
-                    <p>更多></p>
+                    <p class="listHeaderMore">更多></p>
                 </div>
                 <ul class="routeLists">
-                    <li>
+                    <router-link to="/route" tag="li">
                         <img src="../../assets/home/img4.png" alt="">
                         <h3>成都三日游</h3>
                         <p>宽窄巷子/锦里/大熊猫繁育研究基地</p>
-                    </li>
-                    <li>
+                    </router-link>
+                    <router-link to="/route" tag="li">
                         <img src="../../assets/home/img5.png" alt="">
                         <h3>稻城亚丁七日游</h3>
                         <p>李白故里/北川羌城/富乐山</p>
-                    </li>
-                    <li>
+                    </router-link>
+                    <router-link to="/route" tag="li">
                         <img src="../../assets/home/img4.png" alt="">
                         <h3>成都三日游</h3>
                         <p>宽窄巷子/锦里/大熊猫繁育研究基地</p>
-                    </li>
+                    </router-link>
                 </ul>
             </div>
             <div class="featuredDestination">
                 <div class="listHeader">
                     <p>精选目的地</p>
-                    <p>更多></p>
+                    <p class="listHeaderMore">更多></p>
                 </div>
                 <ul class="featuredLists">
                     <li>
@@ -103,7 +101,24 @@
 
 <script>
 export default {
-    name: "index"
+    name: "index",
+    data(){
+        return{
+            searchContent:""
+        }
+    },
+    methods: {
+        searchInfo() {
+            let searchInfo = this.$refs.searchInfo.value.trim()
+            if (searchInfo !== "") {
+                alert(`您将要搜索的内容是：${searchInfo}`)
+                this.goTo('/route')
+            } else {
+                alert("您好像没有输入什么呢！")
+            }
+
+        }
+    }
 }
 </script>
 
@@ -163,6 +178,7 @@ export default {
         width: 100%;
         margin-top: 90px;
     }
+
     /*热门景点*/
     .popularDestination, .recommendedToYou {
         padding-left: 33px;
@@ -181,7 +197,7 @@ export default {
         padding-right: 20px;
     }
 
-    .listHeader > p:last-of-type {
+    .listHeaderMore {
         font-size: 24px;
         color: #333;
     }
@@ -209,6 +225,7 @@ export default {
         box-shadow: 0px 5px 10px rgba(81, 202, 137, 0.3);
         color: white;
     }
+
     /*为你推荐*/
     .recommendedType {
         display: flex;
@@ -273,6 +290,7 @@ export default {
     .reTypeRight p:last-of-type {
         margin-top: 11px;
     }
+
     /*热门路线*/
     .popularRoutes {
         padding-left: 33px;
@@ -286,6 +304,10 @@ export default {
 
     .routeLists > li {
         margin: 0 20px;
+    }
+
+    .routeLists > li:first-of-type {
+        margin-left: 0;
     }
 
     .routeLists > li > img {
@@ -304,6 +326,7 @@ export default {
         font-size: 24px;
         color: #666;
     }
+
     /*精选目的地*/
     .featuredDestination {
         padding-left: 33px;
@@ -318,10 +341,6 @@ export default {
 
     .featuredLists > li {
         text-align: center;
-    }
-
-    .featuredLists > li:nth-child(1) {
-        margin-left: 15px;
     }
 
     .featuredLists > li:nth-child(2) {

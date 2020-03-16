@@ -16,7 +16,7 @@
             <div class="commubityContent">
                 <div class="navigation">
                     <router-link to="/community/attentiondynamic" tag="div"><span>关注</span></router-link>
-                    <<router-link to="/community/nearby" tag="div"><span>附近</span></router-link>
+                    <router-link to="/community/nearby" tag="div"><span>附近</span></router-link>
                     <router-link to="/community/recommenddynamic" tag="div"><span>推荐</span></router-link>
                 </div>
                 <div class="principalExhibition">
@@ -29,9 +29,9 @@
 </template>
 
 <script>
-    export default {
-        name: "index"
-    }
+export default {
+    name: "index"
+}
 </script>
 
 <style scoped>
@@ -42,11 +42,13 @@
         line-height: 100px !important;
         z-index: 100;
     }
-    .personalCenter{
+
+    .personalCenter {
         display: flex;
         justify-content: space-between;
     }
-    .searchBox{
+
+    .searchBox {
         width: 70%;
         height: 62px;
         background-color: white;
@@ -54,12 +56,14 @@
         border-radius: 20px;
 
     }
-    .searchBox > img{
+
+    .searchBox > img {
         width: 28px;
         height: 28px;
         margin: 18px auto;
     }
-    .searchBox > input{
+
+    .searchBox > input {
         width: 80%;
         height: 30px;
         font-family: SourceHanSansCN-Regular;
@@ -71,31 +75,36 @@
         left: 20px;
         bottom: 22px;
     }
+
     .landmark {
         width: 15%;
         height: 100%;
         line-height: 100px !important;
         z-index: 100;
     }
-    .landmark > img{
+
+    .landmark > img {
         width: 18px;
         height: 22px;
     }
-    .landmark > span{
+
+    .landmark > span {
         margin-left: 7px;
         font-family: SourceHanSansCN-Regular;
         font-size: 24px;
         line-height: 16px;
         color: #ffffff;
     }
-    .navigation{
+
+    .navigation {
         width: 100%;
         height: 88px;
         display: flex;
         justify-content: center;
         border-bottom: 1px #cccccc solid;
     }
-    .navigation div{
+
+    .navigation div {
         width: 10%;
         height: 92%;
         background-color: white;
@@ -105,12 +114,15 @@
         text-align: center;
         line-height: 88px;
     }
-    .navigation span{
+
+    .navigation span {
         color: #333333;
     }
-    .navigation :not(:first-child){
+
+    .navigation :not(:first-child) {
         margin-left: 13%;
     }
+
     .navigation div.active {
         border-bottom: 5px #51ca89 solid;
     }

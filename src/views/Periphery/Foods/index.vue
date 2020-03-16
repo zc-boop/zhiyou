@@ -125,12 +125,15 @@ export default {
         font-size: 36px;
         color: #51ca89;
     }
-    .foodList{
+
+    .foodList {
     }
-    .foodList>li:first-of-type{
+
+    .foodList > li:first-of-type {
         margin-top: 0;
     }
-    .foodList>li{
+
+    .foodList > li {
         width: 95%;
         height: 220px;
         background: white;
@@ -140,40 +143,48 @@ export default {
         padding: 26px 0;
         display: flex;
     }
-    .foodList>li>img{
+
+    .foodList > li img {
         width: 205px;
         height: 220px;
         margin-left: 26px;
         margin-right: 30px;
         border-radius: 12px;
     }
-    .foodDetail{
+
+    .foodDetail {
         width: 54%;
         color: #666;
     }
-    .foodDetail>h3{
+
+    .foodDetail > h3 {
         font-size: 30px;
         margin-top: 16px;
         margin-bottom: 14px;
     }
-    .foodDetail>p{
+
+    .foodDetail > p {
         font-size: 20px;
         margin-bottom: 10px;
     }
-    .foodDetail>.price{
+
+    .foodDetail > .price {
         display: flex;
         justify-content: space-between;
     }
-    .foodDetail>.price>p{
+
+    .foodDetail > .price > p {
         font-size: 30px;
         color: #ff0000;
     }
-    .foodDetail>.price>p>small{
+
+    .foodDetail > .price > p > small {
         font-size: 20px;
         color: #999;
         margin-left: 13px;
     }
-    .foodDetail>.price>button{
+
+    .foodDetail > .price > button {
         width: 168px;
         height: 52px;
         background: #51ca89;
