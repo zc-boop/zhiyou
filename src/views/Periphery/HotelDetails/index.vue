@@ -2,7 +2,7 @@
     <div class="hotelDetails">
         <div class="hotelPictures">
             <img src="../../../assets/Periphery/hotelPicture.png">
-            <img src="../../../assets/Periphery/returnIcon@2x.png">
+            <img src="../../../assets/Periphery/returnIcon@2x.png" @click="$router.back()">
             <img src="../../../assets/Periphery/icon1.png">
             <img src="../../../assets/Periphery/icon3.png">
         </div>

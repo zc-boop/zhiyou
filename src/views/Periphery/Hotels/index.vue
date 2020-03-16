@@ -25,6 +25,7 @@
                 </div>
             </li>
             </router-link>
+            <router-link  to="/hoteldetails">
             <li class="hotelList">
                 <img src="../../../assets/Periphery/hotel2.png">
                 <div class="hotelInformation">
@@ -37,6 +38,8 @@
                     </div>
                 </div>
             </li>
+            </router-link>
+            <router-link  to="/hoteldetails">
             <li class="hotelList">
                 <img src="../../../assets/Periphery/hotel3.png">
                 <div class="hotelInformation">
@@ -49,6 +52,7 @@
                     </div>
                 </div>
             </li>
+            </router-link>
         </ul>
     </div>
 </template>
