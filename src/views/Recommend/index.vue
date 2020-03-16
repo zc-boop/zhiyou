@@ -15,7 +15,9 @@
                     <p>热门景点</p>
                 </div>
                 <div class="touristArea">
-                    <button>九寨沟</button>
+                    <router-link to="/viewdetail" tag="button">
+                        稻城亚丁
+                    </router-link>
                     <button>青城山</button>
                     <button>阆中古城</button>
                     <button>乐山大佛</button>

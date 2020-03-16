@@ -2,6 +2,7 @@ import Vue from 'vue'
 import VueRouter from 'vue-router'
 //.........................................
 import Recommend from '../views/Recommend'
+import ViewDetail from '../components/ViewDetail'
 //.........................................
 import Periphery from '../views/Periphery'
 import Hotels from '../views/Periphery/Hotels'
@@ -40,18 +41,23 @@ const routes = [
         component: Recommend,
         meta: {
             showFooter: true,
-            requireAuth:true
+            requireAuth: true
         }
     },
+    {
+        path: "/viewdetail",
+        component: ViewDetail,
+    },
+    //..........................................
     {
         path: "/periphery",
         name: "Periphery",
         component: Periphery,
         meta: {
             showFooter: true,
-            requireAuth:true
+            requireAuth: true
         },
-        children:[
+        children: [
             {
                 path: "/periphery",
                 redirect: "/periphery/hotels"
@@ -59,10 +65,19 @@ const routes = [
             {
                 path: '/periphery/hotels',
                 component: Hotels,
+                meta: {
+                    showFooter: true,
+                    requireAuth: true
+                },
+
             },
             {
                 path: '/periphery/foods',
                 component: Foods,
+                meta: {
+                    showFooter: true,
+                    requireAuth: true
+                },
             }
         ]
     },
@@ -72,7 +87,7 @@ const routes = [
         component: Message,
         meta: {
             showFooter: true,
-            requireAuth:true
+            requireAuth: true
         }
     },
     //........................................
@@ -82,15 +97,15 @@ const routes = [
         component: Community,
         meta: {
             showFooter: true,
-            requireAuth:true
+            requireAuth: true
         },
-        children:[
+        children: [
             {
                 path: '/community/attentiondynamic',
                 component: AttentionDynamic,
                 meta: {
                     showFooter: true,
-                    requireAuth:true
+                    requireAuth: true
                 },
             },
             {
@@ -102,7 +117,7 @@ const routes = [
                 component: Nearby,
                 meta: {
                     showFooter: true,
-                    requireAuth:true
+                    requireAuth: true
                 },
             },
             {
@@ -110,7 +125,7 @@ const routes = [
                 component: RecommendDynamic,
                 meta: {
                     showFooter: true,
-                    requireAuth:true
+                    requireAuth: true
                 },
             },
         ]
@@ -126,7 +141,7 @@ const routes = [
         component: Mine,
         meta: {
             showFooter: true,
-            requireAuth:true
+            requireAuth: true
         }
     },
 
@@ -178,24 +193,24 @@ const routes = [
         path: '/Login',
         name: "Login",
         component: Login,
-        meta:{
-            requireAuth:true
+        meta: {
+            requireAuth: true
         }
     },
     {
         path: '/register',
         name: "Register",
         component: Register,
-        meta:{
-            requireAuth:true
+        meta: {
+            requireAuth: true
         }
     },
     {
         path: '/registersuccee',
         name: "RegisterSuccee",
         component: RegisterSuccee,
-        meta:{
-            requireAuth:true
+        meta: {
+            requireAuth: true
         }
     }
 
