@@ -239,7 +239,7 @@
         font-size: 24px;
         line-height: 32px;
         color: #ff0000;
-        margin-top: 43px;
+        margin-top: 35px;
     }
     .hotelReserveButton{
         width: 160px;

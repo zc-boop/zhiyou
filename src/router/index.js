@@ -8,6 +8,7 @@ import Periphery from '../views/Periphery'
 import Hotels from '../views/Periphery/Hotels'
 import Foods from '../views/Periphery/Foods'
 import HotelDetails from '../views/Periphery/HotelDetails'
+import FoodDetails from '../views/Periphery/FoodDetails'
 //.........................................
 import Message from '../views/Message'
 //.........................................
@@ -85,6 +86,10 @@ const routes = [
     {
         path: '/hoteldetails',
         component: HotelDetails,
+    },
+    {
+        path: '/fooddetails',
+        component: FoodDetails,
     },
     //........................................
     {
