@@ -112,7 +112,7 @@ export default {
 
     .navigation div {
         width: 10%;
-        height: 92%;
+        height: 94%;
         background-color: white;
         border-radius: 1px;
         font-family: SourceHanSansCN-Regular;
