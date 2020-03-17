@@ -13,16 +13,16 @@
                     <span>成都</span>
                 </div>
             </div>
-            <div class="commubityContent">
-                <div class="navigation">
-                    <router-link to="/community/attentiondynamic" tag="div"><span>关注</span></router-link>
-                    <router-link to="/community/nearby" tag="div"><span>附近</span></router-link>
-                    <router-link to="/community/recommenddynamic" tag="div"><span>推荐</span></router-link>
-                </div>
-                <div class="principalExhibition">
-                    <router-view>
-                    </router-view>
-                </div>
+        </div>
+        <div class="commubityContent">
+            <div class="navigation">
+                <router-link to="/community/attentiondynamic" tag="div"><span>关注</span></router-link>
+                <router-link to="/community/nearby" tag="div"><span>附近</span></router-link>
+                <router-link to="/community/recommenddynamic" tag="div"><span>推荐</span></router-link>
+            </div>
+            <div class="principalExhibition">
+                <router-view>
+                </router-view>
             </div>
         </div>
     </div>
@@ -35,24 +35,30 @@ export default {
 </script>
 
 <style scoped>
-
-    .registerBack {
-        width: 15%;
-        height: 100%;
-        line-height: 100px !important;
-        z-index: 100;
+    .space{
+        width: 100%;
+        height: 59px;
     }
-
+    .personalCenter{
+        width: 100%;
+        height: 102px;
+    }
+    .registerBack {
+        width: 15px;
+        height: 30px;
+        margin-left: 24px;
+    }
     .personalCenter {
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
 
     .searchBox {
         width: 70%;
         height: 62px;
+        margin-left: 72px;
         background-color: white;
-        margin: auto auto;
         border-radius: 20px;
 
     }

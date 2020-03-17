@@ -212,6 +212,7 @@
         margin-left: 42px;
         display: flex;
         justify-content: space-between;
+        align-items: center;
     }
     .appraiseTitle span{
         font-family: MicrosoftYaHei;
@@ -219,12 +220,16 @@
         line-height: 35px;
         color: #414141;
     }
+    .appraiseTitle span:nth-child(2){
+        display: flex;
+        align-items: center;
+    }
     .appraisePercent{
         color: #f7c223 !important;
     }
     .appraiseTitle img{
         width: 16px;
-        height: 25px;
+        height: 30px;
     }
     .appraiseList{
         margin-top: 10px;

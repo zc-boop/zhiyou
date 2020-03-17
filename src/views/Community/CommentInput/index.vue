@@ -1,6 +1,6 @@
 <template>
     <div class="commentInput">
-        <input value="写下你的评论">
+        <textarea placeholder="写下你的评论" rows="3"></textarea>
         <button><img src="../../../assets/Community/icon5.png"></button>
     </div>
 </template>
@@ -23,11 +23,11 @@
         bottom: 0;
         padding: 10px 0;
         box-shadow:0px 0px  10px 5px rgba(127, 127, 127, 0.23);
-
+        background-color: white;
     }
-    .commentInput > input{
+    .commentInput > textarea{
         width: 78%;
-        height: 23px;
+        height: 46px;
         margin-left: 32px;
         font-family: SourceHanSansCN-Regular;
         font-size: 24px;

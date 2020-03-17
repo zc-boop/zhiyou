@@ -9,7 +9,6 @@
                 </div>
                 <button >+  关注</button>
             </div>
-            <div class="Splitter"></div>
             <div class="dynamBody">
                 <span class="label">#峨眉山#</span><p class="contents"> 攀登到半山，鸟瞰整个城市，瞬间感觉整个人都
                     不好了...</p>
@@ -39,7 +38,6 @@
                 </div>
                 <button >已关注</button>
             </div>
-            <div class="Splitter"></div>
             <div class="dynamBody">
                 <span class="label">#稻城亚丁#</span><p class="contents"> 在这漫天飞雪的日子里，这里有诗和远方.......</p>
                 <img src="../../../assets/Community/img4.png">
@@ -72,15 +70,17 @@
 <style scoped>
     .dynamicList{
         height: 593px;
-        padding-top: 20px;
         padding-right: 22px;
         padding-left: 22px;
+        border-bottom: 20px #ebebeb solid;
     }
     .dynamHeader{
         width: 100%;
         height: 90px;
+        margin-top: 20px;
         display: flex;
         position: relative;
+        border-bottom: 1px #ebebeb solid;
     }
     .dynamHeader > img{
         width: 80px;
@@ -102,11 +102,6 @@
         font-size: 22px;
         color: #51ca89;
         margin-top: 19px;
-    }
-    .Splitter{
-        width: 100%;
-        height: 1px;
-        background-color: #ebebeb;
     }
     .dynamBody{
         margin-top: 19px;
@@ -133,6 +128,10 @@
         justify-content: space-around;
         margin-top: 31px;
     }
+    .dynamOperation div{
+        display: flex;
+        align-items: center;
+    }
     .dynamOperation img{
         width: 23px;
         height: 23px;
@@ -141,6 +140,6 @@
         font-family: SourceHanSansCN-Regular;
         font-size: 22px;
         color: #999999;
-        margin-left: 3px;
+        margin-left: 10px;
     }
 </style>

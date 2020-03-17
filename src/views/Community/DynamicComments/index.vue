@@ -16,7 +16,6 @@
                 </div>
                 <button >+  关注</button>
             </div>
-            <div class="Splitter"></div>
             <div class="dynamBody">
                 <span class="label">#峨眉山#</span><p class="contents"> 攀登到半山，鸟瞰整个城市，瞬间感觉整个人都
                 不好了...</p>
@@ -94,13 +93,33 @@
 </script>
 
 <style scoped>
+    .mineHeader{
+        width: 100%;
+        height: 126px;
+    }
+    .space{
+        width: 100%;
+        height: 30px;
+    }
     .registerBack {
-        width: 20%;
-        height: 100%;
+        width: 19px;
+        height: 37px;
+        margin-left: 32px;
         position: absolute !important;
         left: 0;
         line-height: 100px !important;
         z-index: 100;
+    }
+    .pageHeader{
+        font-family: SourceHanSansCN-Regular;
+        font-size: 28px;
+        color: #ffffff;
+    }
+    .personalCenter{
+        display: flex;
+        justify-content: space-between;
+        width: 100%;
+        height: 96px;
     }
     .dynamicList{
         height: 593px;
@@ -111,6 +130,7 @@
     .dynamHeader{
         width: 100%;
         height: 90px;
+        border-bottom: 1px #ebebeb solid;
         display: flex;
         position: relative;
     }
@@ -134,11 +154,6 @@
         font-size: 22px;
         color: #51ca89;
         margin-top: 19px;
-    }
-    .Splitter{
-        width: 100%;
-        height: 1px;
-        background-color: #ebebeb;
     }
     .dynamBody{
         margin-top: 19px;
@@ -169,7 +184,8 @@
     }
     .headPortrait{
         width: 135px;
-        height: 70px;
+        height: 41px;
+        margin-top: 35px;
         position: relative;
     }
     .headPortrait img{
@@ -195,8 +211,8 @@
     .dynamInformation > button{
         border: 0;
         width: 82px;
-        height: 40px;
-        border-radius: 10px;
+        height: 29px;
+        border-radius: 14px;
         background-color: #51ca89;
         font-family: SourceHanSansCN-Regular;
         font-size: 18px;
@@ -209,6 +225,7 @@
         font-size: 20px;
         color: #bcbcbc;
         padding-top: 44px;
+        margin-left: 5px;
     }
     .dynamInformation2{
         display: flex;
@@ -218,6 +235,10 @@
         right: 1px;
         top: 44px;
         width: 158px;
+    }
+    .dynamInformation2 div{
+        display: flex;
+        align-items: center;
     }
     .dynamInformation2 img{
         width: 24px;
@@ -232,6 +253,7 @@
         font-size: 20px;
         line-height: 36px;
         color: #bcbcbc;
+        margin-left: 2px;
     }
     .commentHead{
         border-top: 10px #eeeeee solid;
