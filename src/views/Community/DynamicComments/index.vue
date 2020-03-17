@@ -76,8 +76,37 @@
                         整个人都不好了...</p>
                 </div>
             </li>
+            <li>
+                <img src="../../../assets/Community/img8.png">
+                <div>
+                    <div class="commentAllText">
+                        <p class="usernameText">嘟嘟</p>
+                        <div >
+                            <img class="heartImg" src="../../../assets/Community/icon4.png">
+                            <span>14</span>
+                        </div>
+                    </div>
+                    <p class="commentText">感谢分享，又涨知识了,哈哈。</p>
+                </div>
+            </li>
+            <li>
+                <img src="../../../assets/Community/img9.png">
+                <div>
+                    <div class="commentAllText">
+                        <p class="usernameText">大壮</p>
+                        <div>
+                            <img class="heartImg" src="../../../assets/Community/icon4.png">
+                            <span>14</span>
+                        </div>
+
+                    </div>
+                    <p class="commentText">感谢分享，又涨知识了，哈哈。鸟瞰整个城市，瞬间感觉
+                        整个人都不好了...</p>
+                </div>
+            </li>
         </ul>
-    <CommentInput></CommentInput>
+        <div style="height: 200px;"></div>
+        <CommentInput></CommentInput>
     </div>
 </template>
 

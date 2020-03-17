@@ -57,6 +57,63 @@
                 </div>
             </div>
         </div>
+        <div class="dynamicList">
+            <div class="dynamHeader">
+                <img src="../../../assets/Community/img1.png">
+                <div>
+                    <p>Miya</p>
+                    <p>1小时前</p>
+                </div>
+                <button >+  关注</button>
+            </div>
+            <div class="dynamBody">
+                <span class="label">#峨眉山#</span><p class="contents"> 攀登到半山，鸟瞰整个城市，瞬间感觉整个人都
+                不好了...</p>
+                <img src="../../../assets/Community/img2.png">
+            </div>
+            <div class="dynamOperation">
+                <div>
+                    <img src="../../../assets/Community/icon1.png">
+                    <span>23</span>
+                </div>
+                <router-link to="/dynamiccomments" tag="div">
+                    <img src="../../../assets/Community/icon2.png">
+                    <span>78</span>
+                </router-link>
+                <div>
+                    <img src="../../../assets/Community/icon3.png">
+                    <span>90</span>
+                </div>
+            </div>
+        </div>
+        <div class="dynamicList">
+            <div class="dynamHeader">
+                <img src="../../../assets/Community/img3.png">
+                <div>
+                    <p>Echo</p>
+                    <p>10分钟之前</p>
+                </div>
+                <button >已关注</button>
+            </div>
+            <div class="dynamBody">
+                <span class="label">#稻城亚丁#</span><p class="contents"> 在这漫天飞雪的日子里，这里有诗和远方.......</p>
+                <img src="../../../assets/Community/img4.png">
+            </div>
+            <div class="dynamOperation">
+                <div>
+                    <img src="../../../assets/Community/icon1.png">
+                    <span>23</span>
+                </div>
+                <router-link to="/dynamiccomments" tag="div">
+                    <img src="../../../assets/Community/icon2.png">
+                    <span>78</span>
+                </router-link>
+                <div>
+                    <img src="../../../assets/Community/icon3.png">
+                    <span>90</span>
+                </div>
+            </div>
+        </div>
         <div style="height: 100px;"></div>
     </div>
 </template>
