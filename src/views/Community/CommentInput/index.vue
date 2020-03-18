@@ -20,7 +20,6 @@
         bottom: 0;
         position: fixed;
         left: 0;
-        bottom: 0;
         padding: 10px 0;
         box-shadow:0px 0px  10px 5px rgba(127, 127, 127, 0.23);
         background-color: white;

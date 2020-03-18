@@ -1,6 +1,12 @@
 <template>
     <div class="register">
-        <Header title="注册"/>
+        <div class="Header">
+            <div class="space"></div>
+            <div class="headerNavigation">
+                <img src="../../assets/Register/returnIcon@2x.png" @click="$router.back()">
+                <span>注册</span>
+            </div>
+        </div>
         <div class="registerForm">
             <div class="usernameText">
                 <img src="../../assets/Register/eamilIcon@2x.png"/>
@@ -37,19 +43,19 @@
             <div style="margin: 16px;" class="registerButton">
                 <van-button round block type="info" v-bind:disabled="!this.checked" @click="register()">注册</van-button>
             </div>
+        </div>
             <div class="userAgreement">
-                <van-checkbox v-model="checked" checked-color="#07c160">
-                    <p>
-                        我已阅读并同意
-                        <router-link to="login">《用户协议》</router-link>
-                    </p>
+                <van-checkbox v-model="checked" checked-color="#07c160" icon-size="14px">
                 </van-checkbox>
+                <span>我已阅读并同意</span>
+                <router-link to="login" class="userAgreementText">《用户协议》</router-link>
+
             </div>
 
             <center>
                 <router-link to="/registersuccee">注册成功页面</router-link>
             </center>
-        </div>
+
     </div>
 </template>
 
@@ -233,18 +239,39 @@
 </script>
 
 <style scoped>
-    .head {
+    .space{
         width: 100%;
-        height: 50px;
+        height: 30px;
+        background-color: #51ca89;
     }
-
+    .Header {
+        width: 100%;
+        background-color: #51ca89;
+    }
+    .headerNavigation{
+        width: 100%;
+        height: 98px;
+        display: flex;
+        align-items: center;
+    }
+    .headerNavigation img{
+        width: 22px;
+        height: 40px;
+        position: absolute;
+        left: 30px;
+    }
+    .headerNavigation span{
+        font-family: SourceHanSansCN-Regular;
+        font-size: 36px;
+        line-height: 24px;
+        color: #ffffff;
+        margin: 0 auto;
+    }
     .registerForm {
         width: 85%;
-        height: 630px;
         margin: 0 auto;
         margin-top: 115px;
     }
-
     .registerForm > div {
         display: flex;
         margin: 30px 20px;
@@ -334,14 +361,23 @@
         color: #ffffff;
         background-color: #52eba9;
     }
-
-    .van-checkbox {
-        margin: 58px auto;
-    }
-
-    .userAgreement p {
+    .userAgreement{
+        margin-top: 56px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
         font-family: SourceHanSansCN-Regular !important;
         font-size: 24px !important;
         line-height: 28px !important;
+        color: #999999;
+    }
+    .userAgreement span{
+        margin-left: 5px;
+    }
+    .userAgreementText{
+        font-family: SourceHanSansCN-Heavy !important;
+        font-size: 24px !important;
+        line-height: 28px !important;
+        color: #51ca89;
     }
 </style>

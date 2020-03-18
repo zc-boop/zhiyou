@@ -1,15 +1,15 @@
 <template>
     <div class="community">
-        <div class="mineHeader">
+        <div class="peripheryHeader">
             <div class="space"></div>
-            <div class="personalCenter" style="position: relative">
-                <van-icon name="arrow-left" class="registerBack" @click="$router.back()"/>
+            <div class="headerSearch">
+                <van-icon name="arrow-left" class="l_back" @click="$router.back()"/>
                 <div class="searchBox">
-                    <img src="../../assets/Community/sousuo.png">
+                    <img src="../../assets/Community/sousuo.png" alt="">
                     <input type="text" placeholder="成都">
                 </div>
-                <div class="landmark">
-                    <img src="../../assets/Community/dizhi.png">
+                <div class="l_locate">
+                    <img src="../../assets/Community/dizhi.png" alt="">
                     <span>成都</span>
                 </div>
             </div>
@@ -35,71 +35,60 @@ export default {
 </script>
 
 <style scoped>
-    .space{
-        width: 100%;
-        height: 59px;
+    .peripheryHeader {
+        background: #51ca89;
     }
-    .personalCenter{
-        width: 100%;
-        height: 102px;
+
+    .l_back {
+        color: white;
+        font-size: 30px !important;
+        line-height: 62px !important;
     }
-    .registerBack {
-        width: 15px;
-        height: 30px;
-        margin-left: 24px;
+
+    .headerSearch {
+        height: 90px;
+        display: flex;
+        padding: 0 30px;
+        justify-content: space-between;
     }
-    .personalCenter {
+
+    .headerSearch > .searchBox {
+        width: 65%;
+        height: 62px;
+        background: white;
+        padding: 0 30px;
+        border-radius: 20px;
         display: flex;
         justify-content: space-between;
-        align-items: center;
     }
 
-    .searchBox {
-        width: 70%;
-        height: 62px;
-        margin-left: 72px;
-        background-color: white;
-        border-radius: 20px;
-
-    }
-
-    .searchBox > img {
+    .headerSearch > .searchBox > img {
         width: 28px;
         height: 28px;
-        margin: 18px auto;
+        margin-top: 17px;
     }
 
-    .searchBox > input {
-        width: 80%;
-        height: 30px;
-        font-family: SourceHanSansCN-Regular;
-        font-size: 24px;
-        line-height: 16px;
-        border: 0;
-        color: #333333;
-        position: relative;
-        left: 20px;
-        bottom: 22px;
-    }
-
-    .landmark {
-        width: 15%;
+    .headerSearch > .searchBox > input {
+        width: 90%;
         height: 100%;
-        line-height: 100px !important;
-        z-index: 100;
+        border: none;
+        font-size: 24px;
+        color: #333;
     }
 
-    .landmark > img {
+    .l_locate {
+        height: 60px;
+        font-size: 24px;
+        color: white;
+    }
+    .l_locate>img{
         width: 18px;
         height: 22px;
+        vertical-align: middle;
+        margin-right: 5px;
     }
-
-    .landmark > span {
-        margin-left: 7px;
-        font-family: SourceHanSansCN-Regular;
-        font-size: 24px;
-        line-height: 16px;
-        color: #ffffff;
+    .l_locate>span{
+        line-height: 60px;
     }
 
     .navigation {

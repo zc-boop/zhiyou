@@ -1,16 +1,12 @@
 <template>
     <div class="login">
-        <div class="mineHeader">
+        <div class="Header">
             <div class="space"></div>
-            <div class="personalCenter" style="position: relative">
-                <van-icon name="arrow-left" class="registerBack" @click="$router.back()"/>
-                <div class="pageHeader">登录</div>
-            </div>
+            <van-icon name="arrow-left" color="green" class="l_back" @click="$router.back()"/>
         </div>
         <div class="loginImages">
             <img src="../../assets/Login/user@2x.png"/>
         </div>
-
         <div class="loginFrom">
             <div class="userText">
                 <img src="../../assets/Login/mobileIcon@2x.png"/>
@@ -31,13 +27,11 @@
                         v-model="userInfo.password"
                 />
             </div>
-            <div class="Splitter2"></div>
+            <div class="Splitter"></div>
             <p>忘记密码?</p>
-            <div style="margin: 16px;" class="loginButton">
-                <van-button round block type="info" native-type="submit" @click="login">立即登录</van-button>
-            </div>
+            <button @click="login" class="loginButton">立即登录</button>
             <div class="registerUrl">
-                没有账号
+                <span>没有账号? </span>
                 <router-link to="/register">立即注册</router-link>
             </div>
         </div>
@@ -100,45 +94,49 @@ export default {
 </script>
 
 <style scoped>
-    .registerBack {
-        width: 20%;
-        height: 100%;
-        position: absolute !important;
-        left: 0;
-        line-height: 100px !important;
-        z-index: 100;
-    }
-
-    .pageHeader {
+    .space{
         width: 100%;
-        position: absolute;
-        right: 0;
+        height: 30px;
+        background-color: white;
     }
-
+    .Header {
+        width: 100%;
+        background-color: #51ca89;
+    }
+    .l_back{
+        width: 15px;
+        height: 30px;
+        position: absolute;
+        left: 50px;
+        top: 50px;
+    }
     .loginImages {
         width: 140px;
         height: 140px;
-        margin: auto;
-        margin-top: 45px;
+        margin: 0 auto;
+        margin-top: 84px;
     }
 
     .loginImages img {
         width: 140px;
         height: 140px;
+
     }
 
     .loginFrom {
         width: 85%;
-        height: 484px;
+        height: 40%;
         margin: 0 auto;
         margin-top: 147px;
         display: flex;
+        justify-content: space-between;
         flex-direction: column;
     }
 
     .userText {
-        width: 90%;
         margin-left: 48px;
+        display: flex;
+        align-items: center;
     }
 
     .loginFrom img {
@@ -147,47 +145,38 @@ export default {
     }
 
     .phoneInput {
-        border: none;
-        position: relative;
-        left: 21px;
-        bottom: 10px;
+        border: 0;
+        margin-left: 21px;
         font-family: SourceHanSansCN-Regular;
         font-size: 30px;
-        line-height: 38px;
+        line-height: 19px;
         color: #999999;
     }
 
     .passwordText {
-        width: 90%;
         margin-left: 48px;
-        margin-top: 56px;
+        margin-top: 58px;
+        display: flex;
+        align-items: center;
     }
 
     .passwordInput {
-        border: none;
-        position: relative;
-        left: 21px;
-        bottom: 10px;
+        border: 0;
+        margin-left: 21px;
         font-family: SourceHanSansCN-Regular;
         font-size: 30px;
-        line-height: 38px;
+        line-height: 19px;
         color: #999999;
     }
 
     .Splitter {
-        width: 91%;
-        height: 1px;
-        margin: 0 auto;
+        height: 2px;
+        margin-left: 27px;
+        margin-right: 27px;
+        margin-top: 17px;
         background-color: #dcdcdc;
+        z-index: 10000;
     }
-
-    .Splitter2 {
-        width: 91%;
-        height: 1px;
-        margin: 1px auto;
-        background-color: #dcdcdc;
-    }
-
     .loginFrom > p {
         font-family: "SourceHanSansCN-Regular";
         font-size: 26px;
@@ -198,26 +187,22 @@ export default {
     }
 
     .loginButton {
-    }
-
-    .van-button::before {
-        width: 85% !important;
-        height: 99px !important;
-    }
-
-    .loginButton button {
-        height: 99px !important;
+        width: 100%;
+        height: 99px;
+        border-radius: 44px;
+        margin-top: 52px;
+        border: 0;
         font-family: SourceHanSansCN-Regular;
         font-size: 36px;
         line-height: 38px;
         color: #ffffff;
         background-color: #52eba9;
     }
-
     .registerUrl {
         font-family: SourceHanSansCN-Regular;
         font-size: 26px;
-        line-height: 38px;
+        margin-top: 50px;
+        line-height: 19px;
         color: #999999;
         text-align: center;
     }

@@ -50,11 +50,49 @@
                 </div>
                 <p class="appraiseBodyText">采用鲜嫩鲢鱼作为主要食材，辣味适中且不油腻。</p>
             </li>
+            <li class="appraiseBody">
+                <div class="appraiseHead" >
+                    <img src="../../../assets/Periphery/img6.png">
+                    <div>
+                        <p class="username">我是***小月</p>
+                        <p class="appraiseTime">2020-02-14</p>
+                    </div>
+                    <van-rate
+                            v-model="value"
+                            :size="15"
+                            color="#ee0a24"
+                            void-icon="star"
+                            void-color="#ffcccc"
+                    />
+                </div>
+                <p class="appraiseBodyText">采用鲜嫩鲢鱼作为主要食材，辣味适中且不油腻。</p>
+            </li>
+            <li class="appraiseBody">
+                <div class="appraiseHead" >
+                    <img src="../../../assets/Periphery/img6.png">
+                    <div>
+                        <p class="username">我是***小月</p>
+                        <p class="appraiseTime">2020-02-14</p>
+                    </div>
+                    <van-rate
+                            v-model="value"
+                            :size="15"
+                            color="#ee0a24"
+                            void-icon="star"
+                            void-color="#ffcccc"
+                    />
+                </div>
+                <p class="appraiseBodyText">采用鲜嫩鲢鱼作为主要食材，辣味适中且不油腻。</p>
+            </li>
         </ul>
+        <div style="height: 100px"></div>
+        <FoodInput></FoodInput>
     </div>
 </template>
 
 <script>
+    import FoodInput from '../FoodInput'
+    import CommentInput from "../../Community/CommentInput/index";
     export default {
         name: "index",
         data() {
@@ -67,6 +105,9 @@
             change(activeIndex) {
                 this.activeIndex = activeIndex
             }
+        },
+        components: {
+            FoodInput
         }
     }
 </script>
@@ -186,6 +227,7 @@
     }
     .foodIntroduceButton{
         margin-top: 26px;
+        margin-right: 53px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -206,10 +248,10 @@
         opacity: 100 !important;
     }
     .appraiseTitle{
-        width: 88%;
         height: 25px;
         margin-top: 34px;
         margin-left: 42px;
+        margin-right: 29px;
         display: flex;
         justify-content: space-between;
         align-items: center;
@@ -268,5 +310,8 @@
         color: #999999;
         margin-top: 10px;
         margin-left: 18px;
+    }
+    .foodDetails>ul li:not(:first-child){
+        margin-top: 39px;
     }
 </style>

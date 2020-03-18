@@ -40,7 +40,6 @@
                         <img src="../../../assets/Community/icon3.png">
                         <span>23</span>
                     </div>
-
                 </div>
             </div>
         </div>
@@ -53,7 +52,7 @@
                 <div>
                     <div class="commentAllText">
                         <p class="usernameText">嘟嘟</p>
-                        <div >
+                        <div>
                             <img class="heartImg" src="../../../assets/Community/icon4.png">
                             <span>14</span>
                         </div>
@@ -81,7 +80,7 @@
                 <div>
                     <div class="commentAllText">
                         <p class="usernameText">嘟嘟</p>
-                        <div >
+                        <div>
                             <img class="heartImg" src="../../../assets/Community/icon4.png">
                             <span>14</span>
                         </div>
@@ -151,7 +150,7 @@
         height: 96px;
     }
     .dynamicList{
-        height: 593px;
+        height: 620px;
         padding-top: 20px;
         padding-right: 22px;
         padding-left: 22px;
@@ -170,6 +169,18 @@
     .dynamHeader>div{
         margin-left: 21px;
         margin-top: 13px;
+    }
+    .dynamHeader>div p:nth-child(1){
+        font-family: SourceHanSansCN-Regular;
+        font-size: 28px;
+        line-height: 35px;
+        color: #333333;
+    }
+    .dynamHeader>div p:nth-child(2){
+        font-family: SourceHanSansCN-Regular;
+        font-size: 20px;
+        line-height: 35px;
+        color: #333333;
     }
     .dynamHeader > button{
         width: 90px;
@@ -207,14 +218,13 @@
     }
     .dynamInformation{
         display: flex;
-        position: relative;
+        align-items: center;
         width: 100%;
         height: 111px;
     }
     .headPortrait{
         width: 135px;
         height: 41px;
-        margin-top: 35px;
         position: relative;
     }
     .headPortrait img{
@@ -245,7 +255,6 @@
         background-color: #51ca89;
         font-family: SourceHanSansCN-Regular;
         font-size: 18px;
-        line-height: 36px;
         color: #ffffff;
         margin: auto 0;
     }
@@ -253,17 +262,14 @@
         font-family: SourceHanSansCN-Regular;
         font-size: 20px;
         color: #bcbcbc;
-        padding-top: 44px;
         margin-left: 5px;
     }
     .dynamInformation2{
         display: flex;
-        justify-content: space-around;
+        margin-left: auto;
+        justify-content: flex-end;
         align-items: center;
-        position: absolute;
-        right: 1px;
         top: 44px;
-        width: 158px;
     }
     .dynamInformation2 div{
         display: flex;
@@ -273,6 +279,7 @@
         width: 24px;
         height: 23px;
         font-family: SourceHanSansCN-Regular;
+        margin-left: 32px;
         font-size: 20px;
         line-height: 36px;
         color: #bcbcbc;
@@ -282,7 +289,7 @@
         font-size: 20px;
         line-height: 36px;
         color: #bcbcbc;
-        margin-left: 2px;
+        margin-left: 5px;
     }
     .commentHead{
         border-top: 10px #eeeeee solid;
@@ -306,11 +313,24 @@
         margin-top: 36px;
     }
     .commentAllText{
-        width: 84%;
-        height: 70px;
+        margin-top: 11px;
         margin-left: 15px;
+        margin-right: 76px;
         display: flex;
         justify-content: space-between;
+
+    }
+    .commentAllText > div{
+        height: 29px;
+        display: flex;
+        align-items: center;
+    }
+    .commentAllText > div > span{
+        margin-left: 5px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 20px;
+        line-height: 36px;
+        color: #bcbcbc;
     }
     .usernameText{
         font-family: SourceHanSansCN-Regular;
@@ -319,15 +339,17 @@
         color: #608bbc;
     }
     .commentText{
-        width: 85%;
         font-family: SourceHanSansCN-Regular;
         font-size: 20px;
+        margin-top: 25px;
+        margin-left: 15px;
+        margin-right: 97px;
         line-height: 36px;
         color: #6b6b6b;
     }
     .dynamicComments > ul >li>img{
-        width: 81px;
-        height: 81px;
+        width: 11%;
+        height: 6%;
         margin-left: 29px;
     }
     .dynamicComments > ul >li>div{
