@@ -11,6 +11,8 @@ export default new Vuex.Store({
         queryResultList: [],
         agree: {},
         noHeadPortrait:"https://ss0.bdstatic.com/70cFvHSh_Q1YnxGkpoWK1HF6hhy/it/u=1093847288,3038136586&fm=26&gp=0.jpg",
+        provinceName:'',
+        cityName:'',
     },
     mutations: {
         //储存登录后用户的用户名
@@ -34,6 +36,14 @@ export default new Vuex.Store({
         },
         addAgree(state, agree) {
             state.agree = agree
+        },
+        //储存省名
+        addProvinceName(state,provincename){
+            state.provinceName=provincename
+        },
+        //储存市名
+        addCityName(state,cityname){
+            state.cityName=cityname
         }
     },
     actions: {

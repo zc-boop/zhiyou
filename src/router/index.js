@@ -148,7 +148,7 @@ const routes = [
         ]
     },
     {
-        path: '/dynamiccomments',
+        path: '/dynamiccomments/:id',
         component: DynamicComments
     },
     //........................................

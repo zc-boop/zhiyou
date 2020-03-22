@@ -6,11 +6,11 @@
                 <van-icon name="arrow-left" class="l_back" @click="$router.back()"/>
                 <div class="searchBox">
                     <img src="../../assets/Community/sousuo.png" alt="">
-                    <input type="text" placeholder="成都">
+                    <input type="text" :placeholder="this.$store.state.cityName.substr(0, this.$store.state.cityName.length - 1)">
                 </div>
                 <div class="l_locate">
                     <img src="../../assets/Community/dizhi.png" alt="">
-                    <span>成都</span>
+                    <span>{{this.$store.state.cityName.substr(0, this.$store.state.cityName.length - 1)}}</span>
                 </div>
             </div>
         </div>

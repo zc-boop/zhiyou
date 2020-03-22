@@ -61,9 +61,9 @@ export function fetchGet(url, param) {
 }
 
 ////返回一个Promise(发送Put请求)
-export function fetchPut(url, data) {
+export function fetchPut(url, data,param) {
     return new Promise((resolve, reject) => {
-        axios.put(url, data)
+        axios.put(url, data,{params: param})
             .then(response => {
                 resolve(response)
             }, err => {

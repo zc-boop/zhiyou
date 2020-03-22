@@ -9,17 +9,16 @@
         </div>
         <div class="dynamicList">
             <div class="dynamHeader">
-                <img src="../../../assets/Community/img1.png">
+                <img :src="dynamicComment.headPortrait">
                 <div>
-                    <p>Miya</p>
-                    <p>1小时前</p>
+                    <p>{{dynamicComment.username}}</p>
+                    <p>{{(dynamicComment.createTime>24)?Math.round(dynamicComment.createTime/24)+"天之前":dynamicComment.createTime+"小时之前"}}</p>
                 </div>
                 <button >+  关注</button>
             </div>
             <div class="dynamBody">
-                <span class="label">#峨眉山#</span><p class="contents"> 攀登到半山，鸟瞰整个城市，瞬间感觉整个人都
-                不好了...</p>
-                <img src="../../../assets/Community/img2.png">
+                <span class="label">#{{dynamicComment.title}}#</span><p class="contents"> {{dynamicComment.content}}</p>
+                <img :src="dynamicComment.imageList">
             </div>
             <div class="dynamInformation">
                 <div class="headPortrait">
@@ -29,7 +28,7 @@
                     <img src="../../../assets/Community/img6.png">
                     <img src="../../../assets/Community/img7.png">
                 </div>
-                    <button>1.5k</button>
+                    <button>{{dynamicComment.likeCount}}</button>
                     <span>喜欢</span>
                 <div class="dynamInformation2">
                     <div>
@@ -38,7 +37,7 @@
                     </div>
                     <div>
                         <img src="../../../assets/Community/icon3.png">
-                        <span>23</span>
+                        <span>{{dynamicComment.likeCount}}</span>
                     </div>
                 </div>
             </div>
@@ -111,11 +110,50 @@
 
 <script>
     import CommentInput from '../CommentInput'
+    import https from "../../../https";
+    import {Dialog} from "vant";
 
     export default {
         name: "index",
+        data() {
+            return {
+                dynamicId:'',
+                dynamicComment:[],
+                nowTime:''
+            };
+        },
         components: {
             CommentInput
+        },
+        methods:{
+            getDynamic(){
+                const myDate = new Date();
+                this.nowTime=myDate.getTime()
+                https.fetchGet('/zhiyou/v1/bbs/admin/dynamicState/'+this.dynamicId,null)
+                    .then(res=>{
+                        if(res.data.success==true){
+                            this.dynamicComment=res.data.data
+                            this.dynamicComment.createTime=Math.round(parseInt(this.nowTime-new Date(this.dynamicComment.createTime).getTime())/ 1000 / 60 / 60)
+                            console.log(res)
+                        }else{
+                            Dialog.alert({
+                                title: '提示',
+                                message: res.data.msg
+                            })
+                        }
+
+                    })
+                    .catch(err=>{
+                        Dialog.alert({
+                            title: '提示',
+                            message: '服务器错误，请稍后重试!'
+                        })
+                    })
+            }
+        },
+        created() {
+            this.dynamicId=this.$route.params.id
+            this.getDynamic()
         }
     }
 </script>
@@ -150,7 +188,6 @@
         height: 96px;
     }
     .dynamicList{
-        height: 620px;
         padding-top: 20px;
         padding-right: 22px;
         padding-left: 22px;
@@ -165,6 +202,7 @@
     .dynamHeader > img{
         width: 80px;
         height: 80px;
+        border-radius: 50%;
     }
     .dynamHeader>div{
         margin-left: 21px;
