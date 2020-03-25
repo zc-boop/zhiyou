@@ -1,13 +1,25 @@
 <template>
     <div class="commentInput">
-        <textarea placeholder="写下你的评论" rows="3"></textarea>
-        <button><img src="../../../assets/Community/icon5.png"></button>
+        <textarea placeholder="写下你的评论" rows="3" v-model="commentContent"></textarea>
+        <button><img src="../../../assets/Community/icon5.png" @click=""></button>
     </div>
 </template>
 
 <script>
+    import https from "../../../https";
+
     export default {
-        name: "index"
+        name: "index",
+        data(){
+            return{
+                commentContent:'',
+            };
+        },
+        methods:{
+            // sendComment(){
+            //     https.fetchPost('/zhiyou/v1/bbs/comment/publish',{content:this.commentContent,objectId:})
+            // }
+        },
     }
 </script>
 
