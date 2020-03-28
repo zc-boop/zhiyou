@@ -1,7 +1,7 @@
 <template>
     <div class="attentionDynamic">
         <ul class="dynamicList">
-            <li v-for="(item,index) in dynamicList" :key="item.id">
+            <li v-for="(item,index) in dynamicList" :key="item.id" @click="gotoComments(item.id)">
                 <div class="dynamHeader">
                     <img :src="item.headPortrait">
                     <div>

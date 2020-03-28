@@ -1,24 +1,23 @@
 <template>
     <div class="foodDetails">
         <div class="foodPictures">
-            <img src="../../../assets/Periphery/foodbanner.png">
-            <img src="../../../assets/Periphery/returnIcon@2x.png" @click="$router.back()"><span>招牌麻辣鱼</span>
+            <img :src="foodDetail.imageList">
+            <img src="../../../assets/Periphery/returnIcon@2x.png" @click="$router.back()"><span>{{foodDetail.name}}</span>
             <img src="../../../assets/Periphery/icon3.png">
             <img src="../../../assets/Periphery/icon1.png">
         </div>
         <div class="foodInformation">
-            <p class="foodName">招牌麻辣鱼</p>
+            <p class="foodName">{{foodDetail.name}}</p>
             <div class="interactionInformation">
                 <img src="../../../assets/Periphery/foodicon1.png"><span>9.9评分</span>
                 <img src="../../../assets/Periphery/foodicon2.png"><span>550人点过</span>
                 <img src="../../../assets/Periphery/foodicon3.png"><span>15次评价</span>
             </div>
-            <p class="foodPrice">￥118/份</p>
+            <p class="foodPrice">￥{{foodDetail.price/100}}/份</p>
         </div>
         <div class="Splitter"></div>
         <div class="foodIntroduce">
-            <p class="foodIntroduceText">采用鲜嫩鲢鱼作为主要食材，云南大红袍花椒和红椒以及几样小菜向
-                辅佐，辣味适中且不油腻。</p>
+            <p class="foodIntroduceText">{{foodDetail.description}}</p>
             <p>菜品备注</p>
             <textarea placeholder="我们会尽量满足您的要求..." rows="10"/>
             <div class="foodIntroduceButton">
@@ -29,12 +28,13 @@
             </div>
         </div>
         <div class="appraiseTitle">
-            <span>评价 （12）</span><span>好评率<span class="appraisePercent">95%</span><img src="../../../assets/Periphery/icon@2x.png"></span>
+            <span>评价 （12）</span><span>好评率<span class="appraisePercent">95%</span><img
+                src="../../../assets/Periphery/icon@2x.png"></span>
         </div>
         <div class="Splitter"></div>
         <ul class="appraiseList">
             <li class="appraiseBody">
-                <div class="appraiseHead" >
+                <div class="appraiseHead">
                     <img src="../../../assets/Periphery/img6.png">
                     <div>
                         <p class="username">我是***小月</p>
@@ -51,7 +51,7 @@
                 <p class="appraiseBodyText">采用鲜嫩鲢鱼作为主要食材，辣味适中且不油腻。</p>
             </li>
             <li class="appraiseBody">
-                <div class="appraiseHead" >
+                <div class="appraiseHead">
                     <img src="../../../assets/Periphery/img6.png">
                     <div>
                         <p class="username">我是***小月</p>
@@ -68,7 +68,7 @@
                 <p class="appraiseBodyText">采用鲜嫩鲢鱼作为主要食材，辣味适中且不油腻。</p>
             </li>
             <li class="appraiseBody">
-                <div class="appraiseHead" >
+                <div class="appraiseHead">
                     <img src="../../../assets/Periphery/img6.png">
                     <div>
                         <p class="username">我是***小月</p>
@@ -93,126 +93,181 @@
 <script>
     import FoodInput from '../FoodInput'
     import CommentInput from "../../Community/CommentInput/index";
+    import https from "../../../https";
+    import {Dialog} from "vant";
+
     export default {
         name: "index",
         data() {
             return {
                 activeIndex: 3,
                 value: 3,
+                foodId:'',
+                foodDetail:{},
             };
         },
         methods: {
             change(activeIndex) {
                 this.activeIndex = activeIndex
-            }
+            },
+            getFoodDetail() {
+                const token = sessionStorage.getItem("token");
+                if (token) {
+                    https.fetchGet('/zhiyou/v1/cate/food/' + this.foodId, {token: token})
+                        .then(res => {
+                            if (res.data.success == true) {
+                                this.foodDetail = res.data.data
+                                console.log(res)
+                            } else {
+                                Dialog.alert({
+                                    title: '提示',
+                                    message: res.data.msg,
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            Dialog.alert({
+                                title: '提示',
+                                message: err
+                            })
+                        })
+                } else {
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请先登录!'
+                    })
+                }
+            },
+
         },
         components: {
             FoodInput
+        },
+        created() {
+            this.foodId=this.$route.params.id
+            this.getFoodDetail()
         }
     }
 </script>
 
 <style scoped>
 
-    .foodPictures{
+    .foodPictures {
         width: 100%;
         height: 489px;
         position: relative;
     }
-    .foodPictures img:nth-child(1){
+
+    .foodPictures img:nth-child(1) {
         width: 100%;
         height: 489px;
         position: absolute;
         z-index: -1;
     }
-    .foodPictures img:nth-child(2){
-        width: 11px ;
+
+    .foodPictures img:nth-child(2) {
+        width: 11px;
         height: 20px;
         margin-left: 25px;
         margin-top: 61px;
     }
-    .foodPictures span{
+
+    .foodPictures span {
         font-family: MicrosoftYaHei;
         font-size: 28px;
         color: #ffffff;
         margin-left: 32px;
     }
-    .foodPictures img:nth-child(4){
+
+    .foodPictures img:nth-child(4) {
         width: 30px;
         height: 26px;
         position: absolute;
         top: 58px;
         right: 67px;
     }
-    .foodPictures img:nth-child(5){
+
+    .foodPictures img:nth-child(5) {
         width: 23px;
         height: 23px;
         position: absolute;
         top: 60px;
         right: 26px;
     }
-    .foodInformation{
+
+    .foodInformation {
         width: 95%;
         margin-left: 39px;
         margin-top: 24px;
     }
-    .foodName{
+
+    .foodName {
         font-family: MicrosoftYaHei;
         font-size: 28px;
         line-height: 32px;
         color: #414141;
     }
-    .interactionInformation{
+
+    .interactionInformation {
         margin-top: 30px;
         display: flex;
         align-items: center;
     }
-    .interactionInformation img{
+
+    .interactionInformation img {
         width: 22px;
         height: 22px;
     }
-    .interactionInformation img:not(:first-child){
+
+    .interactionInformation img:not(:first-child) {
         margin-left: 20px;
     }
-    .interactionInformation span{
+
+    .interactionInformation span {
         font-family: MicrosoftYaHei;
         font-size: 18px;
         line-height: 28px;
         color: #bcbcbc;
         margin-left: 10px;
     }
-    .foodPrice{
+
+    .foodPrice {
         font-family: MicrosoftYaHei;
         font-size: 30px;
         line-height: 28px;
         color: #ff0000;
         margin-top: 30px;
     }
-    .Splitter{
+
+    .Splitter {
         width: 100%;
         height: 2px;
         background-color: #eeeeee;
         margin-top: 23px;
     }
-    .foodIntroduce{
+
+    .foodIntroduce {
         margin-top: 18px;
         width: 86%;
         margin-left: 39px;
     }
-    .foodIntroduceText{
+
+    .foodIntroduceText {
         font-family: MicrosoftYaHei;
         font-size: 20px;
         line-height: 40px;
         color: #999999;
     }
-    .foodIntroduce p:nth-child(2){
+
+    .foodIntroduce p:nth-child(2) {
         font-family: MicrosoftYaHei;
         font-size: 24px;
         line-height: 36px;
         color: #414141;
         margin-top: 31px;
     }
-    .foodIntroduce > textarea{
+
+    .foodIntroduce > textarea {
         width: 92%;
         height: 111px;
         background-color: #eeeeee;
@@ -225,14 +280,16 @@
         border-radius: 10px;
         padding: 14px 24px;
     }
-    .foodIntroduceButton{
+
+    .foodIntroduceButton {
         margin-top: 26px;
         margin-right: 53px;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .foodIntroduceButton button{
+
+    .foodIntroduceButton button {
         width: 106px;
         height: 43px;
         border-radius: 20px;
@@ -244,10 +301,12 @@
         line-height: 36px;
         color: #ffffff;
     }
-    .active{
+
+    .active {
         opacity: 100 !important;
     }
-    .appraiseTitle{
+
+    .appraiseTitle {
         height: 25px;
         margin-top: 34px;
         margin-left: 42px;
@@ -256,54 +315,66 @@
         justify-content: space-between;
         align-items: center;
     }
-    .appraiseTitle span{
+
+    .appraiseTitle span {
         font-family: MicrosoftYaHei;
         font-size: 24px;
         line-height: 35px;
         color: #414141;
     }
-    .appraiseTitle span:nth-child(2){
+
+    .appraiseTitle span:nth-child(2) {
         display: flex;
         align-items: center;
     }
-    .appraisePercent{
+
+    .appraisePercent {
         color: #f7c223 !important;
     }
-    .appraiseTitle img{
+
+    .appraiseTitle img {
         width: 16px;
         height: 30px;
     }
-    .appraiseList{
+
+    .appraiseList {
         margin-top: 10px;
         margin-left: 42px;
         margin-right: 36px;
     }
-    .appraiseHead{
+
+    .appraiseHead {
         display: flex;
     }
-    .appraiseHead > img{
+
+    .appraiseHead > img {
         width: 80px;
         height: 80px;
     }
-    .appraiseHead > div{
+
+    .appraiseHead > div {
         margin-left: 22px;
     }
-    .username{
+
+    .username {
         font-family: MicrosoftYaHei;
         font-size: 22px;
         line-height: 35px;
         color: #414141;
     }
-    .appraiseTime{
+
+    .appraiseTime {
         font-family: MicrosoftYaHei;
         font-size: 18px;
         line-height: 35px;
         color: #8e8e8e;
     }
-    .appraiseHead div:nth-child(3){
+
+    .appraiseHead div:nth-child(3) {
         margin-left: auto;
     }
-    .appraiseBodyText{
+
+    .appraiseBodyText {
         font-family: MicrosoftYaHei;
         font-size: 22px;
         line-height: 40px;
@@ -311,7 +382,8 @@
         margin-top: 10px;
         margin-left: 18px;
     }
-    .foodDetails>ul li:not(:first-child){
+
+    .foodDetails > ul li:not(:first-child) {
         margin-top: 39px;
     }
 </style>

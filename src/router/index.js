@@ -95,8 +95,8 @@ const routes = [
         component: HotelDetails,
     },
     {
-        path: '/fooddetails',
-        component: FoodDetails,
+        path: '/fooddetails/:id',
+        component: FoodDetails
     },
     //........................................
     {

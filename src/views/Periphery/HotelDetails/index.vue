@@ -1,7 +1,7 @@
 <template>
     <div class="hotelDetails">
         <div class="hotelPictures">
-            <img src="../../../assets/Periphery/hotelPicture.png">
+            <img src="../../../assets/Periphery/img4.png">
             <img src="../../../assets/Periphery/returnIcon@2x.png" @click="$router.back()">
             <img src="../../../assets/Periphery/icon1.png">
             <img src="../../../assets/Periphery/icon3.png">
@@ -24,19 +24,19 @@
         </div>
         <div class="hotelService">
             <div>
-                <img src="../../../assets/Periphery/hotelservic1.png">
+                <img src="../../../assets/Periphery/xuexiba0220.png">
                 <p>贴心服务</p>
             </div>
             <div>
-                <img src="../../../assets/Periphery/hotelservic2.png">
+                <img src="../../../assets/Periphery/wuxian.png">
                 <p>免费WiFi</p>
             </div>
             <div>
-                <img src="../../../assets/Periphery/hotelservic3.png">
+                <img src="../../../assets/Periphery/reshuiqi.png">
                 <p>热水服务</p>
             </div>
             <div>
-                <img src="../../../assets/Periphery/hotelservic4.png">
+                <img src="../../../assets/Periphery/xiaoshi.png">
                 <p>24小时服务</p>
             </div>
         </div>
@@ -182,7 +182,7 @@
     }
     .hotelService div img{
         width: 40px;
-        height: 46px;
+        height: 40px;
         margin: 0 auto;
 
     }

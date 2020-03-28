@@ -17,8 +17,8 @@
                 <button >+  关注</button>
             </div>
             <div class="dynamBody">
-                <span class="label">#{{dynamicComment.title}}#</span><p class="contents"> {{dynamicComment.content}}</p>
-                <img :src="dynamicComment.imageList">
+                <span class="label" v-for="(tag,index) in dynamicComment.tags">{{dynamicComment.tags[index]}}</span><p class="contents"> {{dynamicComment.content}}</p>
+                <img :src="dynamicComment.imageList" v-if="!dynamicComment.imageList==''">
             </div>
             <div class="dynamInformation">
                 <div class="headPortrait">
