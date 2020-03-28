@@ -59,27 +59,34 @@
                 const myDate = new Date();
                 this.nowTime=myDate.getTime()
                 const token = sessionStorage.getItem("token");
-                https.fetchGet('/zhiyou/v1/bbs/dynamicState/manito/attention',{manitoCount:0,token:token})
-                    .then(res=>{
-                        if(res.data.success==true){
-                            this.dynamicList=res.data.queryResult.list
-                            for(let i in this.dynamicList){
-                                this.dynamicList[i].createTime=Math.round(parseInt(this.nowTime-new Date(this.dynamicList[i].createTime).getTime())/ 1000 / 60 / 60)
-                            }
+                if(token) {
+                    https.fetchGet('/zhiyou/v1/bbs/dynamicState/manito/attention', {manitoCount: 0, token: token})
+                        .then(res => {
+                            if (res.data.success == true) {
+                                this.dynamicList = res.data.queryResult.list
+                                for (let i in this.dynamicList) {
+                                    this.dynamicList[i].createTime = Math.round(parseInt(this.nowTime - new Date(this.dynamicList[i].createTime).getTime()) / 1000 / 60 / 60)
+                                }
 
-                        }else{
+                            } else {
+                                Dialog.alert({
+                                    title: '提示',
+                                    message: res.data.msg,
+                                })
+                            }
+                        })
+                        .catch(err => {
                             Dialog.alert({
                                 title: '提示',
-                                message: res.data.msg,
+                                message: '服务器错误，请稍后重试!'
                             })
-                        }
-                    })
-                    .catch(err=>{
-                        Dialog.alert({
-                            title: '提示',
-                            message: '服务器错误，请稍后重试!'
                         })
+                }else {
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请先登录！'
                     })
+                }
             },
             giveLike(id){
                 const token = sessionStorage.getItem("token");
@@ -140,27 +147,34 @@
             },
             getLevel(){
                 const token = sessionStorage.getItem("token");
-                https.fetchGet('/zhiyou/v1/users/friend/list/'+ '010' ,{token:token})
-                    .then(res=>{
-                        if(res.data.success==true){
-                            this.levelList=res.data.queryResult.list
-                            for (let i in this.levelList){
-                                this.userList.push(this.levelList[i].username)
+                if(token) {
+                    https.fetchGet('/zhiyou/v1/users/friend/list/' + '010', {token: token})
+                        .then(res => {
+                            if (res.data.success == true) {
+                                this.levelList = res.data.queryResult.list
+                                for (let i in this.levelList) {
+                                    this.userList.push(this.levelList[i].username)
+                                }
+                                console.log(this.userList)
+                            } else {
+                                Dialog.alert({
+                                    title: '提示',
+                                    message: res.data.msg
+                                })
                             }
-                            console.log(this.userList)
-                        }else{
+                        })
+                        .catch(err => {
                             Dialog.alert({
                                 title: '提示',
-                                message: res.data.msg
+                                message: "服务器错误，请稍后重试！"
                             })
-                        }
-                    })
-                    .catch(err=>{
-                        Dialog.alert({
-                            title: '提示',
-                            message: "服务器错误，请稍后重试！"
                         })
+                }else{
+                    Dialog.alert({
+                        title: '提示',
+                        message: "请先登录"
                     })
+                }
             }
         }
     }

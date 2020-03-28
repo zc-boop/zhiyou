@@ -128,7 +128,7 @@ const routes = [
             },
             {
                 path: "/community",
-                redirect: "/community/attentiondynamic"
+                redirect: "/community/recommenddynamic"
             },
             {
                 path: '/community/nearby',
