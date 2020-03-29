@@ -1,7 +1,7 @@
 import axios from 'axios'
 import qs from 'qs'
 
-axios.defaults.timeout = 5000;                        //响应时间
+axios.defaults.timeout = 10000;                        //响应时间
 axios.defaults.headers.post['Content-Type'] = 'application/x-www-form-urlencoded;charset=UTF-8';        //配置请求头
 axios.defaults.baseURL = 'http://120.79.222.144';   //配置接口地址
 
@@ -106,10 +106,27 @@ export function fetchUploadFile(url, formData) {
    })
 
 }
+
+export function fetchPostJson(url, params) {
+    return new Promise((resolve, reject) => {
+        axios.create({
+            headers:{'Content-Type':'application/json;charset=UTF-8'}
+        }).post(url, params)
+            .then(response => {
+                resolve(response);
+            }, err => {
+                reject(err);
+            })
+            .catch((error) => {
+                reject(error)
+            })
+    })
+}
 export default {
     fetchPost,
     fetchGet,
     fetchPut,
     fetchDelete,
-    fetchUploadFile
+    fetchUploadFile,
+    fetchPostJson,
 }

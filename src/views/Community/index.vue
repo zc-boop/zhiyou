@@ -25,6 +25,9 @@
                 </router-view>
             </div>
         </div>
+        <router-link to="/adddynamic">
+        <img class="releaseDynamicphoto" src="../../assets/Community/plus(3).png">
+        </router-link>
     </div>
 </template>
 
@@ -133,5 +136,15 @@ export default {
 
     .navigation div.router-link-active {
         border-bottom: 5px #51ca89 solid;
+    }
+    .releaseDynamicphoto{
+        width: 120px;
+        height: 120px;
+        position: fixed;
+        right: 10px;
+        top: 80%;
+        display: flex;
+        align-items: center;
+
     }
 </style>

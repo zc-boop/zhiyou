@@ -15,6 +15,7 @@ import FoodDetails from '../views/Periphery/FoodDetails'
 import Message from '../views/Message'
 //.........................................
 import Community from '../views/Community'
+import AddDynamic from '../views/Community/AddDynamic'
 import AttentionDynamic from '../views/Community/AttentionDynamic'
 import Nearby from '../views/Community/Nearby'
 import RecommendDynamic from '../views/Community/RecommendDynamic'
@@ -99,8 +100,8 @@ const routes = [
         component: HotelDetails,
     },
     {
-        path: '/fooddetails',
-        component: FoodDetails,
+        path: '/fooddetails/:id',
+        component: FoodDetails
     },
     //........................................
     {
@@ -132,7 +133,7 @@ const routes = [
             },
             {
                 path: "/community",
-                redirect: "/community/attentiondynamic"
+                redirect: "/community/recommenddynamic"
             },
             {
                 path: '/community/nearby',
@@ -151,6 +152,10 @@ const routes = [
                 },
             },
         ]
+    },
+    {
+        path: '/adddynamic',
+        component: AddDynamic
     },
     {
         path: '/dynamiccomments/:id',

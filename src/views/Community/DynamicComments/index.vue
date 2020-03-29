@@ -17,8 +17,8 @@
                 <button >+  关注</button>
             </div>
             <div class="dynamBody">
-                <span class="label">#{{dynamicComment.title}}#</span><p class="contents"> {{dynamicComment.content}}</p>
-                <img :src="dynamicComment.imageList">
+                <span class="label" v-for="(tag,index) in dynamicComment.tags">{{dynamicComment.tags[index]}}</span><p class="contents"> {{dynamicComment.content}}</p>
+                <img :src="dynamicComment.imageList" v-if="!dynamicComment.imageList==''">
             </div>
             <div class="dynamInformation">
                 <div class="headPortrait">
@@ -33,7 +33,7 @@
                 <div class="dynamInformation2">
                     <div>
                         <img src="../../../assets/Community/icon2.png">
-                        <span>23</span>
+                        <span>{{commentTotle}}</span>
                     </div>
                     <div>
                         <img src="../../../assets/Community/icon3.png">
@@ -43,75 +43,35 @@
             </div>
         </div>
         <div class="commentHead">
-            <span>所有评论&nbsp;86</span>
+            <span>所有评论&nbsp;{{commentTotle}}</span>
         </div>
         <ul>
-            <li>
-                <img src="../../../assets/Community/img8.png">
+            <li v-for="item in comentList" :key="item.id">
+                <img :src="item.headPortrait">
                 <div>
                     <div class="commentAllText">
-                        <p class="usernameText">嘟嘟</p>
+                        <p class="usernameText">{{item.username}}</p>
                         <div>
-                            <img class="heartImg" src="../../../assets/Community/icon4.png">
-                            <span>14</span>
+                            <img class="heartImg" src="../../../assets/Community/icon4.png" @click="giveLikeComment(item.id)">
+                            <span>{{item.likeCount}}</span>
                         </div>
                     </div>
-                    <p class="commentText">感谢分享，又涨知识了,哈哈。</p>
+                    <p class="commentText">{{item.content}}</p>
                 </div>
             </li>
-            <li>
-                <img src="../../../assets/Community/img9.png">
-                <div>
-                    <div class="commentAllText">
-                        <p class="usernameText">大壮</p>
-                        <div>
-                            <img class="heartImg" src="../../../assets/Community/icon4.png">
-                            <span>14</span>
-                        </div>
-
-                    </div>
-                    <p class="commentText">感谢分享，又涨知识了，哈哈。鸟瞰整个城市，瞬间感觉
-                        整个人都不好了...</p>
-                </div>
-            </li>
-            <li>
-                <img src="../../../assets/Community/img8.png">
-                <div>
-                    <div class="commentAllText">
-                        <p class="usernameText">嘟嘟</p>
-                        <div>
-                            <img class="heartImg" src="../../../assets/Community/icon4.png">
-                            <span>14</span>
-                        </div>
-                    </div>
-                    <p class="commentText">感谢分享，又涨知识了,哈哈。</p>
-                </div>
-            </li>
-            <li>
-                <img src="../../../assets/Community/img9.png">
-                <div>
-                    <div class="commentAllText">
-                        <p class="usernameText">大壮</p>
-                        <div>
-                            <img class="heartImg" src="../../../assets/Community/icon4.png">
-                            <span>14</span>
-                        </div>
-
-                    </div>
-                    <p class="commentText">感谢分享，又涨知识了，哈哈。鸟瞰整个城市，瞬间感觉
-                        整个人都不好了...</p>
-                </div>
-            </li>
+            <div style="height: 100px;"></div>
         </ul>
-        <div style="height: 200px;"></div>
-        <CommentInput></CommentInput>
+        <div class="commentInput">
+            <textarea placeholder="写下你的评论" rows="3" v-model="commentDTO.content"></textarea>
+            <button><img src="../../../assets/Community/icon5.png" @click="sendComment()"></button>
+        </div>
     </div>
 </template>
 
 <script>
     import CommentInput from '../CommentInput'
     import https from "../../../https";
-    import {Dialog} from "vant";
+    import {Dialog,Toast } from "vant";
 
     export default {
         name: "index",
@@ -119,7 +79,14 @@
             return {
                 dynamicId:'',
                 dynamicComment:[],
-                nowTime:''
+                nowTime:'',
+                commentDTO:{
+                    content:'',
+                    objectId:'',
+                    type:0
+                },
+                comentList:[],
+                commentTotle:0,
             };
         },
         components: {
@@ -134,7 +101,6 @@
                         if(res.data.success==true){
                             this.dynamicComment=res.data.data
                             this.dynamicComment.createTime=Math.round(parseInt(this.nowTime-new Date(this.dynamicComment.createTime).getTime())/ 1000 / 60 / 60)
-                            console.log(res)
                         }else{
                             Dialog.alert({
                                 title: '提示',
@@ -149,11 +115,90 @@
                             message: '服务器错误，请稍后重试!'
                         })
                     })
-            }
+            },
+            getCommentList(){
+                https.fetchGet('/zhiyou/v1/bbs/comment',{objectId:this.dynamicId,size:10,type:0})
+                    .then(res=>{
+                        if(res.data.success==true){
+                            this.comentList=res.data.queryResult.list
+                            this.commentTotle=res.data.queryResult.total
+                        }else{
+                            Dialog.alert({
+                                title: '提示',
+                                message: res.data.msg
+                            })
+                        }
+
+                    })
+                    .catch(err=>{
+                        Dialog.alert({
+                            title: '提示',
+                            message: '服务器错误，请稍后重试!'
+                        })
+                    })
+            },
+            giveLikeComment(id){
+                const token = sessionStorage.getItem("token");
+                if(token){
+                    https.fetchPut('/zhiyou/v1/bbs/like/state/' + id + '/' + 1,null,{token:token})
+                        .then(res=>{
+                            if(res.data.success==true){
+                                this.getCommentList();
+                            }else{
+                                Dialog.alert({
+                                    title: '提示',
+                                    message: res.data.msg,
+                                })
+                            }
+                        })
+                        .catch(err=>{
+                            Dialog.alert({
+                                title: '提示',
+                                message: '服务器错误，请稍后重试!'
+                            })
+                        })
+                }else{
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请先登录!'
+                    })
+                }
+
+            },
+            sendComment(){
+                this.commentDTO.objectId=this.dynamicId
+                const token = sessionStorage.getItem("token");
+                if(token){
+                https.fetchPostJson('/zhiyou/v1/bbs/comment/publish?token=' + token,{content:this.commentDTO.content,objectId:this.commentDTO.objectId,type:this.commentDTO.type})
+                    .then(res=>{
+                        if(res.data.success==true){
+                            Toast('评论成功');
+                            this.getCommentList()
+                        }else{
+                            Dialog.alert({
+                                title: '提示',
+                                message: res.data.msg
+                            })
+                        }
+                    })
+                    .catch(err=>{
+                        Dialog.alert({
+                            title: '提示',
+                            message: '服务器错误，请稍后重试!'
+                        })
+                    })
+                }else{
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请先登录!'
+                    })
+                }
+            },
         },
         created() {
             this.dynamicId=this.$route.params.id
             this.getDynamic()
+            this.getCommentList()
         }
     }
 </script>
@@ -348,7 +393,7 @@
     }
     .dynamicComments > ul >li{
         display: flex;
-        margin-top: 36px;
+        margin-top: 51px;
     }
     .commentAllText{
         margin-top: 11px;
@@ -379,15 +424,16 @@
     .commentText{
         font-family: SourceHanSansCN-Regular;
         font-size: 20px;
-        margin-top: 25px;
+        margin-top: 20px;
         margin-left: 15px;
         margin-right: 97px;
         line-height: 36px;
         color: #6b6b6b;
     }
     .dynamicComments > ul >li>img{
-        width: 11%;
-        height: 6%;
+        width: 81px;
+        height: 81px;
+        border-radius: 50%;
         margin-left: 29px;
     }
     .dynamicComments > ul >li>div{
@@ -396,5 +442,40 @@
     .heartImg{
         width: 29px;
         height: 29px;
+    }
+    .commentInput{
+        width: 100%;
+        height: 98px;
+        display: flex;
+        align-items: center;
+        bottom: 0px;
+        position: fixed;
+        left: 0;
+        padding: 10px 0;
+        border-top: 5px rgba(127, 127, 127, 0.23) solid;
+        background-clip: padding-box;
+        background-color: white;
+    }
+    .commentInput > textarea{
+        width: 78%;
+        height: 46px;
+        margin-left: 32px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 24px;
+        line-height: 36px;
+        color: #bcbcbc;
+        border: 0;
+    }
+    .commentInput > button{
+        width: 14%;
+        height: 63px;
+        background-color: #51ca89;
+        border-radius: 32px;
+        border: 0;
+    }
+    .commentInput > button > img{
+        width: 37px;
+        height: 37px;
+        margin: 0 auto;
     }
 </style>

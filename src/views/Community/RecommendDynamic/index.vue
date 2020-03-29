@@ -1,18 +1,19 @@
 <template>
     <div class="attentionDynamic">
         <ul class="dynamicList" >
-            <li v-for="item in dynamicList" :key="item.id">
+            <li v-for="(item,index) in dynamicList" :key="item.id" @click="gotoComments(item.id)">
                 <div class="dynamHeader">
                     <img :src="item.headPortrait">
                     <div>
                         <p>{{item.username}}</p>
                         <p>{{(item.createTime>24)?Math.round(item.createTime/24)+"天之前":item.createTime+"小时之前"}}</p>
                     </div>
-                    <button >+  关注</button>
+                    <button v-show="userList.indexOf(item.username)" class="addAttention" @click="attentionFriend(item.username)">+ 关注</button>
+                    <button v-show="!userList.indexOf(item.username)" class="deleteAttention">已关注</button>
                 </div>
                 <div class="dynamBody">
-                    <span class="label">#{{item.title}}#</span><p class="contents"> {{item.content}}</p>
-                    <img src="../../../assets/Community/img2.png">
+                    <span class="label" v-for="(tag,index) in item.tags">{{item.tags[index]}}</span><p class="contents"> {{item.content}}</p>
+                    <img :src="item.imageList" v-if="!item.imageList==''">
                 </div>
                 <div class="dynamOperation">
                     <div>
@@ -45,25 +46,27 @@
                 dynamicList:[],
                 nowTime:"",
                 timeList:[],
+                levelList:[],
+                userList:[],
             };
         },
         created() {
             this.getDynamicList();
+            this.getLevel();
         },
         methods:{
             getDynamicList(){
                 const myDate = new Date();
                 this.nowTime=myDate.getTime()
                 const token = sessionStorage.getItem("token");
-                console.log(token);
-                if(token){
                     https.fetchGet('/zhiyou/v1/bbs/dynamicState/manito'+'',null)
                         .then(res=>{
                             if(res.data.success==true){
                                 this.dynamicList=res.data.queryResult.list
-                                for(var i in this.dynamicList){
+                                for(let i in this.dynamicList){
                                     this.dynamicList[i].createTime=Math.round(parseInt(this.nowTime-new Date(this.dynamicList[i].createTime).getTime())/ 1000 / 60 / 60)
                                 }
+
                             }else{
                                 Dialog.alert({
                                     title: '提示',
@@ -77,12 +80,6 @@
                                 message: '服务器错误，请稍后重试!'
                             })
                         })
-                }else{
-                    Dialog.alert({
-                        title: '提示',
-                        message: '请先登录!'
-                    })
-                }
             },
             giveLike(id){
                 const token = sessionStorage.getItem("token");
@@ -90,9 +87,9 @@
                     https.fetchPut('/zhiyou/v1/bbs/like/state/' + id + '/' + 3,null,{token:token})
                         .then(res=>{
                             if(res.data.success==true){
-                                console.log("成功")
                                 this.getDynamicList();
                             }else{
+
                                 Dialog.alert({
                                     title: '提示',
                                     message: res.data.msg,
@@ -118,6 +115,59 @@
             },
             gotoComments(id){
                 this.$router.push("/dynamiccomments/"+id);
+            },
+            attentionFriend(username) {
+                const token = sessionStorage.getItem("token");
+                console.log(token);
+                if (token) {
+                    https.fetchPost('/zhiyou/v1/users/friend/pursue/' + username, {token: token})
+                        .then(res => {
+                            if (res.data.code === 200) {
+                                this.getLevel()
+                            } else {
+                                console.log(res.data.msg)
+                            }
+                        })
+                        .catch(err => {
+                            console.log(err)
+                        })
+                } else {
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请先登录!'
+                    })
+                }
+            },
+            getLevel(){
+                const token = sessionStorage.getItem("token");
+                if(token) {
+                    https.fetchGet('/zhiyou/v1/users/friend/list/' + '010', {token: token})
+                        .then(res => {
+                            if (res.data.success == true) {
+                                this.levelList = res.data.queryResult.list
+                                for (let i in this.levelList) {
+                                    this.userList.push(this.levelList[i].username)
+                                }
+                                console.log(this.userList)
+                            } else {
+                                Dialog.alert({
+                                    title: '提示',
+                                    message: res.data.msg
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            Dialog.alert({
+                                title: '提示',
+                                message: "服务器错误，请稍后重试！"
+                            })
+                        })
+                }else {
+                    Dialog.alert({
+                        title: '提示',
+                        message: "请先登录"
+                    })
+                }
             }
         }
     }
@@ -159,7 +209,7 @@
          font-size: 20px;
          color: #666666;
      }
-    .dynamHeader > button{
+    .addAttention{
         width: 90px;
         height: 36px;
         position: absolute;
@@ -170,6 +220,19 @@
         font-family: SourceHanSansCN-Regular;
         font-size: 22px;
         color: #51ca89;
+        margin-top: 19px;
+    }
+    .deleteAttention{
+        width: 90px;
+        height: 36px;
+        position: absolute;
+        right: 28px;
+        background-color: white;
+        border: 1px #666666 solid;
+        border-radius: 6px;
+        font-family: SourceHanSansCN-Regular;
+        font-size: 22px;
+        color: #666666;
         margin-top: 19px;
     }
     .dynamBody{

@@ -9,19 +9,19 @@
             <li>酒水</li>
         </ul>
         <ul class="foodList">
-            <router-link to="/fooddetails" tag="li">
-                <img src="../../../assets/Periphery/food1.png" alt="">
+            <li v-for="item in foodList" :key="item.id" @click="gotoComments(item.id)">
+                <img :src="item.imageList" alt="">
                 <div class="foodDetail">
-                    <h3>招牌麻辣鱼</h3>
-                    <p>
-                        采用鲜嫩鲢鱼作为主要食材，云南大红袍花椒和红椒以及几样小菜向辅佐，辣味适中且不油腻
+                    <h3>{{item.name}}</h3>
+                    <p  class="van-multi-ellipsis--l3">
+                         {{item.description}}
                     </p>
                     <div class="price">
-                        <p>￥118 <small>月销：271</small></p>
+                        <p>￥{{item.price/100}} <small>月销：{{item.payCount}}</small></p>
                         <button>立即购买</button>
                     </div>
                 </div>
-            </router-link>
+            </li>
             <li>
                 <img src="../../../assets/Periphery/food2.png" alt="">
                 <div class="foodDetail">
@@ -93,9 +93,52 @@
 </template>
 
 <script>
-export default {
-    name: "index"
-}
+    import https from "../../../https";
+    import {Dialog, Toast} from "vant";
+
+    export default {
+        name: "index",
+        data() {
+            return {
+                foodList: [],
+            }
+        },
+        methods: {
+            gotoComments(id){
+                this.$router.push("/fooddetails/"+id);
+            },
+            getFoodLIst() {
+                const token = sessionStorage.getItem("token");
+                if (token) {
+                    https.fetchGet('/zhiyou/v1/cate/food/r/' + '5e7d89575a47ae0b72c00110', {token: token})
+                        .then(res => {
+                            if (res.data.success == true) {
+                                this.foodList = res.data.queryResult.list
+                            } else {
+                                Dialog.alert({
+                                    title: '提示',
+                                    message: res.data.msg,
+                                })
+                            }
+                        })
+                        .catch(err => {
+                            Dialog.alert({
+                                title: '提示',
+                                message: err
+                            })
+                        })
+                } else {
+                    Dialog.alert({
+                        title: '提示',
+                        message: '请先登录!'
+                    })
+                }
+            }
+        },
+        created() {
+        this.getFoodLIst()
+        }
+    }
 </script>
 
 <style>
