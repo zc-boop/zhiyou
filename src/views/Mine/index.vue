@@ -12,7 +12,7 @@
                 <div class="cardTop">
                     <div class="left">
                         <img :src="userInfo.headPortrait || this.$store.state.noHeadPortrait" alt/>
-                        <router-link :to="username ? '/mine': '/login'" tag="span">{{userInfo.username || "请登录..."}}
+                        <router-link :to="userInfo.username ? '':'/login'" tag="span">{{userInfo.nickname || "请登录..."}}
                         </router-link>
                     </div>
                     <router-link to="/einfo" tag="button">编辑资料</router-link>
@@ -26,10 +26,6 @@
                     <router-link to="/afans/attention" tag="li">
                         <p>12</p>
                         <p>关注</p>
-                    </router-link>
-                    <router-link to="/myfriend" tag="li">
-                        <p>0</p>
-                        <p>好友</p>
                     </router-link>
                     <router-link to="/collect" tag="li">
                         <p>2</p>
@@ -79,14 +75,14 @@ export default {
     },
     methods: {
         setUserInfo() {
-            if (sessionStorage.getItem('token')) {
-                const userInfo = sessionStorage.getItem('userInfo');
+            if (localStorage.getItem('token')) {
+                const userInfo = localStorage.getItem('userInfo');
                 this.userInfo = window.JSON.parse(userInfo);
                 this.isShow = true;
             }
         },
         logout() {
-            sessionStorage.clear();
+            localStorage.clear();
             this.isShow = false;
             this.goTo("/login");
         }

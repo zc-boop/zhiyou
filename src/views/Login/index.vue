@@ -66,19 +66,21 @@ export default {
     created() {
     },
     methods: {
-        ...mapMutations(['addUserId']),
+        ...mapMutations(['adduserInfox']),
         login() {
             https
                 .fetchPost("/zhiyou/v1/users/signin", this.userInfo)
                 .then(res => {
                     if (res.data.code === 200) {
-                        window.sessionStorage.setItem("token", res.data.token);
+                        window.localStorage.setItem("token", res.data.token);
                         //获取token进行解析
-                        const token = sessionStorage.getItem("token");
+                        const token = localStorage.getItem("token");
+                        console.log(token);
                         // 解析token获取用户信息
                         const user = jwtDecode(token);
                         const toJson = window.JSON.stringify(user);
-                        sessionStorage.setItem('userInfo', toJson);
+                        localStorage.setItem('userInfo', toJson);
+                        this.adduserInfox(toJson);
                         console.log(toJson);
                         this.goTo("/mine");
                     } else {

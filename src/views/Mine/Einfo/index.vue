@@ -2,71 +2,66 @@
     <div class="einfo">
         <Header title="编辑资料"/>
         <div class="editInformation">
-            <div class="header">
-                <img :src="headerImg || this.$store.state.noHeadPortrait" alt="">
-                <p>
-                    {{username}}
-                    <span class="gender">♀</span>
-                </p>
-                <ul class="menu">
-                    <router-link to="/afans/fans" tag="li">
-                        <span>粉丝</span>
-                        <span>0</span>
-                    </router-link>
-                    <router-link to="/afans/attention" tag="li">
-                        <span>关注</span>
-                        <span>0</span>
-                    </router-link>
-                    <router-link to="/collect" tag="li">
-                        <span>收藏</span>
-                        <span>0</span>
-                    </router-link>
-                </ul>
-            </div>
             <form ref="form" enctype="multipart/form-data" id="userInfoForm" name="userInfoForm">
-                <!--头像修改-->
-                <div class="headPortrait">
-                    <span>头像</span>
-                    <div class="headPortraitInputDiv">
-                        <label for="inputFile">
-                            <van-icon name="plus"/>
-                        </label>
-                        <input type="file"
-                               id="inputFile"
-                               name="file"
-                               style="display: none"
-                               multiple
-                               accept="image/jpg,image/jpeg,image/png"
-                               @change="formIsDirty()"
-                        />
-                    </div>
+                <div class="header">
+                    <label  @click="showPopup">
+                        <img :src="headerImg || this.$store.state.noHeadPortrait" alt="" width="100" height="100">
+                    </label>
+                    <van-popup v-model="show" position="bottom" :style="{ height: '20%' }">
+                        <div class="headPortraitUpSelect">
+                            <div class="van-popupPhoto" @click="uploadPictures">
+                                照相
+                            </div>
+                            <div class="van-popupInputFile">
+                                <label for="inputFile">
+                                    从相册中选取
+                                </label>
+                            </div>
+                            <div class="van-popupCancel" @click="hidePopup">
+                                取消
+                            </div>
+                        </div>
+                    </van-popup>
+                    <input type="file"
+                           id="inputFile"
+                           name="file"
+                           style="display: none"
+                           multiple
+                           accept="image/jpg,image/jpeg,image/png"
+                           @change="modifyAvatar()"
+                    />
+                    <p>
+                        {{nickname}}
+                    </p>
                 </div>
                 <!--其他信息修改-->
                 <ul class="otherModify">
                     <li>
                         <span>用户名</span>
+                        <div  @click="prompt">
+                            <input type="text" id="username" :value="username" disabled />
+                            <van-icon name="arrow" class="rightIcon" style="opacity: 0"/>
+                        </div>
+                    </li>
+                    <li>
+                        <span>昵称</span>
                         <div>
-                            <input type="text" id="username" :value="username" @input="formIsDirty()">
+                            <input type="text" id="nickname" :value="nickname" @input="formIsDirty()">
                             <van-icon name="arrow" class="rightIcon"/>
                         </div>
                     </li>
                     <li>
                         <span>性别</span>
-                        <div>
-                            <select name="sex" id="sexCheck" @input="formIsDirty()">
-                                <option value="default" disabled="disabled">{{sex}}</option>
-                                <option value="secrecy">保密</option>
-                                <option value="male">男</option>
-                                <option value="female">女</option>
-                            </select>
-                            <van-icon name="arrow" class="rightIcon"/>
+                        <div @click="prompt">
+                            <input type="text" id="sexCheck" :value="sex" disabled />
+                            <van-icon name="arrow" class="rightIcon" style="opacity: 0"/>
                         </div>
                     </li>
                     <li>
                         <span>邮箱</span>
-                        <div>
-                            <input type="text" :value="email" id="email" @input="formIsDirty()">
-                            <van-icon name="arrow" class="rightIcon"/>
+                        <div @click="prompt">
+                            <input type="text" :value="email" id="email" disabled />
+                            <van-icon name="arrow" class="rightIcon" style="opacity: 0"/>
                         </div>
                     </li>
                     <li>
@@ -78,7 +73,9 @@
                         </div>
                     </li>
                     <li>
-                        <button class="confirmChanges" @click.prevent.stop="changeInfo" :disabled="isDisabled">确认修改
+                        <button class="confirmChanges"
+                                @click.prevent.stop="modifyInfo"
+                                :disabled="isDisabled">确认修改
                         </button>
                     </li>
                 </ul>
@@ -99,10 +96,12 @@ export default {
             fileList: [],
             headerImg: "",
             username: "",
+            nickname: "",
             email: "",
             phoneNumber: "",
             sex: "男",
-            isDisabled: true
+            isDisabled: true,
+            show: false
         }
     },
     components: {
@@ -112,31 +111,71 @@ export default {
         this.obtainUserInfo();
     },
     methods: {
+        //弹出上传头像
+        showPopup() {
+            this.show = true;
+        },
+        //隐藏上传头像
+        hidePopup() {
+            this.show = false;
+        },
+        //拍照上传
+        uploadPictures(){
+            Dialog.alert({
+                title: '提示',
+                message: '还未开采出来哟！！'
+            })
+        },
+        //提示不能修改
+        prompt(){
+            this.$notify({
+                message: '不能修改哟！！',
+                type: 'warning'
+            });
+        },
         //检查表单是否改变
         formIsDirty() {
-            let inputFile = document.getElementById("inputFile").value;
-            let username = document.getElementById("username").value;
-            let sexCheck = document.getElementById("sexCheck").value;
-            let email = document.getElementById("email").value;
-            let phoneNumber = document.getElementById("phoneNumber").value;
-            const userInfoObj = window.JSON.parse(sessionStorage.getItem('userInfo'));
-            if (inputFile !== "" || username !== userInfoObj.username || email !== userInfoObj.email) {
+            let nickname = document.getElementById("nickname").value;
+            const userInfoObj = window.JSON.parse(localStorage.getItem('userInfo'));
+            if (nickname !== userInfoObj.username) {
                 this.isDisabled = false;
             } else {
                 this.isDisabled = true;
             }
         },
-        //修改信息，并上传修改后的信息
-        changeInfo() {
-            const token = sessionStorage.getItem("token");
+        //修改头像，并上传修改后的信息
+        modifyAvatar() {
+            const token = localStorage.getItem("token");
             let formData = new FormData(this.$refs.form);
             http.fetchUploadFile('/zhiyou/v1/users/upload/head?token=' + token, formData).then(value => {
+                console.log(value);
+                this.show = false;
+                Dialog.alert({
+                    title: '提示',
+                    message: '修改成功，请重新登录！！！'
+                }).then(() => {
+                    localStorage.clear();
+                    this.goTo('/login')
+                });
+            }).catch(reason => {
+                Dialog.alert({
+                    title: '提示',
+                    message: '修改失败！！！'
+                })
+            })
+        },
+        //修改其他信息
+        modifyInfo(){
+            // /zhiyou/v1/users/userinfo/{id}
+            const token = localStorage.getItem("token");
+            let formData = new FormData(this.$refs.form);
+            http.fetchPut('/zhiyou/v1/users/userinfo/id'+this.$store.state.id,{token,nickname}).then(value => {
                 console.log(value);
                 Dialog.alert({
                     title: '提示',
                     message: '修改成功，请重新登录！！！'
                 }).then(() => {
-                    sessionStorage.clear();
+                    localStorage.clear();
                     this.goTo('/login')
                 });
             }).catch(reason => {
@@ -148,14 +187,14 @@ export default {
         },
         //获得用户信息
         obtainUserInfo() {
-            if (sessionStorage.getItem("token")) {
-                const userInfo = sessionStorage.getItem('userInfo');
+            if (localStorage.getItem("token")) {
+                const userInfo = localStorage.getItem('userInfo');
                 const userInfoObj = window.JSON.parse(userInfo);
                 console.log(userInfoObj);
                 this.username = userInfoObj.username;
                 this.email = userInfoObj.email;
                 this.headerImg = userInfoObj.headPortrait;
-                // this.phoneNumber = userInfoObj.headPortrait;
+                this.nickname = userInfoObj.nickname;
             } else {
                 this.$dialog.alert({
                     message: '请先登录！！'
@@ -174,67 +213,44 @@ export default {
         background: #fafafa;
     }
 
-    .editInformation > .header {
+    .editInformation   .header {
         width: 100%;
-        height: 385px;
+        height: 300px;
         background: white;
         margin-bottom: 22px;
         text-align: center;
         padding-top: 30px;
     }
 
-    .editInformation > .header > p {
+    .editInformation   .header > p {
         font-size: 34px;
     }
 
-    .editInformation > .header > img {
+    .editInformation  .header   img {
         width: 153px;
         height: 153px;
         display: block;
         margin: 0 auto;
         margin-bottom: 25px;
         border-radius: 50%;
+        border: 2px solid #eee;
+        padding: 10px;
     }
-
-    .editInformation > .header .gender {
-        color: #fa3a70;
-        font-weight: bold;
+    .headPortraitUpSelect{
+        width: 100%;
+        font-size: 32px;
+        position: absolute;
+        bottom: 0;
     }
-
-    .editInformation > .header > .menu {
-        display: flex;
-        justify-content: space-around;
-        margin: 42px 0;
-        font-size: 26px;
+    .headPortraitUpSelect>div:first-of-type{
+        border-top: 1px solid #eee;
     }
-
-    .menu > li > span:last-child {
-        margin: 0 10px;
-        color: #333;
+    .headPortraitUpSelect>div{
+        width: 100%;
+        height: 80px;
+        border-bottom: 1px solid #eee;
+        line-height: 80px;
     }
-
-    .headPortrait {
-        height: 140px;
-        margin: 20px 0;
-        background: white;
-        padding: 0 28px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        font-size: 30px;
-    }
-
-    .headPortraitInputDiv label {
-        width: 90px;
-        height: 90px;
-        display: block;
-        border-radius: 50%;
-        text-align: center;
-        line-height: 90px;
-        border: 1px solid #cfcfcf;
-        color: #cfcfcf;
-    }
-
     .otherModify > li {
         height: 91px;
         display: flex;
@@ -268,6 +284,10 @@ export default {
         margin-right: 10px;
     }
 
+    .otherModify > li input:disabled {
+        background: white;
+    }
+
     .otherModify > li select {
         width: 200px;
         border: none;
@@ -278,17 +298,20 @@ export default {
         -webkit-appearance: none;
         direction: rtl;
         margin-right: 10px;
+        background: white;
     }
 
     .otherModify > li select > option {
         direction: ltr;
+        background: white;
     }
 
     .confirmChanges {
         display: block;
         width: 85%;
         height: 100px;
-        margin: 0 auto;
+        margin: 0px auto;
+        margin-top: 100px;
         border: none;
         background: #51ca89;
         color: white;

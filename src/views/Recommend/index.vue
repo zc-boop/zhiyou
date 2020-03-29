@@ -15,10 +15,18 @@
                     <p>热门景点</p>
                 </div>
                 <div class="touristArea">
-                    <router-link to="/route" tag="button">稻城亚丁</router-link>
+                    <!--<router-link to="/route" tag="button">稻城亚丁</router-link>
                     <router-link to="/route" tag="button">青城山</router-link>
                     <router-link to="/route" tag="button">阆中古城</router-link>
-                    <router-link to="/route" tag="button">乐山大佛</router-link>
+                    <router-link to="/route" tag="button">乐山大佛</router-link>-->
+                    <router-link :to="{path:'/viewdetail',query:{id:item.itemId}}"  tag="button"
+                                 v-for="(item,index) in hotAttractionsList"
+                                 :key="item.id"
+
+                    >
+                        <!--v-if="index<4"-->
+                        {{item.name}}
+                    </router-link>
                 </div>
             </div>
             <div class="recommendedToYou">
@@ -54,17 +62,17 @@
                     <p class="listHeaderMore">更多></p>
                 </div>
                 <ul class="routeLists">
-                    <router-link to="/route" tag="li">
+                    <router-link to="/routelist" tag="li">
                         <img src="../../assets/home/img4.png" alt="">
                         <h3>成都三日游</h3>
                         <p>宽窄巷子/锦里/大熊猫繁育研究基地</p>
                     </router-link>
-                    <router-link to="/route" tag="li">
+                    <router-link to="/routelist" tag="li">
                         <img src="../../assets/home/img5.png" alt="">
                         <h3>稻城亚丁七日游</h3>
                         <p>李白故里/北川羌城/富乐山</p>
                     </router-link>
-                    <router-link to="/route" tag="li">
+                    <router-link to="/routelist" tag="li">
                         <img src="../../assets/home/img4.png" alt="">
                         <h3>成都三日游</h3>
                         <p>宽窄巷子/锦里/大熊猫繁育研究基地</p>
@@ -100,23 +108,47 @@
 </template>
 
 <script>
+import http from "../../https";
+import {Dialog} from "vant";
+
 export default {
     name: "index",
-    data(){
-        return{
-            searchContent:""
+    data() {
+        return {
+            searchContent: "",
+            hotAttractionsList: []
         }
+    },
+    created() {
+        this.getHotSience();
     },
     methods: {
         searchInfo() {
             let searchInfo = this.$refs.searchInfo.value.trim()
             if (searchInfo !== "") {
-                alert(`您将要搜索的内容是：${searchInfo}`)
-                this.goTo('/route')
+                alert(`您将要搜索的内容是：${searchInfo}`);
+                this.goTo('/routelist')
             } else {
                 alert("您好像没有输入什么呢！")
             }
+        },
+        //    热门景点
+        getHotSience() {
+            // /zhiyou/v1/search/beersKittles/list
+            http.fetchGet('/zhiyou/v1/search/beersKittles/list').then(res => {
+                if (res.data.code === 200) {
+                    console.log(res);
+                    this.hotAttractionsList = res.data.queryResult.list;
+                } else {
+                    Dialog.alert({
+                        title: '提示',
+                        message: res.data.msg
+                    })
+                }
 
+            }).catch(reason => {
+                console.log(reason);
+            })
         }
     }
 }
@@ -207,8 +239,9 @@ export default {
     }
 
     .touristArea > button {
-        width: 120px;
+        width: auto;
         height: 70px;
+        padding: 0 10px;
         margin: 0 20px;
         font-size: 24px;
         border: 1px solid #ccc;

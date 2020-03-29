@@ -1,10 +1,10 @@
 <template>
     <div class="viewDetail">
         <div class="viewDetailHeader">
-            <div class="headerImg" :style="{backgroundImage:'url('+background+')'}">
+            <div class="headerImg" :style="{backgroundImage:'url('+pictures[0]+')'}">
                 <div class="space"></div>
                 <div class="header">
-                    <van-icon name="arrow-left" @click="goTo('/route')"/>
+                    <van-icon name="arrow-left" @click="$router.go(-1)"/>
                     <div>
                         <img src="../../assets/Community/icon3.png" alt="">
                         <img src="../../assets/Community/icon1.png" alt="">
@@ -15,15 +15,15 @@
         <div class="viewDetailBody">
             <div class="viewNameHeader">
                 <div class="viewName">
-                    稻城亚丁七日游
+                    {{scenicDetailList.name}}
                 </div>
                 <p class="viewNameIntro">
-                    丹巴/新都桥/稻城/亚丁
+                    电话：{{scenicDetailList.phone}}
                 </p>
                 <div class="viewLocation">
                     <div>
                         <img src="../../assets/home/dizhi-g.png" alt="">
-                        <span>四川省甘孜藏族自治州稻城县香格里拉镇</span>
+                        <span>{{scenicDetailList.addr}}</span>
                     </div>
                     <van-icon name="arrow"/>
                 </div>
@@ -32,14 +32,14 @@
                 <h3>具体介绍</h3>
                 <div>
                     <p :style="{'-webkit-line-clamp': isReadMore1?'10000':'0'}">
-                        {{intro}}
+                        {{scenicDetailList.description}}
                     </p>
                     <span @click="redMore1" :style="{display: isReadMore1?'none':'black'}">... 更多>></span>
                 </div>
             </div>
             <div class="playGuide viewTitle">
                 <h3>游玩指南</h3>
-                <ul class="playLocal">
+                <!--<ul class="playLocal">
                     <li>
                         <img src="../../assets/viewDetail/img6.png" alt="图片加载中...">
                         <p>丹巴</p>
@@ -56,8 +56,10 @@
                         <img src="../../assets/viewDetail/img9.png" alt="图片加载中...">
                         <p>亚丁</p>
                     </li>
+                </ul>-->
+                <ul class="playLocal">
+                    暂无
                 </ul>
-
             </div>
             <div class="precautions viewTitle">
                 <h3>注意事项</h3>
@@ -66,7 +68,6 @@
                         <h4>高原反应</h4>
                         <div class="precautionsIntro">
                             <p>{{care1}}</p>
-                            <span @click="showPopup">... 更多>></span>
                             <van-popup v-model="show" class="my-popup">
                                 {{care1}}
                             </van-popup>
@@ -76,7 +77,6 @@
                         <h4>宗教文化</h4>
                         <div class="precautionsIntro">
                             <p>{{care2}}</p>
-                            <span @click="showPopup2">... 更多>></span>
                             <van-popup v-model="show2" class="my-popup">
                                 {{care2}}
                             </van-popup>
@@ -88,10 +88,10 @@
         <div class="viewDetailFooter">
             <ul class="viewDetailFooterList">
                 <li class="goAndShare">
-                    <div>
+                    <router-link :to="{path:'/routelist',query:{scenicid:scenicDetailList.id}}" tag="div">
                         <img src="../../assets/home/wannaGo.png" alt="">
                         <p style="color: #51ca89">想去</p>
-                    </div>
+                    </router-link>
                     <div>
                         <img src="../../assets/home/share.png" alt="">
                         <p style="color: #BFBFBF">分享</p>
@@ -108,19 +108,26 @@
 </template>
 
 <script>
+import http from "../../https";
+
 export default {
     name: "index",
     data() {
         return {
-            background: "http://pic.liyunxing.top/zhiyou/home/img8.png",
-            intro: "稻城地处川西高原，雪山和冰川，草甸和林海，溪流和湖泊，这里拥有雪域高原的所有元素。“三神山”仙乃日、央迈勇、夏诺多吉，鼎足而立，圣洁巍峨；世界最大的古冰体遗迹海子山，湖泊密布，一望无垠。还有热烈艳丽的红草地、青杨林，晶莹澄澈的牛奶海、五色海，都是“人间难得几回见”的风景稻城地处川西高原，雪山和冰川，草甸和林海，溪流和湖泊，这里拥有雪域高原的所有元素。“三神山”仙乃日、央迈勇、夏诺多吉，鼎足而立，圣洁巍峨；世界最大的古冰体遗迹海子山，湖泊密布，一望无垠。还有热烈艳丽的红草地、青杨林，晶莹澄澈的牛奶海、五色海，都是“人间难得几回见”的风景稻城地处川西高原，雪山和冰川，草甸和林海，溪流和湖泊，这里拥有雪域高原的所有元素。“三神山”仙乃日、央迈勇、夏诺多吉，鼎足而立，圣洁巍峨；世界最大的古冰体遗迹海子山，湖泊密布，一望无垠。还有热烈艳丽的红草地、青杨林，晶莹澄澈的牛奶海、五色海，都是“人间难得几回见”的风景",
-            care1: "稻城的平均海拔有4000米，有发生高原反应的可能，可能出现胸闷、气短，甚至头痛、呕吐等症状稻城的平均海拔有4000米，有发生高原反应的可能，可能出现胸闷、气短，甚至头痛、呕吐等症状",
+            care1: "暂无",
             isReadMore1: false,
-            care2: "稻城藏民大多是虔诚的藏传佛教徒，旅行中应时刻注意自己的言谈举止，尊重当地的宗教文化。稻城藏民大多是虔诚的藏传佛教徒，旅行中应时刻注意自己的言谈举止，尊重当地的宗教文化。",
+            care2: "暂无",
             show: false,
-            show2: false
+            show2: false,
+            TypeId: this.$route.query.id,
+            scenicDetailList: [],
+            pictures: []
+
 
         }
+    },
+    created() {
+        this.getScenicDetail();
     },
     methods: {
         redMore1() {
@@ -132,6 +139,20 @@ export default {
         showPopup2() {
             this.show2 = true;
         },
+        getScenicDetail() {
+            http.fetchGet('/zhiyou/v1/scenic/' + this.TypeId).then((res) => {
+                if (res.data.code === 200) {
+                    console.log("..............................res");
+                    console.log(res);
+                    this.scenicDetailList = res.data.data
+                    this.pictures = res.data.data.pictures.split(',')
+                } else {
+                    console.log("有问题");
+                }
+            }).catch(reason => {
+                console.log(reason);
+            })
+        }
     }
 }
 </script>
@@ -334,6 +355,11 @@ export default {
         text-align: center;
     }
 
+    .goAndShare img {
+        width: 48px;
+        height: 38px;
+    }
+
     .goAndShare p {
         font-size: 22px;
     }
@@ -345,7 +371,8 @@ export default {
         justify-content: space-around;
         padding: 10px 0;
     }
-    .hotelAndFood>button{
+
+    .hotelAndFood > button {
         display: block;
         width: 197px;
         height: 55px;

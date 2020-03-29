@@ -94,90 +94,41 @@
             <div class="schedule">
                 <h3 class="routerDetailHeader">行程安排</h3>
                 <ul class="arrangementList">
-                    <li>
+                    <li v-for="item in dayList" :key="item.id">
                         <div class="period">
                             <span class="point"></span>
                             <p class="time">2020.03.11 <span>星期三</span></p>
                         </div>
-                        <router-link to="/viewdetail" tag="div" class="attractionsCard">
+                        <router-link to="/viewdetail" tag="div" class="attractionsCard" v-for="(item,index) in item.eventList" :key="index">
                             <div class="left">
                                 <div class="playSites">
                                     <img src="../../assets/viewDetail/icon2.png" alt="">
-                                    <span>成都游玩</span>
+                                    <span>{{item.type}}</span>
                                 </div>
-                                <p class="specificLoc">宽窄巷子</p>
-                                <p class="cost">免费</p>
+                                <p class="specificLoc">
+                                    <span>出发地：{{item.originName}}</span>
+                                    <span>目的地：{{item.destinationName}}</span>
+                                </p>
+                                <p class="cost">￥{{item.cost}}/人</p>
                                 <div class="playTime">
-                                    建议游玩3-5小时
+                                  消耗时长：{{item.timeEstimates}}小时
                                 </div>
                             </div>
                             <div class="right">
                                 <img src="../../assets/viewDetail/img10.png" alt="">
                             </div>
                         </router-link>
-                        <router-link to="/viewdetail" tag="div" class="attractionsCard">
-                            <div class="left">
-                                <div class="playSites">
-                                    <img src="../../assets/viewDetail/icon2.png" alt="">
-                                    <span>成都游玩</span>
-                                </div>
-                                <p class="specificLoc">锦鲤</p>
-                                <p class="cost">免费</p>
-                                <div class="playTime">
-                                    建议游玩2-3小时
-                                </div>
-                            </div>
-                            <div class="right">
-                                <img src="../../assets/viewDetail/img11.png" alt="">
-                            </div>
-                        </router-link>
-                    </li>
-                    <li>
-                        <div class="period">
-                            <span class="point"></span>
-                            <p class="time">2020.03.12 <span>星期四</span></p>
-                        </div>
-                        <router-link to="/viewdetail" tag="div" class="attractionsCard">
-                            <div class="left">
-                                <div class="playSites">
-                                    <img src="../../assets/viewDetail/icon2.png" alt="">
-                                    <span>成都游玩</span>
-                                </div>
-                                <p class="specificLoc">大型猫繁育基地</p>
-                                <p class="cost">￥150/人</p>
-                                <div class="playTime">
-                                    建议游玩2-3小时
-                                </div>
-                            </div>
-                            <div class="right">
-                                <img src="../../assets/viewDetail/img12.png" alt="">
-                            </div>
-                        </router-link>
-                        <router-link to="/viewdetail" tag="div" class="attractionsCard">
-                            <div class="left">
-                                <div class="playSites">
-                                    <img src="../../assets/viewDetail/icon2.png" alt="">
-                                    <span>成都游玩</span>
-                                </div>
-                                <p class="specificLoc">武侯祠</p>
-                                <p class="cost">￥45/人</p>
-                                <div class="playTime">
-                                    建议游玩3-5小时
-                                </div>
-                            </div>
-                            <div class="right">
-                                <img src="../../assets/viewDetail/img13.png" alt="">
-                            </div>
-                        </router-link>
                     </li>
                 </ul>
+            </div>
         </div>
-    </div>
     </div>
 </template>
 
 <script>
-let provinceList = require('../ViewDetail/city')
+let provinceList = require('../ViewDetail/city');
+import http from "../../https"
+
 export default {
     name: "index",
     data() {
@@ -192,14 +143,21 @@ export default {
             showArea2: false,
             areaList: {}, // 数据格式见 Area 组件文档
             areaList2: {}, // 数据格式见 Area 组件文档
+            TypeId: this.$route.query.id,
+            dayList: []
         };
     },
     created() {
         this.areaList = provinceList.default;
         this.areaList2 = provinceList.default;
-        console.log(provinceList);
+        this.getRouteDetail();
+        this.getTimeNow();
     },
     methods: {
+        //获取当前时间
+        getTimeNow() {
+
+        },
         //地区选择函数
         onConfirm(values) {
             this.value = values.map(item => item.name).join('-');
@@ -218,6 +176,35 @@ export default {
             this.valueDate2 = `${date.getFullYear()}年${date.getMonth() + 1}月${date.getDate()}日`;
             this.showCalendar2 = false;
         },
+        // 获取渲染数据
+        getRouteDetail() {
+            http.fetchGet('/zhiyou/v1/route/detail/' + this.TypeId).then((res) => {
+                if (res.data.code === 200) {
+                    console.log(res);
+                    let dayList = res.data.routeDetails.dayList
+                    console.log(dayList.length);
+                    //更改往返地址.................................................................
+
+                    //更改往返日期.................................................................
+                    const todyDate = new Date();
+                    //第一天
+                    this.valueDate1 = todyDate.getFullYear() + "-" + (todyDate.getMonth() + 1) + "-" + todyDate.getDate();
+                    console.log(this.valueDate1) //2019-8-20
+                    //推迟n天
+                    let aData = new Date();
+                    aData = +aData + dayList.length*1000 * 60 * 60 * 24;
+                    aData = new Date(aData);
+                    this.valueDate2 = aData.getFullYear() + "-" + (aData.getMonth() + 1) + "-" + aData.getDate();
+                    console.log(this.valueDate2) //2019-8-20
+                    this.dayList = dayList;
+                } else {
+                    console.log("有问题");
+                }
+            }).catch(reason => {
+
+                console.log(reason);
+            })
+        }
     },
 }
 </script>

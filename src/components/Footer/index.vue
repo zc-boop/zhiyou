@@ -1,23 +1,31 @@
 <template>
     <div class="footer">
-        <ul>
-            <router-link to="/recommend" tag="li">
-                <van-icon name="home-o"/>
-                <p>行程</p>
-            </router-link>
-            <router-link to="/periphery" tag="li">
-                <van-icon name="vip-card-o"/>
-                <p>周边</p>
-            </router-link>
-            <router-link to="/community" tag="li">
-                <van-icon name="comment-o" :info="messageCount"/>
-                <p>社区</p>
-            </router-link>
-            <router-link to="/mine" tag="li">
-                <van-icon name="user-o"/>
-                <p>我的</p>
-            </router-link>
-        </ul>
+        <van-tabbar route v-model="active">
+            <van-tabbar-item replace to="/recommend">
+                <span>行程</span>
+                <template #icon="props">
+                    <img :src="props.active ? icon1.active : icon1.inactive"/>
+                </template>
+            </van-tabbar-item>
+            <van-tabbar-item replace to="/periphery">
+                <span>周边</span>
+                <template #icon="props">
+                    <img :src="props.active1 ? icon2.active : icon2.inactive"/>
+                </template>
+            </van-tabbar-item>
+            <van-tabbar-item replace to="/community">
+                <span>社区</span>
+                <template #icon="props">
+                    <img :src="props.active ? icon.active : icon.inactive"/>
+                </template>
+            </van-tabbar-item>
+            <van-tabbar-item replace to="/mine">
+                <span>我的</span>
+                <template #icon="props">
+                    <img :src="props.active ? icon4.active : icon4.inactive"/>
+                </template>
+            </van-tabbar-item>
+        </van-tabbar>
     </div>
 </template>
 
@@ -26,6 +34,27 @@ import {mapState} from "vuex"
 
 export default {
     name: "Footer",
+    data(){
+        return{
+            active: 0,
+            icon1: {
+                active: 'http://pic.liyunxing.top/zhiyou/xingcheng1.png',
+                inactive: 'http://pic.liyunxing.top/zhiyou/xingcheng.png'
+            },
+            icon2: {
+                active: 'http://pic.liyunxing.top/zhiyou/zhoubain1.png',
+                inactive: 'http://pic.liyunxing.top/zhiyou/zhoubain.png'
+            },
+            icon: {
+                active: 'http://pic.liyunxing.top/zhiyou/shequ1.png',
+                inactive: 'http://pic.liyunxing.top/zhiyou/shequ.png'
+            },
+            icon4: {
+                active: 'http://pic.liyunxing.top/zhiyou/wode1.png',
+                inactive: 'http://pic.liyunxing.top/zhiyou/wode.png'
+            }
+        }
+    },
     computed: {
         ...mapState(['messageCount'])
     }
@@ -34,43 +63,5 @@ export default {
 
 <style>
     /*@import "../tool.css";*/
-    .footer {
-        width: 100%;
-        height: 94px;
-        background: white;
-        border-top: 2px #ebe8e3 solid;
-        position: fixed;
-        left: 0;
-        bottom: 0;
-        padding: 10px 0;
-    }
 
-    .footer ul {
-        display: flex;
-        text-align: center;
-        height: 50px;
-        align-items: center;
-    }
-
-    .footer ul li {
-        flex: 1;
-        height: 40px;
-    }
-
-    .footer ul li.active {
-        color: #51ca89;
-    }
-
-    .footer ul li.router-link-active {
-        color: #51ca89;
-    }
-
-    .footer ul i {
-        font-size: 40px;
-    }
-
-    .footer ul p {
-        font-size: 22px;
-        line-height: 22px;
-    }
 </style>

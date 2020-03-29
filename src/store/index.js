@@ -6,7 +6,7 @@ export default new Vuex.Store({
     state: {
         username: "",
         userId: "",
-        userInfo:[],
+        userInfox:[],
         messageCount: "",
         queryResultList: [],
         agree: {},
@@ -20,8 +20,8 @@ export default new Vuex.Store({
             state.username = username
         },
         //用户信息
-        addUserInfo(state,userInfo){
-            state.userInfo = userInfo
+        adduserInfox(state,userInfox){
+            state.userInfox = userInfox
         },
         //储存登录后用户的id
         addUserId(state, userId) {

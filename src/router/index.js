@@ -3,6 +3,7 @@ import VueRouter from 'vue-router'
 //.........................................
 import Recommend from '../views/Recommend'
 import ViewDetail from '../components/ViewDetail'
+import RouteList from '../views/Recommend/RouteList'
 import Route from '../components/Route'
 //.........................................
 import Periphery from '../views/Periphery'
@@ -54,6 +55,10 @@ const routes = [
     {
         path: "/route",
         component: Route,
+    },
+    {
+        path: "/routelist",
+        component: RouteList,
     },
     //..........................................
     {
@@ -243,7 +248,7 @@ router.beforeEach((to, from, next) => {
         window.pageYOffset = 0        // safari
         next();
     } else {
-        if (sessionStorage.getItem("token")) { // 通过vuex state获取当前的token是否存在
+        if (localStorage.getItem("token")) { // 通过vuex state获取当前的token是否存在
             document.body.scrollTop = 0        // chrome
             document.documentElement.scrollTop = 0        // firefox
             window.pageYOffset = 0        // safari
