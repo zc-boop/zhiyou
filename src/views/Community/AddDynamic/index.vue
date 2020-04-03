@@ -6,16 +6,19 @@
         </div>
         <div enctype="multipart/form-data" name="dynamicInfoForm" class="addDynamicBody">
             <div>
-            <div class="qianmian"></div>
-            <textarea placeholder="快点写下你的心得体会吧!" rows="3" v-model="content">
+                <div class="qianmian"></div>
+                <textarea placeholder="快点写下你的心得体会吧!" rows="3" v-model="content">
             </textarea>
             </div>
-            <van-uploader class="fileUnload" v-model="fileList" multiple :after-read="afterRead" :max-count="1" accept="image/png, image/jpeg"/>
+            <van-uploader class="fileUnload" v-model="fileList" multiple :after-read="afterRead" :max-count="1"
+                          accept="image/png, image/jpeg"/>
         </div>
         <div class="theSelection">
             <span>添加主题</span>
             <div class="label">
-                <button @click="addLobel('#景点#')" :style="scenicColor" >#景点#</button><button @click="addLobel('#酒店#')" :style="hotelColor">#酒店#</button><button @click="addLobel('#美食#')" :style="foodColor">#美食#</button>
+                <button @click="addLobel('#景点#')" :style="scenicColor">#景点#</button>
+                <button @click="addLobel('#酒店#')" :style="hotelColor">#酒店#</button>
+                <button @click="addLobel('#美食#')" :style="foodColor">#美食#</button>
             </div>
             <div class="where">
                 <img src="../../../assets/Community/dignwie.png">
@@ -40,24 +43,24 @@
 <script>
     import {Dialog, Toast} from 'vant';
     import https from "../../../https";
+
     export default {
 
         name: "index",
         data() {
             return {
-                fileList: [
-                ],
-                imageList:'',
-                addressName:this.$store.state.provinceName+':'+this.$store.state.cityName,
-                content:'',
-                type:"1",
-                title:'',
-                tags:['','',''],
-                scenicColor:'',
-                hotelColor:'',
-                foodColor:'',
-                yescolor:'background-color: #51ca89;',
-                nocolor:'background-color: #eaecf0;',
+                fileList: [],
+                imageList: '',
+                addressName: this.$store.state.provinceName + ':' + this.$store.state.cityName,
+                content: '',
+                type: "1",
+                title: '',
+                tags: ['', '', ''],
+                scenicColor: '',
+                hotelColor: '',
+                foodColor: '',
+                yescolor: 'background-color: #51ca89;',
+                nocolor: 'background-color: #eaecf0;',
             }
         },
         methods: {
@@ -112,14 +115,14 @@
                         this.tags[2] = lobel
                         this.foodColor = 'background-color: #51ca89;'
                     }
-                }else if (this.tags.indexOf(lobel) == 0) {
+                } else if (this.tags.indexOf(lobel) == 0) {
                     this.tags[0] = ''
                     this.scenicColor = 'background-color: #eaecf0;'
-                }else if (this.tags.indexOf(lobel) == 1) {
+                } else if (this.tags.indexOf(lobel) == 1) {
                     console.log('1114')
                     this.tags[1] = ''
                     this.hotelColor = 'background-color: #eaecf0;'
-                }else if (this.tags.indexOf(lobel) == 2) {
+                } else if (this.tags.indexOf(lobel) == 2) {
                     console.log('1115')
                     this.tags[2] = ''
                     this.foodColor = 'background-color: #eaecf0;'
@@ -132,44 +135,50 @@
 
 <style scoped>
 
-    .header{
+    .header {
         width: 100%;
         height: 135px;
         display: flex;
         justify-content: space-between;
         align-items: center;
     }
-    .header > img{
+
+    .header > img {
         width: 37px;
         height: 37px;
         margin-right: 55px;
     }
-    .header > span{
+
+    .header > span {
         font-family: SourceHanSansCN-Regular;
         font-size: 36px;
         line-height: 50px;
         color: #2d2d2d;
         margin-left: 46px;
     }
-    .addDynamicBody{
+
+    .addDynamicBody {
         width: 100%;
         padding-top: 49px;
         padding-bottom: 20px;
         background-color: #f7f7f7;
     }
-    .qianmian{
+
+    .qianmian {
         width: 5px;
         height: 30px;
         margin-top: 10px;
         border-radius: 2px;
         background-color: #51ca89;
     }
-    .addDynamicBody > div{
+
+    .addDynamicBody > div {
         display: flex;
         margin-left: 79px;
 
     }
-    .addDynamicBody > div > textarea{
+
+    .addDynamicBody > div > textarea {
         width: 80%;
         margin-left: 20px;
         border: 0;
@@ -179,27 +188,33 @@
         color: #b9b9b9;
         background-color: #f7f7f7;
     }
+
     textarea::-webkit-input-placeholder {
         color: #b9b9b9;
     }
-    .fileUnload{
+
+    .fileUnload {
         margin-left: 100px !important;
     }
-    .theSelection{
+
+    .theSelection {
         margin-left: 43px;
         margin-top: 42px;
     }
-    .theSelection > span{
+
+    .theSelection > span {
         font-family: SourceHanSansCN-Regular;
         font-size: 36px;
         line-height: 50px;
         color: #2b2b2b;
     }
-    .label{
+
+    .label {
         margin-left: 5px;
         margin-top: 31px;
     }
-    .label > button{
+
+    .label > button {
         width: 98px;
         height: 37px;
         border: 0;
@@ -210,10 +225,12 @@
         color: #2b2b2b;
         background-color: #eaecf0;
     }
+
     .label button:not(:first-child) {
         margin-left: 28px;
     }
-    .where,.open,.remind{
+
+    .where, .open, .remind {
         margin-left: 5px;
         margin-top: 45px;
         font-family: SourceHanSansCN-Regular;
@@ -223,28 +240,34 @@
         display: flex;
         align-items: center;
     }
-    .theSelection > div img:nth-child(3){
+
+    .theSelection > div img:nth-child(3) {
         width: 14px;
         height: 24px;
         position: absolute;
         right: 48px;
     }
-    .theSelection > div > span{
+
+    .theSelection > div > span {
         margin-left: 26px;
     }
-    .where > img{
+
+    .where > img {
         width: 26px;
         height: 33px;
     }
-    .open > img{
+
+    .open > img {
         width: 34px;
         height: 22px;
     }
-    .remind > img{
+
+    .remind > img {
         width: 27px;
         height: 27px;
     }
-    .addDynamicButton{
+
+    .addDynamicButton {
         width: 87%;
         height: 78px;
         font-family: SourceHanSansCN-Regular;

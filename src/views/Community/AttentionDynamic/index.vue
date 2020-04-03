@@ -1,7 +1,7 @@
 <template>
     <div class="attentionDynamic">
         <ul class="dynamicList" >
-            <li v-for="(item,index) in dynamicList" :key="item.id" @click="gotoComments(item.id)">
+            <li v-for="(item,index) in dynamicList" :key="item.id" >
                 <div class="dynamHeader">
                     <img :src="item.headPortrait">
                     <div>
@@ -11,7 +11,7 @@
                     <button v-show="userList.indexOf(item.username)" class="addAttention" @click="attentionFriend(item.username)">+ 关注</button>
                     <button v-show="!userList.indexOf(item.username)" class="deleteAttention">已关注</button>
                 </div>
-                <div class="dynamBody">
+                <div class="dynamBody" @click="gotoComments(item.id)">
                     <span class="label" v-for="(tag,index) in item.tags">{{item.tags[index]}}</span><p class="contents"> {{item.content}}</p>
                     <img :src="item.imageList" v-if="!item.imageList==''">
                 </div>

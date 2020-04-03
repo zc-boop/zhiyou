@@ -30,27 +30,27 @@
         <div class="alreadyAtt">
             <p class="alreadyTitle">已关注6人</p>
             <ul class="fansList">
-                <li>
+                <li v-for="item in attentionList" :key="item.username">
                     <div class="left">
                         <img src="../../../../public/user6@2x.png" alt/>
-                        <span>李灰灰</span>
+                        <span>{{item.username}}</span>
                     </div>
-                    <button style="opacity: 0.3;">已关注</button>
+                    <button @click="deleteAttentionFriend(item.username)">取消关注</button>
                 </li>
-                <li>
-                    <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt/>
-                        <span>李灰灰</span>
-                    </div>
-                    <button style="opacity: 0.3;">已关注</button>
-                </li>
-                <li>
-                    <div class="left">
-                        <img src="../../../../public/user6@2x.png" alt/>
-                        <span>李灰灰</span>
-                    </div>
-                    <button style="opacity: 0.3;">已关注</button>
-                </li>
+<!--                <li>-->
+<!--                    <div class="left">-->
+<!--                        <img src="../../../../public/user6@2x.png" alt/>-->
+<!--                        <span>李灰灰</span>-->
+<!--                    </div>-->
+<!--                    <button style="opacity: 0.3;">已关注</button>-->
+<!--                </li>-->
+<!--                <li>-->
+<!--                    <div class="left">-->
+<!--                        <img src="../../../../public/user6@2x.png" alt/>-->
+<!--                        <span>李灰灰</span>-->
+<!--                    </div>-->
+<!--                    <button style="opacity: 0.3;">已关注</button>-->
+<!--                </li>-->
             </ul>
         </div>
     </div>
@@ -58,6 +58,7 @@
 
 <script>
 import https from "../../../https";
+import {Dialog,Toast} from "vant";
 
 export default {
     name: "index",
@@ -65,12 +66,14 @@ export default {
         return {
             searchFriend: "",
             iConcerned: "010",
-            searchUserList: []
+            searchUserList: [],
+            attentionList:[],
+
         };
     },
     //
     created() {
-        this.getFriendList();
+        this.getAttentionList();
     },
     methods: {
         searchFriendFun() {
@@ -91,7 +94,7 @@ export default {
                 console.log("请先登录。。");
             }
         },
-        getFriendList() {
+        getAttentionList() {
             const token = sessionStorage.getItem("token");
             console.log(token);
             if (token) {
@@ -101,12 +104,33 @@ export default {
                     .then(res => {
                         if (res.data.code === 200) {
                             //token
-                            var friendList = res.data;
-                            console.log(friendList);
+                            this.attentionList = res.data.queryResult.list
                         } else {
                             console.log(res.data.msg);
                         }
                     });
+            } else {
+                console.log("请先登录。。");
+            }
+        },
+        deleteAttentionFriend(username) {
+            const token = sessionStorage.getItem("token");
+            if (token) {
+                https.fetchDelete('/zhiyou/v1/users/friend/pursue/' + username, {token: token})
+                    .then(res => {
+                        if (res.data.code === 200) {
+                            Toast('取消关注成功！');
+                            this.getAttentionList()
+                        } else {
+                            Toast('取消关注失败！');
+                        }
+                    })
+                    .catch(err => {
+                        Dialog.alert({
+                            title: '提示',
+                            message: "服务器错误，请稍后重试！"
+                        })
+                    })
             } else {
                 console.log("请先登录。。");
             }
