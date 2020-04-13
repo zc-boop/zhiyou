@@ -109,7 +109,6 @@
             },
             getFoodLIst() {
                 const token = sessionStorage.getItem("token");
-                if (token) {
                     https.fetchGet('/zhiyou/v1/cate/food/r/' + '5e7d89575a47ae0b72c00110', {token: token})
                         .then(res => {
                             if (res.data.success == true) {
@@ -127,12 +126,6 @@
                                 message: err
                             })
                         })
-                } else {
-                    Dialog.alert({
-                        title: '提示',
-                        message: '请先登录!'
-                    })
-                }
             }
         },
         created() {

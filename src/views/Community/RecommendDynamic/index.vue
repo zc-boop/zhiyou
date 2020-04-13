@@ -165,7 +165,7 @@
                 }else {
                     Dialog.alert({
                         title: '提示',
-                        message: "请先登录"
+                        message: "请先登录1"
                     })
                 }
             }
