@@ -108,8 +108,8 @@
                 this.$router.push("/fooddetails/"+id);
             },
             getFoodLIst() {
-                const token = sessionStorage.getItem("token");
-                    https.fetchGet('/zhiyou/v1/cate/food/r/' + '5e7d89575a47ae0b72c00110', {token: token})
+                const token = localStorage.getItem("token");
+                    https.fetchGet('/zhiyou/v1/cate/food/r/' + '5e96d6d0d9b1382da13651d9', {token: token})
                         .then(res => {
                             if (res.data.success == true) {
                                 this.foodList = res.data.queryResult.list

@@ -69,7 +69,7 @@
                 console.log(file);
             },
             addDynamic(){
-                const token = sessionStorage.getItem("token");
+                const token = localStorage.getItem("token");
                 for (let i=0;i<this.fileList.length;i++){
                     this.imageList=this.imageList+this.fileList[i].content
                     console.log(this.imageList)

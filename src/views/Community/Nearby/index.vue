@@ -1,4 +1,5 @@
 <template>
+    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
     <div class="attentionDynamic">
         <ul class="dynamicList">
             <li v-for="(item,index) in dynamicList" :key="item.id" >
@@ -33,10 +34,11 @@
         </ul>
         <div style="height: 100px;"></div>
     </div>
+    </van-pull-refresh>
 </template>
 
 <script>
-    import {Dialog} from "vant";
+    import {Dialog, Toast} from "vant";
     import https from "../../../https";
 
     export default {
@@ -49,7 +51,10 @@
                 levelList:[],
                 userList:[],
                 loading: false,
-                finished: false
+                finished: false,
+                count: 0,
+                isLoading: false,
+                page: 1,
             };
         },
         created() {
@@ -60,8 +65,8 @@
             getDynamicList(){
                 const myDate = new Date();
                 this.nowTime=myDate.getTime()
-                const token = sessionStorage.getItem("token");
-                https.fetchGet('/zhiyou/v1/bbs/dynamicState/manito/nearby',{addressName:this.$store.state.cityName,manitoCount:0,page:1,size:10})
+                const token = localStorage.getItem("token");
+                https.fetchGet('/zhiyou/v1/bbs/dynamicState/manito/nearby',{addressName:this.$store.state.cityName,manitoCount:0,page:1,size:5})
                     .then(res=>{
                         if(res.data.success==true){
                             this.dynamicList=res.data.queryResult.list
@@ -84,7 +89,7 @@
                     })
             },
             giveLike(id){
-                const token = sessionStorage.getItem("token");
+                const token = localStorage.getItem("token");
                 if(token){
                     https.fetchPut('/zhiyou/v1/bbs/like/state/' + id + '/' + 3,null,{token:token})
                         .then(res=>{
@@ -113,13 +118,13 @@
 
             },
             getToken(){
-                console.log(window.sessionStorage.getItem('token'))
+                console.log(window.localStorage.getItem('token'))
             },
             gotoComments(id){
                 this.$router.push("/dynamiccomments/"+id);
             },
             attentionFriend(username) {
-                const token = sessionStorage.getItem("token");
+                const token = localStorage.getItem("token");
                 console.log(token);
                 if (token) {
                     https.fetchPost('/zhiyou/v1/users/friend/pursue/' + username, {token: token})
@@ -141,7 +146,7 @@
                 }
             },
             getLevel(){
-                const token = sessionStorage.getItem("token");
+                const token = localStorage.getItem("token");
                 if(token) {
                     https.fetchGet('/zhiyou/v1/users/friend/list/' + '010', {token: token})
                         .then(res => {
@@ -170,7 +175,41 @@
                         message: "请先登录5"
                     })
                 }
-            }
+            },
+            onRefresh() {
+                const myDate = new Date();
+                this.nowTime=myDate.getTime()
+                this.page++
+                const token = localStorage.getItem("token");
+                https.fetchGet('/zhiyou/v1/bbs/dynamicState/manito/nearby',{addressName:this.$store.state.cityName,manitoCount:0,page:this.page,size:5})
+                    .then(res=>{
+                        if(res.data.success==true){
+                            if (res.data.queryResult.list.length===0){
+                                Toast('没有更多了');
+                            }else{
+                                this.dynamicList=res.data.queryResult.list
+                                for(let i in this.dynamicList){
+                                    this.dynamicList[i].createTime=Math.round(parseInt(this.nowTime-new Date(this.dynamicList[i].createTime).getTime())/ 1000 / 60 / 60)
+                                }
+                                Toast('刷新成功');
+                            }
+                        }else{
+                            Dialog.alert({
+                                title: '提示',
+                                message: res.data.msg,
+                            })
+                        }
+
+                        this.isLoading = false;
+                        this.count++;
+                    })
+                    .catch(err=>{
+                        Dialog.alert({
+                            title: '提示',
+                            message: err
+                        })
+                    })
+            },
         }
     }
 </script>

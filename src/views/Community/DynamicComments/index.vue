@@ -138,7 +138,7 @@
                     })
             },
             giveLikeComment(id){
-                const token = sessionStorage.getItem("token");
+                const token = localStorage.getItem("token");
                 if(token){
                     https.fetchPut('/zhiyou/v1/bbs/like/state/' + id + '/' + 1,null,{token:token})
                         .then(res=>{
@@ -167,7 +167,7 @@
             },
             sendComment(){
                 this.commentDTO.objectId=this.dynamicId
-                const token = sessionStorage.getItem("token");
+                const token = localStorage.getItem("token");
                 if(token){
                 https.fetchPostJson('/zhiyou/v1/bbs/comment/publish?token=' + token,{content:this.commentDTO.content,objectId:this.commentDTO.objectId,type:this.commentDTO.type})
                     .then(res=>{
@@ -328,7 +328,7 @@
         left: 101px;
     }
     .headPortrait img:nth-child(5) {
-        left: 131px;
+        left: 128px;
     }
     .dynamInformation > button{
         border: 0;
@@ -339,7 +339,7 @@
         font-family: SourceHanSansCN-Regular;
         font-size: 18px;
         color: #ffffff;
-        margin: auto 0;
+        margin-left: 50px;
     }
     .dynamInformation > span{
         font-family: SourceHanSansCN-Regular;
