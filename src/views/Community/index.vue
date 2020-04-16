@@ -1,6 +1,7 @@
 <template>
     <div class="community">
-        <div class="peripheryHeader">
+        <div>
+        <div class="peripheryHeader" style="height: 50%">
             <div class="space"></div>
             <div class="headerSearch">
                 <van-icon name="arrow-left" class="l_back" @click="$router.back()"/>
@@ -25,6 +26,7 @@
                 </router-view>
             </div>
         </div>
+        </div>
         <router-link to="/adddynamic">
         <img class="releaseDynamicphoto" src="../../assets/Community/plus(3).png">
         </router-link>
@@ -47,10 +49,12 @@ export default {
 </script>
 
 <style scoped>
+    .community{
+    }
     .peripheryHeader {
         background: #51ca89;
+        height: 16%;
     }
-
     .l_back {
         color: white;
         font-size: 30px !important;

@@ -1,7 +1,8 @@
 <template>
-    <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
+
     <div class="attentionDynamic">
         <ul class="dynamicList" >
+            <van-pull-refresh v-model="isLoading" @refresh="onRefresh">
             <li v-for="(item,index) in dynamicList" :key="item.id" >
                 <div class="dynamHeader">
                     <img :src="item.headPortrait">
@@ -31,10 +32,12 @@
                     </div>
                 </div>
             </li>
+            </van-pull-refresh>
+            <div style="height: 100px;"></div>
         </ul>
-        <div style="height: 100px;"></div>
+
     </div>
-    </van-pull-refresh>
+
 </template>
 
 <script>
@@ -229,8 +232,13 @@
 </script>
 
 <style scoped>
+    .attentionDynamic{
+        height: 1205px;
+        overflow: auto;
+    }
     .dynamicList{
-
+        height:  100%;
+        overflow: auto;
     }
     .dynamicList li{
         border-bottom: 20px #ebebeb solid;
